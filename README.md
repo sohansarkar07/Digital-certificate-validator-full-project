@@ -13,10 +13,10 @@
 
   <br><br>
 
-  <a href="#🔗-deployed-contract">Live Contract</a> • 
-  <a href="#🚀-system-architecture">Architecture</a> • 
-  <a href="#🏗️-software-development-plan">Software Plan</a> • 
-  <a href="#⚙️-environment-setup--installation">Quick Start</a>
+  <a href="#contract">Live Contract</a> • 
+  <a href="#architecture">Architecture</a> • 
+  <a href="#plan">Software Plan</a> • 
+  <a href="#setup">Quick Start</a>
 </div>
 
 ---
@@ -26,6 +26,7 @@
 
 ---
 
+<a name="architecture"></a>
 ## 🚀 System Architecture
 
 ![System Architecture](architecture.png)
@@ -48,6 +49,7 @@ The architecture follows a clean decentralized flow:
 
 ---
 
+<a name="contract"></a>
 ## 🔗 Deployed Contract
 **Address**: `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4`
 - [View on Stellar.Expert Explorer](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)
@@ -70,6 +72,7 @@ Our vision is to eliminate certificate fraud and streamline the verification pro
 
 ---
 
+<a name="plan"></a>
 ## 🏗️ Software Development Plan
 
 ### 1. Smart Contract Functions
@@ -110,6 +113,7 @@ The contract includes key functions to manage the lifecycle of a certificate:
 
 ---
 
+<a name="setup"></a>
 ## ⚙️ Environment Setup & Installation
 
 ### A) Prerequisites
