@@ -5,6 +5,7 @@ Digital Certificate Validator is a blockchain-based system built on Stellar Soro
 
 ---
 
+
 ## 🚀 What it does
 - Issues certificates by storing their hash on-chain
 - Verifies authenticity of certificates
@@ -115,9 +116,9 @@ Returns owner of certificate.
 
 ---
 
-## 🔗 Deployed Contract
+## 🔗 Deployed Contract[
 https://stellar.expert/explorer/testnet/contract/YOUR_CONTRACT_ID
-
+](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)
 ---
 
 ## 🧪 Usage
