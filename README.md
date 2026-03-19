@@ -149,6 +149,24 @@ The contract includes key functions to manage the lifecycle of a certificate:
 - [ ] **Expiry System**: Allow certificates to have a "valid until" date.
 - [ ] **Revocation Mechanism**: Enable institutions to revoke certificates if necessary.
 
+## 📁 Project Structure
+
+```text
+.
+├── architecture.png         # High-level system architecture
+├── README.md                # Main project documentation
+└── contract
+    ├── Cargo.toml           # Workspace configuration
+    ├── README.md            # Smart contract specific guide
+    └── contracts
+        └── contract
+            ├── Cargo.toml   # Individual contract dependencies
+            ├── Makefile      # Build/Test automation
+            └── src
+                ├── lib.rs   # Core smart contract logic
+                └── test.rs  # Unit tests
+```
+
 ---
 
 <a name="setup"></a>
