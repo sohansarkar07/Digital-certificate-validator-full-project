@@ -1,8 +1,23 @@
-# 🛡️ Digital Certificate Validator (Blockchain Based Certificate Dapp)
+<div align="center">
+  <h1>Digital Certificate Validator</h1>
+  <p><b>Blockchain-Based Certificate Issuance & Verification on Stellar</b></p>
 
-The **Digital Certificate Validator** is a high-performance, blockchain-based application deployed on the **Stellar Blockchain**, leveraging the security and transparency of decentralized technology. This application facilitates the efficient issuance and verification of digital certificates through a robust and tamper-proof system. The smart contract is written in **Rust**, utilizing **Soroban-SDK** for seamless integration with the Stellar network.
+  <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
+  <img src="https://img.shields.io/badge/Stellar-7d00ff?style=for-the-badge&logo=stellar&logoColor=white" />
+  <img src="https://img.shields.io/badge/Soroban-informational?style=for-the-badge&logo=web3.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" />
 
-Institutions can securely issue certificates by storing their cryptographic hashes on-chain, while users/verifiers can check the authenticity of a certificate in real-time, ensuring a controlled and trustworthy verification solution.
+  <br><br>
+
+  <i>Digital Certificate Validator allows institutions to issue and verify tamper-proof certificates using secure cryptographic hashes on the Stellar Soroban network.</i>
+
+  <br><br>
+
+  <a href="#🔗-deployed-contract">Live Contract</a> • 
+  <a href="#🚀-system-architecture">Architecture</a> • 
+  <a href="#🏗️-software-development-plan">Software Plan</a> • 
+  <a href="#⚙️-environment-setup--installation">Quick Start</a>
+</div>
 
 ---
 
