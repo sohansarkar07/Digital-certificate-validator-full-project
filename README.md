@@ -33,6 +33,35 @@ Give it a certificate hash like `e3b0c442...` — it automatically:
 
 ---
 
+## 🔑 Why Soroban?
+
+> **The secret sauce for high-performance certificate validation**
+
+### The Problem
+Traditional methods of issuing digital certificates on the blockchain often face:
+- **High gas fees** that make mass-issuance impossible.
+- **Slow confirmation times** leading to poor user experience.
+- **Complex storage logic** for large-scale certificate mappings.
+- **Privacy concerns** with storing sensitive data directly on-chain.
+
+### Why We Chose Soroban
+
+| Feature | Traditional Chains | With Soroban |
+|:--- |:--- |:--- |
+| **Transaction Fees** | High/Unpredictable | ✅ **Near-Zero & Predictable** |
+| **Execution Speed** | Seconds to Minutes | ✅ **Local-speed Sub-second** |
+| **Type Safety** | Varies by Language | ✅ **Rust-based Type Safety** |
+| **Storage Model** | Expensive/Monolithic | ✅ **Optimized Instance Storage** |
+| **Ecosystem** | Fragmented | ✅ **Unified Stellar Network** |
+
+### Soroban Features We Use
+- **`instance()` Storage** — Efficiently maintains the persistent certificate-to-owner mapping.
+- **`SHA256` Hashing** — Leveraging Soroban's native capabilities for secure validation.
+- **`symbol_short!()`** — Optimizing on-chain memory by using compact storage identifiers.
+- **`Env` SDK** — Direct interaction with the global ledger state with minimal overhead.
+
+---
+
 <a name="architecture"></a>
 ## 🏗️ Architecture
 
