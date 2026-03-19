@@ -40,15 +40,15 @@ Give it a certificate hash like `e3b0c442...` — it automatically:
 
 ```mermaid
 graph TD
-    A[Blockchain (Stellar Testnet)]
-    B([User / Client])
+    A["Blockchain (Stellar Testnet)"]
+    B(["User / Client"])
     
-    subgraph Execution_Flow [Execution Flow]
-        C[Digital Certificate Validator<br/>Soroban Smart Contract]
-        D[Hash Verification Engine]
+    subgraph Execution_Flow ["Execution Flow"]
+        C["Digital Certificate Validator<br/>Soroban Smart Contract"]
+        D["Hash Verification Engine"]
         E{Check Ledger}
-        F[Contract Instance Storage]
-        G[Certificate Metadata]
+        F["Contract Instance Storage"]
+        G["Certificate Metadata"]
     end
 
     B ---|1. Request / 5. Result| C
@@ -104,13 +104,13 @@ Our vision is to eliminate certificate fraud and streamline the verification pro
 
 ```mermaid
 graph LR
-    Start[Certificate PDF/Image] --> Hash[Generate SHA256 Hash]
-    Hash --> Issue[Issue Certificate<br/>Soroban Contract]
-    Issue --> Ledger[Stellar Immutable Ledger]
-    Ledger --> Verify[Verify Request]
+    Start["Certificate PDF/Image"] --> Hash["Generate SHA256 Hash"]
+    Hash --> Issue["Issue Certificate<br/>Soroban Contract"]
+    Issue --> Ledger["Stellar Immutable Ledger"]
+    Ledger --> Verify["Verify Request"]
     Verify --> Decision{Valid Hash?}
-    Decision -- Yes --> Success[Return Owner Details]
-    Decision -- No --> Fail[Invalid Certificate]
+    Decision -- Yes --> Success["Return Owner Details"]
+    Decision -- No --> Fail["Invalid Certificate"]
 ```
 
 ### 1. Smart Contract Functions
