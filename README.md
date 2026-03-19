@@ -15,9 +15,26 @@
 
   <a href="#contract">Live Transaction</a> • 
   <a href="#architecture">Architecture</a> • 
+  <a href="#ui-refresh">UI Refresh</a> • 
   <a href="#plan">Pipeline</a> • 
   <a href="#setup">Quick Start</a>
 </div>
+
+---
+
+<a name="ui-refresh"></a>
+## 🌟 Enterprise UI Overhaul (v2.0)
+
+The project has undergone a massive vertical-to-horizontal layout shift, adopting a modern, high-density **Enterprise B2B Aesthetic**. 
+
+### ✨ Key New Features
+- 🌗 **Dynamic Theme Engine**: Full support for high-contrast Light and rich "True Black" Dark modes.
+- 🚀 **Real-time Verification Pipeline**: A visual terminal and step-by-step progress tracker for blockchain lookups.
+- 📋 **On-Chain Audit Exports**: Generate authenticated `.txt` audit logs and CSV ledger exports directly from the dashboard.
+- 🔒 **Enhanced Security (Native Bytes)**: Migrated from String-based hashes to native Soroban `Bytes` for 1:1 cryptographic matching and reduced on-chain footprint.
+- 🤖 **Automated Demo Mode**: Built-in sandbox for rapid testing without requiring real testnet funds (accessible via `?demo=true`).
+
+---
 
 ## 📖 What is this?
 
@@ -99,9 +116,20 @@ The architecture follows a clean decentralized flow:
 
 - **[Rust](https://doc.rust-lang.org/book/)**: Core programming language for the smart contract.
 - **[Soroban-SDK](https://developers.stellar.org/docs/tools/sdks/library)**: Framework for Stellar smart contracts.
+- **[Next.js 15+](https://nextjs.org/)**: React framework for the modern enterprise frontend.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS for the rapid, clean design system.
+- **[Framer Motion](https://www.framer.com/motion/)**: For smooth, high-end UI transitions and animations.
 - **[Stellar CLI](https://developers.stellar.org/docs/tools/developer-tools/stellar-cli)**: For building, deploying, and invoking contracts.
 - **[Stellar Explorer](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)**: To track transactions and contract state.
-- **SHA256 Hashing**: For secure, one-way certificate fingerprinting.
+- **SHA256 Hashing**: For secure, one-way certificate fingerprinting using local crypto or Soroban native SDKs.
+
+### 💳 Supported Wallets
+The CertifyVal suite integrates with the following Stellar wallets:
+- **Freighter Wallet** (Recommended)
+- **Albedo** (Web-based)
+- **xBull Wallet**
+- **MetaMask** (via Official Stellar Snap)
+- **LOBSTR** (Manual transaction signature)
 
 ---
 
@@ -245,6 +273,23 @@ The contract includes key functions to manage the lifecycle of a certificate:
      --network testnet \
      -- issue_certificate --cert_hash "sha256_hash_here" --owner "John Doe"
    ```
+
+---
+
+### 🌐 Frontend Setup (Next.js)
+1. **Navigate to frontend**:
+   ```bash
+   cd frontend
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+3. **Run development server**:
+   ```bash
+   npm run dev
+   ```
+4. **Access the portal**: Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
