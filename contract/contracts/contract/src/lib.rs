@@ -15,8 +15,11 @@ impl CertificateValidator {
             .get(&symbol_short!("CERTS"))
             .unwrap_or(Map::new(&env));
 
-        certs.set(cert_hash.clone(), owner);
+        certs.set(cert_hash.clone(), owner.clone());
         env.storage().instance().set(&symbol_short!("CERTS"), &certs);
+
+        // Emit an event for indexing
+        env.events().publish((symbol_short!("ISSUE"), cert_hash), owner);
     }
 
     // Verify certificate
