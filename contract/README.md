@@ -1,22 +1,51 @@
-# Soroban Project
+# 📜 Soroban Smart Contract (CertifyVal)
 
-## Project Structure
+This directory contains the core smart contract for the **Digital Certificate Validator** dapp. It is built using the Soroban SDK for high-security and low-cost execution on the Stellar network.
 
-This repository uses the recommended structure for a Soroban project:
+## 🏗️ Contract Structure
 
 ```text
 .
 ├── contracts
-│   └── hello_world
-│       ├── src
-│       │   ├── lib.rs
-│       │   └── test.rs
-│       └── Cargo.toml
+│   └── contract
+│       ├── src
+│       │   ├── lib.rs (Main logic)
+│       │   └── test.rs (Unit tests)
+│       └── Cargo.toml
 ├── Cargo.toml
 └── README.md
 ```
 
-- New Soroban contracts can be put in `contracts`, each in their own directory. There is already a `hello_world` contract in there to get you started.
-- If you initialized this project with any other example contracts via `--with-example`, those contracts will be in the `contracts` directory as well.
-- Contracts should have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
-- Frontend libraries can be added to the top-level directory as well. If you initialized this project with a frontend template via `--frontend-template` you will have those files already included.
+## 🛡️ Key Features
+
+- **Hash-based Verification**: Only the SHA256 cryptographic hash of the certificate is stored on-chain, ensuring data privacy.
+- **Efficient Map Storage**: Uses Soroban's `instance()` storage to maintain a mapping of hashes to owner names.
+- **Gas Optimized**: Minimal compute and storage footprint for low-cost transactions.
+
+## 📦 Smart Contract Functions (`lib.rs`)
+
+- **`issue_certificate(cert_hash, owner)`**: 
+  - Submits a certificate hash to the blockchain.
+  - Linked to the owner's identity.
+- **`verify_certificate(cert_hash)`**: 
+  - Publicly accessible function to check validity.
+- **`get_owner(cert_hash)`**: 
+  - Retrieves certificate holder name from storage.
+
+## 🧪 Testing
+
+To run tests on the local machine:
+```bash
+cargo test
+```
+
+## 🛠️ Build & Optimization流程
+
+1. **Build the WASM binary**:
+   ```bash
+   soroban contract build
+   ```
+2. **Optimize the contract**:
+   ```bash
+   soroban contract optimize --wasm target/wasm32-unknown-unknown/release/contract.wasm
+   ```
