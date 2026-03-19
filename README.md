@@ -19,10 +19,17 @@
   <a href="#setup">Quick Start</a>
 </div>
 
----
+## 📖 What is this?
 
-## 🧐 How this dApp got its name?
-#### Certificate + Validator => CertifyVal
+**Digital Certificate Validator** is an institutional-grade blockchain infrastructure built for the verification economy. It allows organizations to issue tamper-proof certificates instantly with minimal transaction costs on the Stellar network. Every certificate is secured by a **SHA256 cryptographic hash**, ensuring decentralized authenticity before any manual verification is needed.
+
+Give it a certificate hash like `e3b0c442...` — it automatically:
+
+1. **Checks the request** via the Stellar Soroban network.
+2. **Verifies existence** of the unique certificate hash on the immutable ledger.
+3. **Retrieves ownership** details tied to the specific hash in real-time.
+4. **Logs the verification** on-chain ensuring auditability.
+5. **Returns a valid/invalid status** once the blockchain settlement is confirmed.
 
 ---
 
