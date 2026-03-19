@@ -153,7 +153,6 @@ The contract includes key functions to manage the lifecycle of a certificate:
 
 ```text
 .
-├── architecture.png         # High-level system architecture
 ├── README.md                # Main project documentation
 └── contract
     ├── Cargo.toml           # Workspace configuration
