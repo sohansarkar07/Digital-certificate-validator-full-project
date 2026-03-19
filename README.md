@@ -15,9 +15,6 @@ Institutions can securely issue certificates by storing their cryptographic hash
 
 ![System Architecture](architecture.png)
 
-### 📸 Project Screenshots
-<img width="100%" alt="Smart Contract Dashboard screenshot" src="https://github.com/user-attachments/assets/369d60dd-2250-49b9-8a8c-7b2361dc8e9c" />
-
 The architecture follows a clean decentralized flow:
 1. **Institution**: Generates the certificate (PDF/Image) and computes its **SHA256 hash**.
 2. **Smart Contract**: The institution calls `issue_certificate` to store the hash and owner's name on the Stellar ledger.
@@ -39,6 +36,9 @@ The architecture follows a clean decentralized flow:
 ## 🔗 Deployed Contract
 **Address**: `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4`
 - [View on Stellar.Expert Explorer](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)
+
+### 📸 Smart Contract Dashboard
+<img width="100%" alt="Smart Contract Dashboard screenshot" src="https://github.com/user-attachments/assets/369d60dd-2250-49b9-8a8c-7b2361dc8e9c" />
 
 ---
 
