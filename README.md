@@ -34,9 +34,29 @@ Give it a certificate hash like `e3b0c442...` — it automatically:
 ---
 
 <a name="architecture"></a>
-## 🚀 System Architecture
+## 🏗️ Architecture
 
-![System Architecture](architecture.png)
+### High-Level Flow
+
+```mermaid
+graph TD
+    A[Blockchain (Stellar Testnet)]
+    B([User / Client])
+    
+    subgraph Execution_Flow [Execution Flow]
+        C[Digital Certificate Validator<br/>Soroban Smart Contract]
+        D[Hash Verification Engine]
+        E{Check Ledger}
+        F[Contract Instance Storage]
+        G[Certificate Metadata]
+    end
+
+    B ---|1. Request / 5. Result| C
+    C ---|2. Verify Certificate| D
+    D ---|3. Query Storage| E
+    E ---|Found| F
+    E ---|Owner Info| G
+```
 
 The architecture follows a clean decentralized flow:
 1. **Institution**: Generates the certificate (PDF/Image) and computes its **SHA256 hash**.
@@ -81,6 +101,17 @@ Our vision is to eliminate certificate fraud and streamline the verification pro
 
 <a name="plan"></a>
 ## 🏗️ Pipeline (Development Plan)
+
+```mermaid
+graph LR
+    Start[Certificate PDF/Image] --> Hash[Generate SHA256 Hash]
+    Hash --> Issue[Issue Certificate<br/>Soroban Contract]
+    Issue --> Ledger[Stellar Immutable Ledger]
+    Ledger --> Verify[Verify Request]
+    Verify --> Decision{Valid Hash?}
+    Decision -- Yes --> Success[Return Owner Details]
+    Decision -- No --> Fail[Invalid Certificate]
+```
 
 ### 1. Smart Contract Functions
 The contract includes key functions to manage the lifecycle of a certificate:
