@@ -3,9 +3,9 @@
   <p><b>Blockchain-Based Certificate Issuance & Verification on Stellar</b></p>
 
   <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
-  <img src="https://img.shields.io/badge/Stellar-7d00ff?style=for-the-badge&logo=stellar&logoColor=white" />
-  <img src="https://img.shields.io/badge/Soroban-informational?style=for-the-badge&logo=web3.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
+  <img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-339933?style=for-the-badge" />
 
   <br><br>
 
@@ -13,9 +13,9 @@
 
   <br><br>
 
-  <a href="#contract">Live Contract</a> • 
+  <a href="#contract">Live Transaction</a> • 
   <a href="#architecture">Architecture</a> • 
-  <a href="#plan">Software Plan</a> • 
+  <a href="#plan">Pipeline</a> • 
   <a href="#setup">Quick Start</a>
 </div>
 
@@ -73,7 +73,7 @@ Our vision is to eliminate certificate fraud and streamline the verification pro
 ---
 
 <a name="plan"></a>
-## 🏗️ Software Development Plan
+## 🏗️ Pipeline (Development Plan)
 
 ### 1. Smart Contract Functions
 The contract includes key functions to manage the lifecycle of a certificate:
