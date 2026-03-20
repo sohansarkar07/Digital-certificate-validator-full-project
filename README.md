@@ -161,6 +161,9 @@ The CertifyVal suite integrates with the following Stellar wallets:
 
 🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3)
 
+### 📸 Transaction Proof Screenshot
+<img width="100%" alt="Stellar Expert Transaction Proof" src="assets/tx-proof.png" />
+
 ---
 
 ## 🎯 Vision & Use Cases
