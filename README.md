@@ -6,6 +6,10 @@
   <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
   <img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
   <img src="https://img.shields.io/badge/License-MIT-339933?style=for-the-badge" />
+  
+  <br><br>
+
+  <img width="100%" alt="Verify Portal Screenshot" src="assets/verify-portal.png" />
 
   <br><br>
 
