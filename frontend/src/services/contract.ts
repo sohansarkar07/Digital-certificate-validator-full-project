@@ -83,10 +83,11 @@ export class ContractService {
 
             // Step 4: Send the signed transaction
             const sendResult = await server.sendTransaction(signedTx);
-            console.log("sendTransaction result:", sendResult.status, sendResult.hash);
+            console.log("sendTransaction result:", sendResult);
 
             if (sendResult.status === "ERROR") {
-                throw new Error("Transaction submission failed.");
+                console.error("Detailed Transaction Error:", sendResult.errorResultXdr || "No XDR error provided");
+                throw new Error(`Transaction submission failed: ${sendResult.status}. Check console for XDR error.`);
             }
 
             // Step 5: Poll getTransaction until it resolves (PENDING → SUCCESS/FAILED)
