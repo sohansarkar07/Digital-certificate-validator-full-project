@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Upload, CheckCircle, Info, LockKeyhole, Activity, Fingerprint, User } from "lucide-react";
 import { useStellar } from "@/hooks/useStellar";
 import { contractService } from "@/services/contract";

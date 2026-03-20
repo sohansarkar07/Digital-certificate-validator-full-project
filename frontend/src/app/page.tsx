@@ -8,12 +8,14 @@ import { Shield, Search, Fingerprint, Settings, HelpCircle, Bell, UserCircle } f
 import { motion, AnimatePresence } from "framer-motion";
 
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { StellarProvider } from "@/hooks/useStellar";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"verify" | "issue">("verify");
 
   return (
-    <div className="flex h-screen bg-background text-foreground overflow-hidden font-sans">
+    <StellarProvider>
+      <div className="flex h-screen bg-background text-foreground overflow-hidden font-sans">
       {/* Left Sidebar */}
       <aside className="w-[280px] bg-surface border-r border-border shrink-0 flex flex-col z-20 shadow-sm relative">
         {/* Branding & Logo Area */}
@@ -148,5 +150,6 @@ export default function Home() {
         </div>
       </main>
     </div>
+    </StellarProvider>
   );
 }

@@ -1,11 +1,24 @@
 "use client";
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, createContext, useContext, ReactNode } from 'react';
 import { isConnected as checkFreighter, getAddress as getFreighterAddr, signTransaction as signFreighter, requestAccess } from '@stellar/freighter-api';
 
 export type WalletType = 'freighter' | 'albedo' | 'xbull' | 'metamask' | 'lobstr' | null;
 
-export function useStellar() {
+interface StellarContextType {
+    address: string | null;
+    isConnected: boolean;
+    connecting: boolean;
+    error: string | null;
+    walletType: WalletType;
+    connect: (type?: WalletType) => Promise<void>;
+    disconnect: () => void;
+    sign: (xdr: string, network: "TESTNET" | "PUBLIC") => Promise<any>;
+}
+
+const StellarContext = createContext<StellarContextType | undefined>(undefined);
+
+export function StellarProvider({ children }: { children: ReactNode }) {
     const [address, setAddress] = useState<string | null>(null);
     const [connecting, setConnecting] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -171,14 +184,26 @@ export function useStellar() {
         autoConnect();
     }, []);
 
-    return {
-        address,
-        isConnected: !!address,
-        connecting,
-        error,
-        walletType,
-        connect,
-        disconnect,
-        sign
-    };
+    return (
+        <StellarContext.Provider value={{
+            address,
+            isConnected: !!address,
+            connecting,
+            error,
+            walletType,
+            connect,
+            disconnect,
+            sign
+        }}>
+            {children}
+        </StellarContext.Provider>
+    );
+}
+
+export function useStellar() {
+    const context = useContext(StellarContext);
+    if (context === undefined) {
+        throw new Error('useStellar must be used within a StellarProvider');
+    }
+    return context;
 }
