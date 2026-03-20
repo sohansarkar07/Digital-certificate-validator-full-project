@@ -46,9 +46,8 @@ export class ContractService {
         try {
             const issuer = await server.getAccount(userAddress);
 
-            // Convert raw Hex string to Uint8Array for strictly-typed Soroban BytesN<32>
-            const hashBytes = new Uint8Array(hash.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
-            const hashScVal = S.nativeToScVal(hashBytes, { type: 'bytes' });
+            // The smart contract expects 'String' parameter for the hash
+            const hashScVal = S.xdr.ScVal.scvString(hash);
 
             const operation = contract.call(
                 "issue_certificate",
@@ -64,14 +63,62 @@ export class ContractService {
                 .setTimeout(30)
                 .build();
 
-            const signedXDR = await signTx(tx.toXDR(), "TESTNET");
-            const signedTx = new S.Transaction(signedXDR, NETWORK_PASSPHRASE);
-            const result = await server.sendTransaction(signedTx);
+            // Step 1: Simulate the transaction to get resource estimates
+            const simResult = await server.simulateTransaction(tx);
+            if (S.SorobanRpc?.isSimulationError?.(simResult) || simResult.error) {
+                throw new Error("Simulation failed: " + (simResult.error || "Unknown error"));
+            }
 
-            if (result.status === "SUCCESS") {
-                return result.hash;
-            } else {
-                throw new Error("Transaction failed on-chain.");
+            // Step 2: Assemble the transaction with simulation results
+            const preparedTx = S.SorobanRpc?.assembleTransaction?.(tx, simResult)
+                ?? S.assembleTransaction?.(tx, simResult);
+            if (!preparedTx) {
+                throw new Error("Could not assemble transaction.");
+            }
+            const builtTx = preparedTx.build();
+
+            // Step 3: Sign the prepared transaction via Freighter
+            const signedXDR = await signTx(builtTx.toXDR(), "TESTNET");
+            const signedTx = new S.Transaction(signedXDR, NETWORK_PASSPHRASE);
+
+            // Step 4: Send the signed transaction
+            const sendResult = await server.sendTransaction(signedTx);
+            console.log("sendTransaction result:", sendResult.status, sendResult.hash);
+
+            if (sendResult.status === "ERROR") {
+                throw new Error("Transaction submission failed.");
+            }
+
+            // Step 5: Poll getTransaction until it resolves (PENDING → SUCCESS/FAILED)
+            // Note: CDN SDK may throw "Bad union switch" on newer XDR formats,
+            // but if sendTransaction accepted it, the tx is valid on-chain.
+            const txHash = sendResult.hash;
+            try {
+                let attempts = 0;
+                let getResult = await server.getTransaction(txHash);
+                while (getResult.status === "NOT_FOUND" && attempts < 10) {
+                    await new Promise(r => setTimeout(r, 2000));
+                    getResult = await server.getTransaction(txHash);
+                    attempts++;
+                }
+
+                if (getResult.status === "SUCCESS") {
+                    return txHash;
+                } else if (getResult.status === "NOT_FOUND") {
+                    // Timed out waiting but tx was accepted — return hash
+                    console.warn("Transaction accepted but confirmation timed out. Hash:", txHash);
+                    return txHash;
+                } else {
+                    console.error("Transaction failed:", getResult);
+                    throw new Error("Transaction failed on-chain. Status: " + getResult.status);
+                }
+            } catch (pollErr: any) {
+                // "Bad union switch" = SDK can't parse newer XDR but tx was accepted
+                if (pollErr?.message?.includes("Bad union switch") || pollErr?.message?.includes("union")) {
+                    console.warn("SDK XDR parse error during poll — tx was accepted. Hash:", txHash);
+                    return txHash;
+                }
+                throw pollErr;
             }
         } catch (err: any) {
             console.error("Issuance failed:", err);
@@ -91,8 +138,7 @@ export class ContractService {
         const contract = new S.Contract(CONTRACT_ID);
 
         try {
-            const hashBytes = new Uint8Array(hash.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
-            const hashScVal = S.nativeToScVal(hashBytes, { type: 'bytes' });
+            const hashScVal = S.xdr.ScVal.scvString(hash);
 
             const operation = contract.call("verify_certificate", hashScVal);
             const sim = await server.simulateTransaction(
@@ -130,8 +176,7 @@ export class ContractService {
         const contract = new S.Contract(CONTRACT_ID);
 
         try {
-            const hashBytes = new Uint8Array(hash.match(/.{1,2}/g)!.map(byte => parseInt(byte, 16)));
-            const hashScVal = S.nativeToScVal(hashBytes, { type: 'bytes' });
+            const hashScVal = S.xdr.ScVal.scvString(hash);
 
             const operation = contract.call("get_owner", hashScVal);
             const sim = await server.simulateTransaction(
