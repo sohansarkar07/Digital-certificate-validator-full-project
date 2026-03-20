@@ -143,6 +143,27 @@ The CertifyVal suite integrates with the following Stellar wallets:
 
 ---
 
+## ✅ Proof of Payment
+
+> **Real transaction on Stellar Soroban Testnet**
+
+| Field | Value |
+|:---|:---|
+| **Transaction Hash** | `aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3` |
+| **Function Called** | `issue_certificate` |
+| **Certificate Hash** | `7f02a70648cce0e7ab48a11e189ab01d69f9d0fd64cbb1b292e580596c8747c6` |
+| **Recipient** | `Jane Doe` |
+| **Status** | ✅ Success |
+| **Network** | Stellar Soroban (Testnet) |
+| **Processed** | 2026-03-20 07:38:43 UTC |
+| **Fee Charged** | `0.0006209 XLM` |
+| **Ledger** | `1598194` |
+
+🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3)
+
+### 📸 Transaction Proof Screenshot
+<img width="100%" alt="Stellar Expert Transaction Proof" src="https://github.com/user-attachments/assets/stellar-tx-proof.png" />
+
 ## 🎯 Vision & Use Cases
 
 ### Vision
