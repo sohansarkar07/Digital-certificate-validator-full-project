@@ -2,6 +2,8 @@
   <h1>Digital Certificate Validator</h1>
   <p><b>Blockchain-Based Certificate Issuance & Verification on Stellar</b></p>
 
+  <p>🌐 <strong>Live Application: <a href="https://digital-certificate-validator-full-phi.vercel.app/">https://digital-certificate-validator-full-phi.vercel.app/</a></strong></p>
+
   <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
   <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
   <img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
