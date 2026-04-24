@@ -5,6 +5,14 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    rules: {
+      // Stellar SDK is loaded dynamically from CDN with no type declarations
+      "@typescript-eslint/no-explicit-any": "off",
+      // Required for hydration-safe patterns (reading localStorage in useEffect)
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

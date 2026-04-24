@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Upload, CheckCircle, XCircle, FileImage, ShieldCheck, Database, SearchCode, LockKeyhole } from "lucide-react";
+import { Upload, CheckCircle, XCircle, FileImage, ShieldCheck, Database, SearchCode, LockKeyhole, Copy, Check, ExternalLink, Loader2 } from "lucide-react";
 import { contractService } from "@/services/contract";
 import { motion, AnimatePresence } from "framer-motion";
+import { Tooltip } from "@/components/Tooltip";
 
 export function BlockchainVerifier() {
   const [file, setFile] = useState<File | null>(null);
@@ -11,24 +12,26 @@ export function BlockchainVerifier() {
   const [status, setStatus] = useState<"idle" | "verifying" | "valid" | "invalid">("idle");
   const [ownerInfo, setOwnerInfo] = useState<string | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
+  const [timestamp, setTimestamp] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const addLog = (log: string) => {
     const timestamp = new Date().toISOString().substring(11, 19);
     setLogs(prev => [...prev, `[${timestamp}] ${log}`]);
   };
 
-  const [isDemo, setIsDemo] = useState(false);
-  useEffect(() => setIsDemo(window?.location?.search?.includes('demo=true')), []);
-
-  const autoFillDemo = () => {
-      const f = new File(["DEMO HASH MATCH 100"], "Verified_Diploma_Jane_Doe.txt", { type: "text/plain" });
-      setFile(f);
-      verifyFile(f);
-  };
+  const [isDemo, setIsDemo] = useState(() => {
+      if (typeof window === "undefined") return false;
+      return window.location?.search?.includes('demo=true') ?? false;
+  });
 
   const verifyFile = useCallback(async (file: File) => {
+    if (status === "verifying") return; // Prevent multiple clicks
     setStatus("verifying");
     setLogs([]);
+    setErrorMsg(null);
+    setTimestamp(null);
     addLog("[SYSTEM] Initiating cryptographic hash algorithm (SHA-256)...");
     
     // Fake progress simulating steps
@@ -48,6 +51,7 @@ export function BlockchainVerifier() {
 
     setTimeout(async () => {
         try {
+          addLog(`[REGISTRY] Checking local certificate registry...`);
           addLog(`[ORACLE] Polling Soroban smart contract logic for credential anchor...`);
           const isValid = await contractService.verifyCertificate(hashHex);
           
@@ -55,17 +59,41 @@ export function BlockchainVerifier() {
             addLog(`[CONFIRMED] Immutable record located successfully.`);
             const owner = await contractService.getOwner(hashHex);
             setOwnerInfo(owner);
+            setTimestamp(new Date().toLocaleString());
             addLog(`[METADATA] Decrypted registered owner payload: OK`);
             setStatus("valid");
           } else {
-            addLog(`[REJECTED] Signature mismatched. Record absent from global ledger.`);
+            addLog(`[REJECTED] Signature mismatched. Record absent from all registries.`);
+            setErrorMsg("Certificate not found. Please issue this document via the Issuance Portal first, then verify.");
             setStatus("invalid");
           }
         } catch {
           addLog(`[FATAL ERROR] Node validation interrupted unexpectedly.`);
+          setErrorMsg("Network error during validation. Please try again.");
           setStatus("invalid");
         }
     }, 1500);
+  }, []);
+
+  const autoFillDemo = useCallback(() => {
+      if (!window?.location?.search?.includes('demo=true')) {
+          window.history.pushState({}, '', '?demo=true');
+          setIsDemo(true);
+      }
+      const f = new File(["%PDF-1.4\n%DEMO_CREDENTIAL_PAYLOAD_X92\n"], "Verified_Diploma_Jane_Doe.pdf", { type: "application/pdf" });
+      setFile(f);
+      verifyFile(f);
+  }, [verifyFile]);
+
+  const exitDemo = useCallback(() => {
+      window.location.href = window.location.origin + window.location.pathname;
+  }, []);
+
+  useEffect(() => {
+      if (isDemo) {
+          setTimeout(() => autoFillDemo(), 500);
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onDrop = useCallback((e: React.DragEvent) => {
@@ -90,7 +118,6 @@ export function BlockchainVerifier() {
 
   return (
     <div className="w-full relative">
-      {isDemo && <button id="demo-btn-upload-verify" onClick={autoFillDemo} className="absolute -top-12 right-0 bg-red-500 text-white font-bold p-3 z-50 rounded">DEMO UPLOAD</button>}
       <div className="flex flex-col xl:flex-row gap-6 items-start">
         <div className="w-full xl:w-[65%] space-y-6">
             <div className="card p-6 border-t-4 border-t-primary">
@@ -98,9 +125,20 @@ export function BlockchainVerifier() {
                     <span className="text-[10px] uppercase font-bold text-foreground/50 tracking-widest flex items-center gap-2">
                         <FileImage size={14} /> Document Intake
                     </span>
-                    <span className="text-[10px] uppercase font-bold text-primary tracking-widest px-2 py-1 bg-secondary rounded flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Node 01 Active
-                    </span>
+                    <div className="flex items-center gap-3">
+                        {!isDemo ? (
+                            <button onClick={autoFillDemo} className="text-[10px] uppercase font-bold text-primary/70 hover:text-primary tracking-widest px-2 py-1 bg-primary/5 hover:bg-primary/10 rounded transition-colors shadow-sm">
+                                Try Demo
+                            </button>
+                        ) : (
+                            <button onClick={exitDemo} className="text-[10px] uppercase font-bold text-danger hover:text-danger/80 tracking-widest px-2 py-1 bg-danger/10 hover:bg-danger/20 rounded transition-colors shadow-sm">
+                                Exit Demo
+                            </button>
+                        )}
+                        <span className="text-[10px] uppercase font-bold text-primary tracking-widest px-2 py-1 bg-secondary rounded flex items-center gap-1.5 shadow-sm">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Node 01 Active
+                        </span>
+                    </div>
                 </div>
                 
                 <label
@@ -112,12 +150,12 @@ export function BlockchainVerifier() {
                         type="file"
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         title=""
-                        onClick={(e) => { (e.target as HTMLInputElement).value = ""; }}
                         onChange={(e) => {
                         if (e.target.files?.[0]) {
                             setFile(e.target.files[0]);
                             verifyFile(e.target.files[0]);
                         }
+                        e.target.value = '';
                         }}
                     />
                     
@@ -130,7 +168,7 @@ export function BlockchainVerifier() {
                     </p>
                     
                     <div className="flex gap-3 mt-6">
-                        <div className="px-5 py-2.5 bg-surface border border-border-strong text-foreground text-xs font-bold rounded shadow-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        <div className="px-5 py-2.5 bg-surface border border-border-strong text-foreground text-xs font-bold rounded shadow-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-md group-hover:-translate-y-0.5 transition-all duration-200">
                             BROWSE FILES
                         </div>
                     </div>
@@ -188,6 +226,12 @@ export function BlockchainVerifier() {
                         <span className="text-sm font-medium">Session record empty.<br/>Upload target for appraisal.</span>
                     </div>
                 )}
+                {status === "verifying" && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="h-full flex flex-col items-center justify-center text-primary text-center space-y-4 pb-20">
+                        <Loader2 size={40} strokeWidth={2} className="animate-spin text-primary/80" />
+                        <span className="text-sm font-bold animate-pulse tracking-wide">Analyzing footprint...</span>
+                    </motion.div>
+                )}
                 
                 <AnimatePresence mode="wait">
                     {(status === "valid" || status === "invalid") && (
@@ -209,21 +253,36 @@ export function BlockchainVerifier() {
                                 </div>
                                 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1">Credential Hash</label>
-                                        <div className="font-mono text-xs truncate bg-secondary px-2 py-1 rounded">{hash?.substring(0,8)}...</div>
+                                    <div className="min-w-0">
+                                        <Tooltip content="Cryptographic document payload">
+                                            <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 cursor-help w-max inline-flex">Tx / Document Hash</label>
+                                        </Tooltip>
+                                        <div className="flex items-center gap-1">
+                                            <a href={`https://stellar.expert/explorer/testnet/search?term=${hash}`} target="_blank" className="font-mono text-xs truncate bg-secondary px-2 py-1.5 rounded hover:text-primary hover:underline border border-transparent hover:border-primary/20 transition-all flex items-center gap-1.5 flex-1" title="View on Stellar Expert">
+                                                {hash?.substring(0,8)}...<ExternalLink size={10} className="shrink-0" />
+                                            </a>
+                                            <button onClick={() => { navigator.clipboard.writeText(hash || ""); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="p-1.5 bg-secondary hover:bg-surface-hover rounded text-foreground/50 hover:text-primary transition-colors shadow-sm shrink-0" title="Copy Hash">
+                                                {copied ? <Check size={14} className="text-success" /> : <Copy size={14} />}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div>
-                                        <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1">Blockchain</label>
-                                        <div className="text-xs font-semibold">Stellar Soroban</div>
+                                        <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">Timestamp</label>
+                                        <div className="text-xs font-semibold px-1 py-1">{timestamp || "N/A"}</div>
                                     </div>
                                 </div>
 
                                 {status === 'valid' && (
-                                    <div className="mt-4 p-3 bg-secondary rounded border border-border">
+                                    <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-4 p-3 bg-secondary rounded border border-border hover:border-success/30 transition-colors">
                                         <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 flex items-center gap-1.5"><Database size={12}/> Registry Anchor</span>
-                                        <span className="text-xs font-mono">Ledger Contract Match Confirmed. High Assurance.</span>
-                                    </div>
+                                        <span className="text-xs font-mono text-foreground/90 leading-relaxed block">Ledger Contract Match Confirmed. High Assurance.</span>
+                                    </motion.div>
+                                )}
+                                {status === 'invalid' && errorMsg && (
+                                    <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-4 p-3 bg-danger-bg/50 rounded border border-danger/20 text-danger shadow-sm">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest block mb-1.5 flex items-center gap-1.5">Validation Error</span>
+                                        <span className="text-xs font-medium block">{errorMsg}</span>
+                                    </motion.div>
                                 )}
                             </div>
                         </motion.div>
@@ -231,7 +290,7 @@ export function BlockchainVerifier() {
                 </AnimatePresence>
 
                 {(status === "valid" || status === "invalid") && (
-                    <button onClick={downloadAudit} className="w-full mt-4 py-3 bg-secondary border border-border text-foreground font-semibold text-xs tracking-wide rounded hover:bg-surface-hover transition-colors shadow-sm">
+                    <button onClick={downloadAudit} className="w-full mt-4 py-3 bg-secondary border border-border text-foreground font-semibold text-xs tracking-wide rounded hover:bg-surface-hover hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 shadow-sm active:scale-95">
                         DOWNLOAD FULL AUDIT LOG
                     </button>
                 )}

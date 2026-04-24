@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Upload, CheckCircle, Info, LockKeyhole, Activity, Fingerprint, User } from "lucide-react";
+import { Upload, CheckCircle, Info, LockKeyhole, User, Copy, Check, ExternalLink, Download } from "lucide-react";
 import { useStellar } from "@/hooks/useStellar";
 import { contractService } from "@/services/contract";
 import { motion, AnimatePresence } from "framer-motion";
+import { Tooltip } from "@/components/Tooltip";
+import { PDFDocument, rgb } from "pdf-lib";
 
 export function InstitutionDashboard() {
   const { address, isConnected, sign } = useStellar();
@@ -15,6 +17,8 @@ export function InstitutionDashboard() {
   const [status, setStatus] = useState<"idle" | "hashing" | "submitting" | "success" | "error">("idle");
   const [txId, setTxId] = useState<string | null>(null);
   const [errorHeader, setErrorHeader] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [stampedDocUrl, setStampedDocUrl] = useState<string | null>(null);
 
   const generateHash = useCallback(async (file: File) => {
     setStatus("hashing");
@@ -35,8 +39,25 @@ export function InstitutionDashboard() {
     }
   }, [generateHash]);
 
-  const [isDemo, setIsDemo] = useState(false);
-  useEffect(() => setIsDemo(window?.location?.search?.includes('demo=true')), []);
+  const [isDemo, setIsDemo] = useState(() => {
+      if (typeof window === "undefined") return false;
+      return window.location?.search?.includes('demo=true') ?? false;
+  });
+
+  const autoFillDemo = useCallback(() => {
+      if (!window?.location?.search?.includes('demo=true')) {
+          window.history.pushState({}, '', '?demo=true');
+          setIsDemo(true);
+      }
+      const f = new File(["%PDF-1.4\n%DEMO_CREDENTIAL_PAYLOAD_X92\n"], "Verified_Diploma_Jane_Doe.pdf", { type: "application/pdf" });
+      setFile(f);
+      generateHash(f);
+      setOwner("Jane Doe / License #0921");
+  }, [generateHash]);
+
+  const exitDemo = useCallback(() => {
+      window.location.href = window.location.origin + window.location.pathname;
+  }, []);
 
   const handleIssue = async () => {
     if (!address || !hash || !owner) return;
@@ -44,6 +65,32 @@ export function InstitutionDashboard() {
     try {
       const h = await contractService.issueCertificate(hash, owner, address, sign);
       setTxId(h);
+      
+      // Perform PDF Stamping if the file is a PDF
+      if (file && file.type === "application/pdf") {
+          try {
+              const arrayBuffer = await file.arrayBuffer();
+              const pdfDoc = await PDFDocument.load(arrayBuffer);
+              const pages = pdfDoc.getPages();
+              if (pages.length > 0) {
+                  const firstPage = pages[0];
+                  
+                  firstPage.drawText(`VERIFIED ANCHOR: ${h}`, {
+                      x: 30,
+                      y: 30,
+                      size: 10,
+                      color: rgb(0.06, 0.72, 0.5), // Subtle Green
+                  });
+                  
+                  const pdfBytes = await pdfDoc.save();
+                  const blob = new Blob([pdfBytes.slice()], { type: "application/pdf" });
+                  setStampedDocUrl(URL.createObjectURL(blob));
+              }
+          } catch(e) {
+              console.warn("Failed to stamp PDF.", e);
+          }
+      }
+      
       setStatus("success");
     } catch (e: any) {
       setErrorHeader(e.message || "Failed to issue certificate.");
@@ -51,12 +98,12 @@ export function InstitutionDashboard() {
     }
   };
 
-  const autoFillDemo = () => {
-      const f = new File(["DEMO HASH MATCH 100"], "Verified_Diploma_Jane_Doe.txt", { type: "text/plain" });
-      setFile(f);
-      generateHash(f);
-      setOwner("Jane Doe");
-  };
+  useEffect(() => {
+      if (isDemo) {
+          setTimeout(() => autoFillDemo(), 500);
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!isConnected) return (
     <div className="card max-w-xl mx-auto p-16 text-center shadow-sm relative">
@@ -75,10 +122,20 @@ export function InstitutionDashboard() {
 
   return (
     <div className="max-w-xl mx-auto space-y-8 pb-32 relative">
-      {isDemo && <button id="demo-btn-upload" onClick={autoFillDemo} className="absolute -top-12 right-0 bg-red-500 text-white font-bold p-3 z-50 rounded">DEMO UPLOAD</button>}
       <div className="card p-8 shadow-sm border border-border">
         {/* Upload Block */}
-        <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-2">Target Document</label>
+        <div className="flex justify-between items-center mb-4">
+            <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest">Target Document</label>
+            {!isDemo ? (
+                <button onClick={autoFillDemo} className="text-[10px] uppercase font-bold text-primary/70 hover:text-primary tracking-widest px-2 py-1 bg-primary/5 hover:bg-primary/10 rounded transition-colors shadow-sm">
+                    Try Demo
+                </button>
+            ) : (
+                <button onClick={exitDemo} className="text-[10px] uppercase font-bold text-danger hover:text-danger/80 tracking-widest px-2 py-1 bg-danger/10 hover:bg-danger/20 rounded transition-colors shadow-sm">
+                    Exit Demo
+                </button>
+            )}
+        </div>
         <label
           onDragOver={(e) => e.preventDefault()}
           onDrop={onDrop}
@@ -88,12 +145,12 @@ export function InstitutionDashboard() {
             type="file"
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             title=""
-            onClick={(e) => { (e.target as HTMLInputElement).value = ""; }}
             onChange={(e) => {
               if (e.target.files?.[0]) {
                 setFile(e.target.files[0]);
                 generateHash(e.target.files[0]);
               }
+              e.target.value = '';
             }}
           />
           <div className="h-12 w-12 rounded-full bg-surface shadow-sm flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
@@ -114,7 +171,9 @@ export function InstitutionDashboard() {
         <div className="mt-8 space-y-6">
           {/* Owner Details */}
           <div>
-              <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">Recipient Identity</label>
+              <Tooltip content="The legal name or institutional ID of the credential recipient.">
+                  <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 cursor-help w-max inline-block">Recipient Identity</label>
+              </Tooltip>
               <div className="relative">
                   <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/30" strokeWidth={2} />
                   <input
@@ -131,7 +190,7 @@ export function InstitutionDashboard() {
           <button
             onClick={handleIssue}
             disabled={status === "submitting" || !hash || !owner}
-            className="w-full bg-primary text-primary-foreground py-3.5 rounded-md text-xs font-bold uppercase tracking-widest shadow-sm hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+            className="w-full bg-primary text-primary-foreground py-3.5 rounded-md text-xs font-bold uppercase tracking-widest shadow-sm hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-30 disabled:hover:translate-y-0 disabled:hover:shadow-sm disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
           >
             {status === "submitting" ? (
               <>
@@ -159,13 +218,32 @@ export function InstitutionDashboard() {
               <p className="text-xs text-success/70 mt-1.5 leading-relaxed font-medium">
                 The document hash was successfully anchored via your connected authority node.
               </p>
-              <a
-                href={`https://stellar.expert/explorer/testnet/tx/${txId}`}
-                target="_blank"
-                className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-success/10 rounded text-[10px] font-bold text-success uppercase tracking-widest hover:bg-success/20 transition-colors"
-              >
-                View Stellar Explorer
-              </a>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {!txId?.startsWith('local_') ? (
+                      <a
+                        href={`https://stellar.expert/explorer/testnet/tx/${txId}`}
+                        target="_blank"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success/10 rounded text-[10px] font-bold text-success uppercase tracking-widest hover:bg-success/20 transition-colors"
+                      >
+                        View Stellar Explorer <ExternalLink size={10} />
+                      </a>
+                  ) : (
+                      <Tooltip content="Explorer is disabled because the live testnet is offline and this record was anchored via your local offline registry.">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-foreground/5 rounded text-[10px] font-bold text-foreground/40 uppercase tracking-widest cursor-not-allowed">
+                            Explorer Unavailable (Local Mode)
+                          </span>
+                      </Tooltip>
+                  )}
+                  <button onClick={() => { navigator.clipboard.writeText(txId || ""); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-success/10 rounded text-[10px] font-bold text-success uppercase tracking-widest hover:bg-success/20 transition-colors">
+                     {copied ? <Check size={10} /> : <Copy size={10} />}
+                     {copied ? 'Copied' : 'Copy Tx Hash'}
+                  </button>
+                  {stampedDocUrl && (
+                      <a href={stampedDocUrl} download={`Anchored_${file?.name || 'document.pdf'}`} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded text-[10px] font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors shadow-sm">
+                         <Download size={10} /> Download Anchored PDF
+                      </a>
+                  )}
+              </div>
             </div>
           </motion.div>
         )}
