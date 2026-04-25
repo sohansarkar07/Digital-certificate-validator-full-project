@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Upload, CheckCircle, Info, LockKeyhole, User, Copy, Check, ExternalLink, Download } from "lucide-react";
+import { Upload, CheckCircle, Info, LockKeyhole, User, Copy, Check, ExternalLink, Download, Wallet } from "lucide-react";
 import { useStellar } from "@/hooks/useStellar";
 import { contractService } from "@/services/contract";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,7 +9,7 @@ import { Tooltip } from "@/components/Tooltip";
 import { PDFDocument, rgb } from "pdf-lib";
 
 export function InstitutionDashboard() {
-  const { address, isConnected, sign } = useStellar();
+  const { address, isConnected, sign, balance } = useStellar();
   
   const [file, setFile] = useState<File | null>(null);
   const [hash, setHash] = useState<string | null>(null);
@@ -122,6 +122,22 @@ export function InstitutionDashboard() {
 
   return (
     <div className="max-w-xl mx-auto space-y-8 pb-32 relative">
+      <div className="card p-6 shadow-sm border border-border flex items-center justify-between mb-8 bg-surface">
+         <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+               <Wallet size={24} strokeWidth={1.5} />
+            </div>
+            <div>
+               <h3 className="text-sm font-semibold text-foreground">Wallet Connected</h3>
+               <p className="text-xs text-foreground/50 font-mono mt-1">{address}</p>
+            </div>
+         </div>
+         <div className="text-right">
+            <p className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest mb-1">Available Tokens</p>
+            <p className="text-xl font-bold text-foreground">{balance ? `${balance} XLM` : 'Loading...'}</p>
+         </div>
+      </div>
+
       <div className="card p-8 shadow-sm border border-border">
         {/* Upload Block */}
         <div className="flex justify-between items-center mb-4">

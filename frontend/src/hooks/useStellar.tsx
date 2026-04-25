@@ -14,6 +14,7 @@ interface StellarContextType {
     connect: (type?: WalletType) => Promise<void>;
     disconnect: () => void;
     sign: (xdr: string, network: "TESTNET" | "PUBLIC") => Promise<any>;
+    balance: string | null;
 }
 
 const StellarContext = createContext<StellarContextType | undefined>(undefined);
@@ -23,14 +24,37 @@ export function StellarProvider({ children }: { children: ReactNode }) {
     const [connecting, setConnecting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [walletType, setWalletType] = useState<WalletType>(null);
+    const [balance, setBalance] = useState<string | null>(null);
+
+    const fetchBalance = useCallback(async (addr: string) => {
+        if (window.location.search.includes('demo=true')) {
+            setBalance("10000.0000000");
+            return;
+        }
+        try {
+            const res = await fetch(`https://horizon-testnet.stellar.org/accounts/${addr}`);
+            const data = await res.json();
+            const nativeBalance = data.balances?.find((b: any) => b.asset_type === 'native')?.balance;
+            if (nativeBalance) {
+                setBalance(nativeBalance);
+            } else {
+                setBalance("0.0000000");
+            }
+        } catch (err) {
+            console.error("Failed to fetch balance:", err);
+            setBalance("0.0000000");
+        }
+    }, []);
 
     const connect = useCallback(async (type?: WalletType) => {
         setConnecting(true);
         setError(null);
         try {
             if (window.location.search.includes('demo=true')) {
-                setAddress('GBDEMOMOCKADDRESSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                const demoAddr = 'GBDEMOMOCKADDRESSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
+                setAddress(demoAddr);
                 setWalletType('freighter');
+                fetchBalance(demoAddr);
                 return;
             }
 
@@ -48,6 +72,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
 
                     setAddress(addr);
                     setWalletType('freighter');
+                    fetchBalance(addr);
                 } else {
                     window.open("https://www.freighter.app/", "_blank");
                     throw new Error("Freighter not installed. Opening download page...");
@@ -58,6 +83,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
                     const res = await albedo.publicKey();
                     setAddress(res.pubkey);
                     setWalletType('albedo');
+                    fetchBalance(res.pubkey);
                 } else {
                     window.open("https://albedo.link/", "_blank");
                     throw new Error("Albedo not found. Opening albedo.link...");
@@ -68,6 +94,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
                     const res = await xbull.getPublicKey();
                     setAddress(res);
                     setWalletType('xbull');
+                    fetchBalance(res);
                 } else {
                     window.open("https://xbull.app/", "_blank");
                     throw new Error("xBull not found. Opening download page...");
@@ -100,6 +127,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
                     
                     setAddress(addr);
                     setWalletType('metamask');
+                    fetchBalance(addr);
                 } catch (snapErr: any) {
                     throw new Error("Stellar Snap integration failed: " + (snapErr.message || "Unknown error"));
                 }
@@ -118,6 +146,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
         setAddress(null);
         setWalletType(null);
         setError(null);
+        setBalance(null);
     }, []);
 
     const sign = useCallback(async (xdr: string, network: "TESTNET" | "PUBLIC") => {
@@ -175,6 +204,7 @@ export function StellarProvider({ children }: { children: ReactNode }) {
                     if (addr) {
                         setAddress(addr);
                         setWalletType('freighter');
+                        fetchBalance(addr);
                     }
                 }
             } catch {
@@ -193,7 +223,8 @@ export function StellarProvider({ children }: { children: ReactNode }) {
             walletType,
             connect,
             disconnect,
-            sign
+            sign,
+            balance
         }}>
             {children}
         </StellarContext.Provider>
