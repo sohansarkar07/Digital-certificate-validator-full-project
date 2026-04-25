@@ -6,7 +6,7 @@ use soroban_sdk::{Env, String};
 #[test]
 fn test_issue_and_get_owner() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, CertificateValidator);
+    let contract_id = env.register(CertificateValidator, ());
     let client = CertificateValidatorClient::new(&env, &contract_id);
 
     let cert_hash = String::from_str(&env, "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
@@ -22,7 +22,7 @@ fn test_issue_and_get_owner() {
 #[test]
 fn test_verify_valid_certificate() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, CertificateValidator);
+    let contract_id = env.register(CertificateValidator, ());
     let client = CertificateValidatorClient::new(&env, &contract_id);
 
     let cert_hash = String::from_str(&env, "7f02a70648cce0e7ab48a11e189ab01d69f9d0fd64cbb1b292e580596c8747c6");
@@ -38,7 +38,7 @@ fn test_verify_valid_certificate() {
 #[test]
 fn test_verify_non_existent_certificate() {
     let env = Env::default();
-    let contract_id = env.register_contract(None, CertificateValidator);
+    let contract_id = env.register(CertificateValidator, ());
     let client = CertificateValidatorClient::new(&env, &contract_id);
 
     let fake_hash = String::from_str(&env, "non_existent_hash");

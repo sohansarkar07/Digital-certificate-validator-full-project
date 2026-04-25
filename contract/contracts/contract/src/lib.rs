@@ -1,5 +1,5 @@
 #![no_std]
-use soroban_sdk::{contract, contractimpl, symbol_short, Env, Symbol, String, Map};
+use soroban_sdk::{contract, contractimpl, symbol_short, Env, String, Map};
 
 #[contract]
 pub struct CertificateValidator;
@@ -19,6 +19,7 @@ impl CertificateValidator {
         env.storage().instance().set(&symbol_short!("CERTS"), &certs);
 
         // Emit an event for indexing
+        // Using the standard publish method which is reliable across SDK versions
         env.events().publish((symbol_short!("ISSUE"), cert_hash), owner);
     }
 
