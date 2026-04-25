@@ -395,6 +395,19 @@ We use **GitHub Actions** to ensure that every push and pull request maintains t
 2. **Dependency Caching**: Optimized caching for Cargo dependencies to reduce build times.
 3. **Automated Testing**: Executes `cargo test` within the contract workspace to validate all unit tests.
 
+### 🔄 Pipeline Workflow
+```mermaid
+graph TD
+    A[Push to Main] --> B{GitHub Actions Triggered}
+    B --> C[Setup Rust Toolchain]
+    C --> D[Install wasm32 Target]
+    D --> E[Cache Dependencies]
+    E --> F[Run cargo test]
+    F --> G{Tests Passing?}
+    G -- Yes --> H[Build Success ✅]
+    G -- No --> I[Build Failed ❌]
+```
+
 > [!TIP]
 > You can view the status of the latest pipeline runs in the **Actions** tab of this repository.
 
