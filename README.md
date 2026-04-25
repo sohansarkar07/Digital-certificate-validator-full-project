@@ -11,6 +11,10 @@
   
   <br><br>
 
+  <img width="100%" alt="Issuance Dashboard Screenshot" src="assets/issuance-portal.png" />
+  
+  <br><br>
+
   <img width="100%" alt="Verify Portal Screenshot" src="assets/verify-portal.png" />
 
   <br><br>
