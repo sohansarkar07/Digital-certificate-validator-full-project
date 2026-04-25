@@ -178,9 +178,23 @@ The CertifyVal suite integrates with the following Stellar wallets:
 ---
 
 <a name="contract"></a>
-## 🔗 Deployed Contract
-**Address**: `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4`
-- [View on Stellar.Expert Explorer](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)
+## 🔗 Mission Credentials
+
+To fulfill the **Level 4 (Green Belt)** requirements, the following identifiers are provided for verification:
+
+| Category | Identifier / Link |
+| :--- | :--- |
+| **Smart Contract ID** | `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4` |
+| **Transaction Hash** | `aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3` |
+| **Stellar Explorer** | [View Contract on Stellar.Expert](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4) |
+| **CI/CD Pipeline** | ![CI/CD Status](https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=Build%20Status&style=flat-square) |
+| **Custom Tokens** | *N/A (This mission uses native Soroban storage logic)* |
+| **Liquidity Pools** | *N/A (Direct contract-to-ledger interaction)* |
+
+> [!NOTE]
+> This project focuses on **Decentralized Identity and Credentialing**. It does not require a custom token or pool as it anchors data directly to the Stellar ledger using Soroban's native storage capabilities.
+
+---
 
 ### 📸 Smart Contract Dashboard
 <img width="100%" alt="Smart Contract Dashboard screenshot" src="https://github.com/user-attachments/assets/369d60dd-2250-49b9-8a8c-7b2361dc8e9c" />
