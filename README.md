@@ -13,7 +13,9 @@
   <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
   <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
   <img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
+  <img src="https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=CI/CD%20Tests&style=for-the-badge" />
   <img src="https://img.shields.io/badge/License-MIT-339933?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Level-Green_Belt-green?style=for-the-badge" />
   
   <br><br>
 
@@ -32,6 +34,9 @@
   <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">Demo Video</a> • 
   <a href="#problem-statement">Problem</a> • 
   <a href="#solution">Solution</a> • 
+  <a href="#production-ready">Production Readiness</a> • 
+  <a href="#cicd">CI/CD</a> • 
+  <a href="#mobile">Mobile</a> • 
   <a href="#contract">Live Transaction</a> • 
   <a href="#architecture">Architecture</a> • 
   <a href="#ui-refresh">UI Refresh</a> • 
@@ -363,6 +368,45 @@ The contract includes key functions to manage the lifecycle of a certificate:
    npm run dev
    ```
 4. **Access the portal**: Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+<a name="production-ready"></a>
+## 🚀 Production Readiness (Green Belt Upgrade)
+
+This project has been upgraded to meet **Level 4 (Green Belt)** standards for blockchain decentralized applications.
+
+### ✅ Quality Assurance Checklist
+- [x] **CI/CD Integrated**: Automated smart contract testing via GitHub Actions.
+- [x] **Mobile Responsive**: Refactored UI that adapts to smartphones, tablets, and desktops.
+- [x] **UX Polish**: Implementation of loading states, real-time feedback, and error handling.
+- [x] **Persistence**: Recent verification history saved to local storage for quick retrieval.
+- [x] **Security**: Migrated from `String` to `Bytes` for optimized on-chain cryptographic storage.
+
+---
+
+<a name="cicd"></a>
+## 🛠 CI/CD Pipeline (GitHub Actions)
+
+We use **GitHub Actions** to ensure that every push and pull request maintains the integrity of our smart contract.
+
+**Pipeline Stages:**
+1. **Environment Setup**: Initializes the latest Rust stable toolchain with `wasm32-unknown-unknown` target support.
+2. **Dependency Caching**: Optimized caching for Cargo dependencies to reduce build times.
+3. **Automated Testing**: Executes `cargo test` within the contract workspace to validate all unit tests.
+
+> [!TIP]
+> You can view the status of the latest pipeline runs in the **Actions** tab of this repository.
+
+---
+
+<a name="mobile"></a>
+## 📱 Mobile Responsiveness
+
+The application is fully optimized for mobile viewing:
+- **Responsive Sidebar**: Collapses into a hamburger menu on small screens.
+- **Adaptive Inputs**: Scaled typography and touch-friendly buttons for easy document submission.
+- **Stacked Layouts**: Side-by-side panels automatically stack vertically on mobile to preserve readability.
 
 ---
 

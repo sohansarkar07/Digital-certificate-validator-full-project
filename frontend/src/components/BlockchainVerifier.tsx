@@ -116,16 +116,41 @@ export function BlockchainVerifier() {
     document.body.removeChild(element);
   };
 
+  const [recentVerifications, setRecentVerifications] = useState<{hash: string, status: string, timestamp: string}[]>([]);
+
+  // Load recent verifications from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("recent_verifications");
+    if (saved) {
+      try {
+        setRecentVerifications(JSON.parse(saved).slice(0, 5));
+      } catch (e) {
+        console.error("Failed to load recent verifications", e);
+      }
+    }
+  }, []);
+
+  // Save successful verifications to localStorage
+  useEffect(() => {
+    if (status === "valid" || status === "invalid") {
+        const newRecord = { hash: hash || "", status, timestamp: new Date().toLocaleTimeString() };
+        const updated = [newRecord, ...recentVerifications.filter(r => r.hash !== hash)].slice(0, 5);
+        setRecentVerifications(updated);
+        localStorage.setItem("recent_verifications", JSON.stringify(updated));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+
   return (
     <div className="w-full relative">
       <div className="flex flex-col xl:flex-row gap-6 items-start">
         <div className="w-full xl:w-[65%] space-y-6">
-            <div className="card p-6 border-t-4 border-t-primary">
+            <div className="card p-4 md:p-6 border-t-4 border-t-primary">
                 <div className="flex justify-between items-center mb-6">
                     <span className="text-[10px] uppercase font-bold text-foreground/50 tracking-widest flex items-center gap-2">
                         <FileImage size={14} /> Document Intake
                     </span>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 md:gap-3">
                         {!isDemo ? (
                             <button onClick={autoFillDemo} className="text-[10px] uppercase font-bold text-primary/70 hover:text-primary tracking-widest px-2 py-1 bg-primary/5 hover:bg-primary/10 rounded transition-colors shadow-sm">
                                 Try Demo
@@ -136,7 +161,7 @@ export function BlockchainVerifier() {
                             </button>
                         )}
                         <span className="text-[10px] uppercase font-bold text-primary tracking-widest px-2 py-1 bg-secondary rounded flex items-center gap-1.5 shadow-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Node 01 Active
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> <span className="hidden sm:inline">Node 01 Active</span><span className="sm:hidden">Active</span>
                         </span>
                     </div>
                 </div>
@@ -144,7 +169,7 @@ export function BlockchainVerifier() {
                 <label
                     onDragOver={(e) => e.preventDefault()}
                     onDrop={onDrop}
-                    className={`relative w-full h-80 bg-secondary/50 border-2 border-dashed border-border-strong rounded flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-secondary hover:border-primary/50 group ${status === 'verifying' ? 'opacity-60 pointer-events-none' : ''}`}
+                    className={`relative w-full h-64 md:h-80 bg-secondary/50 border-2 border-dashed border-border-strong rounded flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-secondary hover:border-primary/50 group ${status === 'verifying' ? 'opacity-60 pointer-events-none' : ''}`}
                 >
                     <input
                         type="file"
@@ -162,30 +187,30 @@ export function BlockchainVerifier() {
                     <div className="p-4 bg-surface shadow-sm rounded-lg mb-4 text-primary group-hover:scale-110 transition-transform">
                         <ScanLine size={32} strokeWidth={1.5} />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground tracking-tight">Secure Deposit Area</h3>
-                    <p className="text-sm font-medium text-foreground/40 mt-1 max-w-[250px] text-center leading-relaxed">
+                    <h3 className="text-lg md:text-xl font-semibold text-foreground tracking-tight">Secure Deposit Area</h3>
+                    <p className="text-xs md:text-sm font-medium text-foreground/40 mt-1 max-w-[200px] md:max-w-[250px] text-center leading-relaxed">
                         Drop PDF, JPEG, or scanned QR codes here for ledger lookup.
                     </p>
                     
                     <div className="flex gap-3 mt-6">
-                        <div className="px-5 py-2.5 bg-surface border border-border-strong text-foreground text-xs font-bold rounded shadow-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-md group-hover:-translate-y-0.5 transition-all duration-200">
-                            BROWSE FILES
+                        <div className="px-4 md:px-5 py-2 md:py-2.5 bg-surface border border-border-strong text-foreground text-[10px] md:text-xs font-bold rounded shadow-sm group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-md group-hover:-translate-y-0.5 transition-all duration-200 uppercase">
+                            Browse Files
                         </div>
                     </div>
                 </label>
             </div>
 
             {/* Validation Pipeline UI */}
-            <div className="card p-6 mt-4">
-                <div className="flex justify-between items-center mb-4 text-[10px] uppercase font-bold text-foreground/50 tracking-widest">
+            <div className="card p-4 md:p-6 mt-4 overflow-x-auto">
+                <div className="flex justify-between items-center mb-6 text-[10px] uppercase font-bold text-foreground/40 tracking-widest min-w-[400px]">
                     <span>Verification Pipeline</span>
                     <span>{status === 'verifying' ? 'ANALYZING' : status === 'idle' ? 'AWAITING INPUT' : 'COMPLETE'}</span>
                 </div>
-                <div className="flex w-full justify-between items-center gap-2">
+                <div className="flex w-full justify-between items-center gap-2 min-w-[400px]">
                     <PipelineStep label="Cryptographic" active={status !== 'idle'} done={status === 'valid' || status === 'invalid'} icon={LockKeyhole} />
-                    <div className={`h-0.5 flex-1 max-w-[40px] ${status!=='idle' ? 'bg-primary' : 'bg-border-strong'}`}></div>
+                    <div className={`h-0.5 flex-1 ${status!=='idle' ? 'bg-primary' : 'bg-border-strong'}`}></div>
                     <PipelineStep label="Registry Lookup" active={status === 'verifying' && logs.length > 3} done={status === 'valid' || status === 'invalid'} icon={Database} />
-                    <div className={`h-0.5 flex-1 max-w-[40px] ${(status==='valid'||status==='invalid') ? 'bg-primary' : 'bg-border-strong'}`}></div>
+                    <div className={`h-0.5 flex-1 ${(status==='valid'||status==='invalid') ? 'bg-primary' : 'bg-border-strong'}`}></div>
                     <PipelineStep label="Revocation Check" active={status === 'valid' || status === 'invalid'} done={status === 'valid' || status === 'invalid'} valid={status==='valid'} icon={ShieldCheck} />
                 </div>
             </div>
@@ -217,25 +242,25 @@ export function BlockchainVerifier() {
 
         {/* Right Session Panel */}
         <aside className="w-full xl:w-[35%] flex flex-col gap-4">
-            <div className="bg-surface border border-border rounded p-5 h-[calc(100vh-250px)] overflow-y-auto">
+            <div className="bg-surface border border-border rounded p-5 xl:h-[calc(100vh-250px)] overflow-y-auto shadow-sm">
                 <h3 className="text-xs uppercase font-bold text-foreground/40 tracking-widest mb-4">Verification Report</h3>
                 
                 {status === "idle" && (
-                    <div className="h-full flex flex-col items-center justify-center opacity-30 text-center space-y-3 pb-20">
+                    <div className="min-h-[200px] xl:h-full flex flex-col items-center justify-center opacity-30 text-center space-y-3 pb-10">
                         <SearchCode size={40} strokeWidth={1} />
                         <span className="text-sm font-medium">Session record empty.<br/>Upload target for appraisal.</span>
                     </div>
                 )}
                 {status === "verifying" && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="h-full flex flex-col items-center justify-center text-primary text-center space-y-4 pb-20">
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-[200px] xl:h-full flex flex-col items-center justify-center text-primary text-center space-y-4 pb-10">
                         <Loader2 size={40} strokeWidth={2} className="animate-spin text-primary/80" />
-                        <span className="text-sm font-bold animate-pulse tracking-wide">Analyzing footprint...</span>
+                        <span className="text-sm font-bold animate-pulse tracking-wide uppercase">Analyzing footprint...</span>
                     </motion.div>
                 )}
                 
                 <AnimatePresence mode="wait">
                     {(status === "valid" || status === "invalid") && (
-                        <motion.div initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} className="border border-border shadow-sm rounded overflow-hidden">
+                        <motion.div initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} className="border border-border shadow-sm rounded overflow-hidden mb-6">
                             <div className={`p-4 ${status==='valid' ? 'bg-success-bg/30' : 'bg-danger-bg/30'} flex items-start gap-4 border-b border-border`}>
                                 <div className={`h-10 w-10 flex items-center justify-center rounded-lg ${status==='valid' ? 'bg-success/20 text-success' : 'bg-danger/20 text-danger'}`}>
                                     {status === 'valid' ? <CheckCircle size={22} /> : <XCircle size={22} />}
@@ -255,11 +280,11 @@ export function BlockchainVerifier() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="min-w-0">
                                         <Tooltip content="Cryptographic document payload">
-                                            <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 cursor-help w-max inline-flex">Tx / Document Hash</label>
+                                            <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 cursor-help w-max inline-flex">Tx / Hash</label>
                                         </Tooltip>
                                         <div className="flex items-center gap-1">
-                                            <a href={`https://stellar.expert/explorer/testnet/search?term=${hash}`} target="_blank" className="font-mono text-xs truncate bg-secondary px-2 py-1.5 rounded hover:text-primary hover:underline border border-transparent hover:border-primary/20 transition-all flex items-center gap-1.5 flex-1" title="View on Stellar Expert">
-                                                {hash?.substring(0,8)}...<ExternalLink size={10} className="shrink-0" />
+                                            <a href={`https://stellar.expert/explorer/testnet/search?term=${hash}`} target="_blank" className="font-mono text-[10px] truncate bg-secondary px-2 py-1.5 rounded hover:text-primary hover:underline border border-transparent hover:border-primary/20 transition-all flex items-center gap-1.5 flex-1" title="View on Stellar Expert">
+                                                {hash?.substring(0,6)}...<ExternalLink size={10} className="shrink-0" />
                                             </a>
                                             <button onClick={() => { navigator.clipboard.writeText(hash || ""); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="p-1.5 bg-secondary hover:bg-surface-hover rounded text-foreground/50 hover:text-primary transition-colors shadow-sm shrink-0" title="Copy Hash">
                                                 {copied ? <Check size={14} className="text-success" /> : <Copy size={14} />}
@@ -268,14 +293,14 @@ export function BlockchainVerifier() {
                                     </div>
                                     <div>
                                         <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">Timestamp</label>
-                                        <div className="text-xs font-semibold px-1 py-1">{timestamp || "N/A"}</div>
+                                        <div className="text-[10px] font-semibold px-1 py-1 truncate">{timestamp || "N/A"}</div>
                                     </div>
                                 </div>
 
                                 {status === 'valid' && (
                                     <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-4 p-3 bg-secondary rounded border border-border hover:border-success/30 transition-colors">
                                         <span className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5 flex items-center gap-1.5"><Database size={12}/> Registry Anchor</span>
-                                        <span className="text-xs font-mono text-foreground/90 leading-relaxed block">Ledger Contract Match Confirmed. High Assurance.</span>
+                                        <span className="text-[10px] font-mono text-foreground/90 leading-relaxed block">Ledger Contract Match Confirmed. High Assurance.</span>
                                     </motion.div>
                                 )}
                                 {status === 'invalid' && errorMsg && (
@@ -290,10 +315,30 @@ export function BlockchainVerifier() {
                 </AnimatePresence>
 
                 {(status === "valid" || status === "invalid") && (
-                    <button onClick={downloadAudit} className="w-full mt-4 py-3 bg-secondary border border-border text-foreground font-semibold text-xs tracking-wide rounded hover:bg-surface-hover hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 shadow-sm active:scale-95">
+                    <button onClick={downloadAudit} className="w-full mb-6 py-3 bg-secondary border border-border text-foreground font-semibold text-xs tracking-wide rounded hover:bg-surface-hover hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 shadow-sm active:scale-95">
                         DOWNLOAD FULL AUDIT LOG
                     </button>
                 )}
+
+                {/* Recent History */}
+                <div className="mt-4 pt-4 border-t border-border/50">
+                    <h4 className="text-[10px] uppercase font-bold text-foreground/30 tracking-widest mb-3">Recent Inquiries</h4>
+                    <div className="space-y-2">
+                        {recentVerifications.length === 0 ? (
+                            <p className="text-[10px] text-foreground/20 italic">No recent activity detected.</p>
+                        ) : (
+                            recentVerifications.map((r, i) => (
+                                <div key={i} className="flex items-center justify-between p-2 rounded hover:bg-secondary/50 transition-colors cursor-pointer group">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`w-1.5 h-1.5 rounded-full ${r.status === 'valid' ? 'bg-success' : 'bg-danger'}`}></div>
+                                        <span className="text-[10px] font-mono text-foreground/60 group-hover:text-primary transition-colors">{r.hash.substring(0, 12)}...</span>
+                                    </div>
+                                    <span className="text-[9px] text-foreground/30 uppercase font-bold">{r.timestamp}</span>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
             </div>
         </aside>
       </div>
@@ -313,6 +358,6 @@ const PipelineStep = ({label, active, done, valid, icon: Icon}: any) => (
         <div className={`h-8 w-8 rounded-full flex items-center justify-center border-2 transition-colors ${done ? (valid === false ? 'bg-danger text-white border-danger' : 'bg-primary text-primary-foreground border-primary') : active ? 'border-primary text-primary' : 'border-border-strong text-border-strong'}`}>
             <Icon size={14} strokeWidth={2.5} />
         </div>
-        <span className={`text-[10px] uppercase tracking-widest font-bold text-center w-[120px] ${active || done ? 'text-primary' : 'text-foreground/30'}`}>{label}</span>
+        <span className={`text-[10px] uppercase tracking-widest font-bold text-center w-[80px] sm:w-[120px] transition-all ${active || done ? 'text-primary' : 'text-foreground/30'}`}>{label}</span>
     </div>
 )
