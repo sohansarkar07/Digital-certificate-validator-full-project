@@ -122,17 +122,17 @@ export function InstitutionDashboard() {
 
   return (
     <div className="max-w-xl mx-auto space-y-8 pb-32 relative">
-      <div className="card p-6 shadow-sm border border-border flex items-center justify-between mb-8 bg-surface">
-         <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+      <div className="card p-6 shadow-sm border border-border flex items-center justify-between mb-8 bg-surface gap-4">
+         <div className="flex items-center gap-4 min-w-0">
+            <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                <Wallet size={24} strokeWidth={1.5} />
             </div>
-            <div>
-               <h3 className="text-sm font-semibold text-foreground">Wallet Connected</h3>
-               <p className="text-xs text-foreground/50 font-mono mt-1">{address}</p>
+            <div className="min-w-0">
+               <h3 className="text-sm font-semibold text-foreground truncate">Wallet Connected</h3>
+               <p className="text-xs text-foreground/50 font-mono mt-1 truncate" title={address || ""}>{address}</p>
             </div>
          </div>
-         <div className="text-right">
+         <div className="text-right shrink-0">
             <p className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest mb-1">Available Tokens</p>
             <p className="text-xl font-bold text-foreground">{balance ? `${balance} XLM` : 'Loading...'}</p>
          </div>
