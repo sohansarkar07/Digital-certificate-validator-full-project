@@ -198,6 +198,16 @@ The CertifyVal suite integrates with the following Stellar wallets:
 
 ---
 
+## 🧪 Unit Testing (Soroban SDK)
+
+To ensure the reliability of the certificate validation logic, we have implemented a comprehensive test suite using the Soroban SDK's test utilities.
+
+### 📸 Test Execution Proof
+*Showing 3/3 tests passing successfully*
+<img width="100%" alt="Unit Test Results" src="screenshot/image.png" />
+
+---
+
 ## 🎯 Vision & Use Cases
 
 ### Vision

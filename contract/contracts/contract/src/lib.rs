@@ -44,3 +44,6 @@ impl CertificateValidator {
         certs.get(cert_hash).unwrap()
     }
 }
+
+#[cfg(test)]
+mod test;
