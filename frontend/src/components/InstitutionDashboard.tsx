@@ -129,7 +129,9 @@ export function InstitutionDashboard() {
             </div>
             <div className="min-w-0">
                <h3 className="text-sm font-semibold text-foreground truncate">Wallet Connected</h3>
-               <p className="text-xs text-foreground/50 font-mono mt-1 truncate" title={address || ""}>{address}</p>
+               <p className="text-xs text-foreground/50 font-mono mt-1" title={address || ""}>
+                  {address ? `${address.slice(0, 8)}...${address.slice(-8)}` : ""}
+               </p>
             </div>
          </div>
          <div className="text-right shrink-0">
