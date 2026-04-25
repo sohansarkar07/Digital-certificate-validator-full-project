@@ -3,6 +3,12 @@
   <p><b>Blockchain-Based Certificate Issuance & Verification on Stellar</b></p>
 
   <p>🌐 <strong>Live Application: <a href="https://digital-certificate-validator-full-phi.vercel.app/">https://digital-certificate-validator-full-phi.vercel.app/</a></strong></p>
+  
+  <p>
+    <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
+      <img src="https://img.shields.io/badge/Demo_Video-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
+    </a>
+  </p>
 
   <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
   <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
@@ -23,6 +29,7 @@
 
   <br><br>
 
+  <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">Demo Video</a> • 
   <a href="#problem-statement">Problem</a> • 
   <a href="#solution">Solution</a> • 
   <a href="#contract">Live Transaction</a> • 
