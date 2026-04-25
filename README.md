@@ -204,7 +204,8 @@ To ensure the reliability of the certificate validation logic, we have implement
 
 ### 📸 Test Execution Proof
 *Showing 3/3 tests passing successfully*
-<img width="100%" alt="Unit Test Results" src="screenshot/image.png" />
+
+![Unit Test Results](assets/test-results.png)
 
 ---
 
