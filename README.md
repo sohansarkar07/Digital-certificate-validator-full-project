@@ -435,6 +435,11 @@ The application is fully optimized for mobile viewing:
 - **Adaptive Inputs**: Scaled typography and touch-friendly buttons for easy document submission.
 - **Stacked Layouts**: Side-by-side panels automatically stack vertically on mobile to preserve readability.
 
+### 📸 Mobile Interface Preview
+<div align="center">
+  <img width="320" alt="Mobile Responsive View" src="assets/mobile-view.png" />
+</div>
+
 ---
 
 ## 👨‍💻 Author
