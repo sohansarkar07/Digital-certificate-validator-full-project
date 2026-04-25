@@ -14,7 +14,7 @@ const WALLETS = [
 ];
 
 export function ConnectWallet() {
-  const { address, connect, disconnect, isConnected, connecting, walletType, error } = useStellar();
+  const { address, connect, disconnect, isConnected, connecting, walletType, error, balance } = useStellar();
   const [showSelector, setShowSelector] = useState(false);
 
   return (
@@ -24,9 +24,16 @@ export function ConnectWallet() {
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
             <Wallet size={14} strokeWidth={2.5} />
           </div>
-          <span className="text-sm font-semibold px-2 text-foreground">
-            {address?.slice(0, 4)}...{address?.slice(-4)}
-          </span>
+          <div className="flex flex-col px-2 items-start justify-center py-1">
+            <span className="text-sm font-semibold text-foreground leading-tight">
+              {address?.slice(0, 4)}...{address?.slice(-4)}
+            </span>
+            {balance && (
+                <span className="text-[10px] font-bold text-primary/80 leading-none mt-0.5">
+                    {balance} XLM
+                </span>
+            )}
+          </div>
           <button
             onClick={disconnect}
             className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-white/10 transition-colors text-foreground/40 hover:text-foreground mr-0.5"
