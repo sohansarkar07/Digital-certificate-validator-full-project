@@ -23,6 +23,8 @@
 
   <br><br>
 
+  <a href="#problem-statement">Problem</a> • 
+  <a href="#solution">Solution</a> • 
   <a href="#contract">Live Transaction</a> • 
   <a href="#architecture">Architecture</a> • 
   <a href="#ui-refresh">UI Refresh</a> • 
@@ -57,6 +59,26 @@ Give it a certificate hash like `e3b0c442...` — it automatically:
 3. **Retrieves ownership** details tied to the specific hash in real-time.
 4. **Logs the verification** on-chain ensuring auditability.
 5. **Returns a valid/invalid status** once the blockchain settlement is confirmed.
+
+---
+
+<a name="problem-statement"></a>
+## 🔴 Problem Statement
+
+The current landscape of digital certification is hindered by several systemic challenges:
+- **Widespread Forgery**: Standard digital formats like PDFs are easily manipulated, leading to a rise in fraudulent credentials.
+- **Verification Lag**: Validating a certificate typically requires slow, manual verification from the issuing authority.
+- **Centralized Fragility**: Reliance on centralized servers makes records vulnerable to data breaches or systemic failures.
+- **Economic Barriers**: High transaction fees on traditional blockchains often make widespread certification cost-prohibitive.
+
+<a name="solution"></a>
+## 🟢 The Solution
+
+**Digital Certificate Validator** leverages the Stellar Soroban network to provide a secure, scalable, and instant verification framework:
+- **Immutable Trust**: Each certificate is hashed (SHA256) and recorded on the Stellar ledger, creating a permanent, unalterable record.
+- **Real-Time Audits**: Verification happens instantly via smart contract calls, removing the need for manual institutional intervention.
+- **Privacy by Design**: By storing only cryptographic fingerprints on-chain, we ensure data privacy while maintaining absolute authenticity.
+- **Cost-Effective Scaling**: Optimized Soroban storage allows for high-volume issuance at a fraction of the cost compared to other L1 blockchains.
 
 ---
 
