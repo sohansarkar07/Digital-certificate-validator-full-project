@@ -1,4 +1,5 @@
 "use client";
+// Main page — Digital Certificate Validator UI with Stellar wallet & Soroban integration
 
 import { useState, useEffect } from "react";
 import { ConnectWallet } from "@/components/ConnectWallet";

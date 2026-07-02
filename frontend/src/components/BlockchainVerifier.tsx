@@ -1,4 +1,5 @@
 "use client";
+// BlockchainVerifier — on-chain certificate verification via Stellar Soroban smart contract
 
 import { useState, useCallback, useEffect } from "react";
 import { Upload, CheckCircle, XCircle, FileImage, ShieldCheck, Database, SearchCode, LockKeyhole, Copy, Check, ExternalLink, Loader2 } from "lucide-react";

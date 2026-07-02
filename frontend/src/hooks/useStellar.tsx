@@ -1,4 +1,5 @@
 "use client";
+// useStellar — custom React hook for Freighter wallet & Stellar network integration
 
 import { useState, useCallback, useEffect, createContext, useContext, ReactNode } from 'react';
 import { isConnected as checkFreighter, getAddress as getFreighterAddr, signTransaction as signFreighter, requestAccess } from '@stellar/freighter-api';

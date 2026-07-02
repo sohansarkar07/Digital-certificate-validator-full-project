@@ -1,4 +1,5 @@
 "use client";
+// InstitutionDashboard — certificate issuance dashboard for verified institutions
 
 import { useState, useCallback, useEffect } from "react";
 import { Upload, CheckCircle, Info, LockKeyhole, User, Copy, Check, ExternalLink, Download, Wallet } from "lucide-react";

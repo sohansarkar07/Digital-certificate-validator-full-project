@@ -1,4 +1,5 @@
 "use client";
+// Wallet connection component — Freighter wallet integration for Stellar testnet
 
 import { useState } from "react";
 import { useStellar, WalletType } from "@/hooks/useStellar";

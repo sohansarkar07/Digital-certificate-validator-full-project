@@ -1,4 +1,5 @@
 "use client";
+// contract.ts — Soroban smart contract service for certificate issuance & verification on Stellar testnet
 
 const CONTRACT_ID = "CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4";
 const RPC_URL = "https://soroban-testnet.stellar.org:443";
