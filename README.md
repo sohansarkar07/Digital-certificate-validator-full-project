@@ -446,3 +446,6 @@ The application is fully optimized for mobile viewing:
 **Sohan Sarkar**
 - Blockchain Enthusiast | Soroban Developer
 - [GitHub Profile](https://github.com/sohansarkar07)
+
+---
+> **Last Updated:** July 2026 — Re-submission for RiseIn Level 1 White Belt review.
