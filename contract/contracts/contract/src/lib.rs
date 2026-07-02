@@ -1,3 +1,4 @@
+// Digital Certificate Validator — Soroban smart contract on Stellar for on-chain certificate issuance & verification
 #![no_std]
 use soroban_sdk::{contract, contractimpl, symbol_short, Env, String, Map};
 

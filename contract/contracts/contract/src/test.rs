@@ -1,3 +1,4 @@
+// Integration tests for Digital Certificate Validator Soroban smart contract
 #![cfg(test)]
 
 use super::*;
