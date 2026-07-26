@@ -521,51 +521,80 @@ graph LR
 
 ### Supabase PostgreSQL Schema — Entity Relationship
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                        CERTIFYVAL DATABASE SCHEMA                        │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                           │
-│  ┌──────────────────────────┐      ┌──────────────────────────────┐     │
-│  │       credentials         │      │         institutions          │     │
-│  ├──────────────────────────┤      ├──────────────────────────────┤     │
-│  │ id            TEXT  PK   │      │ id           TEXT  PK        │     │
-│  │ wallet_address TEXT  FK  │─────▶│ wallet_address TEXT          │     │
-│  │ title         TEXT       │      │ name          TEXT           │     │
-│  │ institution   TEXT       │      │ country       TEXT           │     │
-│  │ type          TEXT       │      │ website       TEXT           │     │
-│  │ date          DATE       │      │ type          TEXT           │     │
-│  │ cert_hash     TEXT       │      │ status        TEXT           │     │
-│  │ description   TEXT       │      │ trust_score   INT  default 0 │     │
-│  │ skills        TEXT[]     │      │ verifications BIGINT         │     │
-│  │ category      TEXT       │      │ disputes      BIGINT         │     │
-│  │ credential_type TEXT     │      │ created_at    TIMESTAMP      │     │
-│  │ evidence_type TEXT       │      └──────────────────────────────┘     │
-│  │ upload_type   TEXT       │                   │                        │
-│  │ source_platform TEXT     │                   │                        │
-│  │ is_public     BOOL       │      ┌────────────▼─────────────────┐     │
-│  │ share_token   TEXT       │      │         audit_logs            │     │
-│  │ ai_risk_score FLOAT      │      ├──────────────────────────────┤     │
-│  │ ai_classification TEXT   │      │ id           UUID   PK       │     │
-│  │ file_url      TEXT       │      │ action       TEXT            │     │
-│  │ tx_hash       TEXT       │      │ wallet_address TEXT          │     │
-│  │ created_at    TIMESTAMP  │      │ credential_id TEXT   FK      │     │
-│  └──────────────────────────┘      │ institution_id TEXT          │     │
-│             │                      │ metadata     JSONB           │     │
-│             │                      │ created_at   TIMESTAMP       │     │
-│  ┌──────────▼───────────────┐      └──────────────────────────────┘     │
-│  │   credential_permissions  │                                            │
-│  ├──────────────────────────┤      ┌──────────────────────────────┐     │
-│  │ id            UUID  PK   │      │     email_deliveries          │     │
-│  │ credential_id TEXT  FK   │      ├──────────────────────────────┤     │
-│  │ granted_to    TEXT       │      │ id           UUID   PK       │     │
-│  │ granted_by    TEXT       │      │ recipient    TEXT            │     │
-│  │ permission_type TEXT     │      │ type         TEXT            │     │
-│  │ expires_at    TIMESTAMP  │      │ credential_id TEXT           │     │
-│  │ created_at    TIMESTAMP  │      │ status       TEXT            │     │
-│  └──────────────────────────┘      │ sent_at      TIMESTAMP       │     │
-│                                    └──────────────────────────────┘     │
-└─────────────────────────────────────────────────────────────────────────┘
+```mermaid
+erDiagram
+    credentials {
+        TEXT id PK
+        TEXT wallet_address FK
+        TEXT title
+        TEXT institution
+        TEXT type
+        DATE date
+        TEXT cert_hash
+        TEXT description
+        TEXT[] skills
+        TEXT category
+        TEXT credential_type
+        TEXT evidence_type
+        TEXT upload_type
+        TEXT source_platform
+        BOOL is_public
+        TEXT share_token
+        FLOAT ai_risk_score
+        TEXT ai_classification
+        TEXT file_url
+        TEXT tx_hash
+        TIMESTAMP created_at
+    }
+
+    institutions {
+        TEXT id PK
+        TEXT wallet_address
+        TEXT name
+        TEXT country
+        TEXT website
+        TEXT type
+        TEXT status
+        INT trust_score
+        BIGINT verifications
+        BIGINT disputes
+        TIMESTAMP created_at
+    }
+
+    credential_permissions {
+        UUID id PK
+        TEXT credential_id FK
+        TEXT granted_to
+        TEXT granted_by
+        TEXT permission_type
+        TIMESTAMP expires_at
+        TIMESTAMP created_at
+    }
+
+    audit_logs {
+        UUID id PK
+        TEXT action
+        TEXT wallet_address
+        TEXT credential_id FK
+        TEXT institution_id
+        JSONB metadata
+        TIMESTAMP created_at
+    }
+
+    email_deliveries {
+        UUID id PK
+        TEXT recipient
+        TEXT type
+        TEXT credential_id FK
+        TEXT status
+        TIMESTAMP sent_at
+    }
+
+    credentials ||--o{ credential_permissions : "has"
+    credentials ||--o{ audit_logs : "tracked in"
+    credentials ||--o{ email_deliveries : "delivered via"
+    institutions ||--o{ audit_logs : "tracked in"
+    credentials }o--|| institutions : "issued by"
 ```
 
 ### Data Flow — Supabase RLS Policies
