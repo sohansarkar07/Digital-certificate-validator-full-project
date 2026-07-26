@@ -29,6 +29,10 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [emailInput, setEmailInput] = useState("");
   const [linkingEmail, setLinkingEmail] = useState(false);
+  const [step, setStep] = useState<'email' | 'otp'>('email');
+  const [generatedOtp, setGeneratedOtp] = useState<string | null>(null);
+  const [otpInput, setOtpInput] = useState('');
+  const [otpError, setOtpError] = useState('');
 
   const fetchClaims = useCallback(async () => {
     if (!address) return;
@@ -58,13 +62,14 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
 
       // 2. Insert into credentials table (passport)
       await dbInsertCredential({
-        id: `claimed-${claim.id}`,
+        id: claim.id,
         wallet_address: address,
         title: claim.credential_title,
         institution: claim.institution_name,
-        type: claim.credential_type,
+        type: claim.credential_type as any,
         date: claim.issue_date,
         cert_hash: claim.cert_hash,
+        tx_hash: claim.tx_hash,
         description: `${claim.credential_category ?? ""} credential issued by ${claim.institution_name}. TX: ${claim.tx_hash ?? ""}`,
         ...(({
           upload_type: "official",
@@ -103,59 +108,108 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
     }
   };
 
-  const handleReject = async (id: string) => {
-    if (rejectingId) return;
-    setRejectingId(id);
+  const handleReject = async (claim: PendingClaim) => {
+    if (!address || rejectingId) return;
+    setRejectingId(claim.id);
     try {
-      await dbRejectPendingCredential(id);
-      setClaims(prev => prev.filter(c => c.id !== id));
+      await dbRejectPendingCredential(claim.id);
+      setClaims(prev => prev.filter(c => c.id !== claim.id));
     } finally {
       setRejectingId(null);
     }
   };
 
-  const handleLinkEmail = async (e: React.FormEvent) => {
+  const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!address || !emailInput) return;
+    if (!address || !emailInput || !emailInput.includes("@")) return;
     setLinkingEmail(true);
     try {
-      await dbSetUserEmail(address, emailInput);
-      setUserEmail(emailInput);
-      const pending = await dbGetPendingClaimsByEmail(emailInput);
-      setClaims(pending);
+      const { generateOTP, sendOTPEmail } = await import('@/services/emailService');
+      const otp = generateOTP();
+      setGeneratedOtp(otp);
+      await sendOTPEmail({ email: emailInput, otp, institutionName: "CertifyVal Student Link" });
+      setStep('otp');
+    } catch (err) {
+      console.error(err);
     } finally {
       setLinkingEmail(false);
     }
   };
 
+  const handleVerifyOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (otpInput !== generatedOtp) {
+      setOtpError("Invalid OTP");
+      return;
+    }
+    setOtpError("");
+    setLinkingEmail(true);
+    try {
+      await dbSetUserEmail(address!, emailInput);
+      setUserEmail(emailInput);
+      const pending = await dbGetPendingClaimsByEmail(emailInput);
+      setClaims(pending);
+      setLinkingEmail(false);
+      setStep('email');
+    } catch (err) {
+      console.error(err);
+      setLinkingEmail(false);
+    }
+  };
+
   if (loading) return null;
-  if (!userEmail || linkingEmail) {
+  if (!userEmail || linkingEmail || step === 'otp') {
     return (
       <div
-        className="border border-primary/30 bg-primary/5 rounded-xl overflow-hidden mb-6 p-5 flex items-center justify-between gap-4"
+        className="border border-primary/30 bg-primary/5 rounded-xl overflow-hidden mb-6 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
       >
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
             <Gift size={18} className="text-primary" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-foreground">Link your Student Email</h4>
-            <p className="text-xs text-foreground/60 mt-0.5">We need your email to find credentials that institutions have sent to you.</p>
+            <h4 className="text-sm font-bold text-foreground">{step === 'email' ? 'Link your Student Email' : 'Verify Email with OTP'}</h4>
+            <p className="text-xs text-foreground/60 mt-0.5">
+              {step === 'email' ? 'We need your email to find credentials that institutions have sent to you.' : `An OTP was sent to ${emailInput}.`}
+            </p>
           </div>
         </div>
-        <form onSubmit={handleLinkEmail} className="flex gap-2 w-full max-w-sm">
-          <input
-            type="email"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            placeholder="e.g. student@university.edu"
-            required
-            className="input-field px-3 py-1.5 text-xs flex-1"
-          />
-          <button type="submit" disabled={linkingEmail} className="btn-primary text-xs px-4 whitespace-nowrap">
-            {linkingEmail ? <Loader2 size={14} className="animate-spin" /> : "Link Email"}
-          </button>
-        </form>
+        {step === 'email' ? (
+          <form onSubmit={handleSendOtp} className="flex gap-2 w-full md:max-w-sm">
+            <input
+              type="email"
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              placeholder="e.g. student@university.edu"
+              required
+              className="input-field px-3 py-1.5 text-xs flex-1"
+            />
+            <button type="submit" disabled={linkingEmail} className="btn-primary text-xs px-4 whitespace-nowrap">
+              {linkingEmail ? <Loader2 size={14} className="animate-spin" /> : "Send OTP"}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleVerifyOtp} className="flex flex-col gap-1 w-full md:max-w-xs">
+            <div className="flex gap-2 w-full">
+              <input
+                type="text"
+                value={otpInput}
+                onChange={(e) => setOtpInput(e.target.value)}
+                placeholder="6-digit OTP"
+                required
+                maxLength={6}
+                className="input-field px-3 py-1.5 text-xs font-mono tracking-widest flex-1 text-center"
+              />
+              <button type="submit" disabled={linkingEmail} className="btn-primary text-xs px-4 whitespace-nowrap">
+                {linkingEmail ? <Loader2 size={14} className="animate-spin" /> : "Verify & Link"}
+              </button>
+            </div>
+            {otpError && <p className="text-[10px] text-rose-500 font-semibold">{otpError}</p>}
+            <button type="button" onClick={() => { setStep('email'); setOtpInput(''); setOtpError(''); setGeneratedOtp(null); }} className="text-[10px] text-foreground/50 hover:underline text-left mt-1">
+              Change email or resend
+            </button>
+          </form>
+        )}
       </div>
     );
   }

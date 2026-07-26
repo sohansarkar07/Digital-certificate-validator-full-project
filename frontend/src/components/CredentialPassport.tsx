@@ -341,6 +341,8 @@ export function CredentialPassport() {
           source_platform: (d as any).source_platform,
           is_public: (d as any).is_public ?? true,
           share_token: (d as any).share_token,
+          file_url: (d as any).file_url,
+          evidence_type: (d as any).evidence_type,
         })));
       } else {
         const raw = typeof window !== 'undefined' ? localStorage.getItem('certifyval_passport_' + address) : null;
@@ -479,6 +481,8 @@ export function CredentialPassport() {
             source_platform: (d as any).source_platform,
             is_public: (d as any).is_public ?? true,
             share_token: (d as any).share_token,
+            file_url: (d as any).file_url,
+            evidence_type: (d as any).evidence_type,
           })));
         }).catch(() => {});
       }} />
