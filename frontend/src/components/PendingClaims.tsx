@@ -129,7 +129,7 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
   };
 
   if (loading) return null;
-  if (!userEmail) {
+  if (!userEmail || linkingEmail) {
     return (
       <div
         className="border border-primary/30 bg-primary/5 rounded-xl overflow-hidden mb-6 p-5 flex items-center justify-between gap-4"
@@ -159,7 +159,33 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
       </div>
     );
   }
-  if (claims.length === 0) return null;
+  
+  if (claims.length === 0) {
+    return (
+      <div className="border border-border/50 bg-surface rounded-xl overflow-hidden mb-6 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-lg bg-secondary flex items-center justify-center shrink-0">
+            <CheckCircle size={16} className="text-foreground/40" />
+          </div>
+          <div className="text-left">
+            <p className="text-sm font-semibold text-foreground">No Pending Claims</p>
+            <p className="text-xs text-foreground/50">
+              You have no new credentials waiting for <strong className="text-foreground/70">{userEmail}</strong>.
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            setLinkingEmail(true);
+            setEmailInput(userEmail);
+          }}
+          className="text-xs font-semibold text-primary hover:underline"
+        >
+          Change Linked Email
+        </button>
+      </div>
+    );
+  }
 
   return (
     <motion.div
