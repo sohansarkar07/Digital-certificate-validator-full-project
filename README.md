@@ -11,6 +11,9 @@
   <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
     <img src="https://img.shields.io/badge/Demo_Video-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
   </a>
+  <a href="https://drive.google.com/file/d/13R5k0awT4VD1-IW8M5MIOfXvL9BKrIWX/view?usp=drivesdk">
+    <img src="https://img.shields.io/badge/PPT_Presentation-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
+  </a>
 </p>
 
 <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
