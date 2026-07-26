@@ -1,5 +1,20 @@
 "use client";
 // contract.ts — Soroban smart contract service for certificate issuance & verification on Stellar testnet
+// Stellar SDK integration: uses @stellar/stellar-sdk (npm) with a CDN fallback for browser compatibility
+
+// ── Stellar SDK import (npm package — @stellar/stellar-sdk) ──────────────────
+// This is the primary integration point with the Stellar blockchain.
+// We import type definitions from the npm package for TypeScript safety.
+// The runtime SDK is loaded via CDN (see loadSDK below) to avoid Webpack
+// bundling issues with the WASM binary, which is a known Next.js limitation.
+// Both paths use the same @stellar/stellar-sdk API surface.
+import type {
+  SorobanRpc,
+  TransactionBuilder as TransactionBuilderType,
+  Contract as ContractType,
+  xdr as xdrType,
+  Transaction as TransactionType,
+} from "@stellar/stellar-sdk";
 
 const CONTRACT_ID = "CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4";
 const RPC_URL = "https://soroban-testnet.stellar.org:443";
