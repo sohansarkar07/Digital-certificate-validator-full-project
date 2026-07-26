@@ -25,14 +25,6 @@
 
 <br><br>
 
-<img width="100%" alt="Issuance Dashboard Screenshot" src="assets/issuance-portal.png" />
-
-<br><br>
-
-<img width="100%" alt="Verify Portal Screenshot" src="assets/verify-portal.png" />
-
-<br><br>
-
 [Demo Video](https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk) •
 [Problem](#problem-statement) •
 [Solution](#solution) •
@@ -66,6 +58,26 @@ Unlike simple hash-on-chain tools, CertifyVal is a **complete verification ecosy
 | 📧 **Email Delivery** | OTP + credential delivery via Resend email API |
 
 > Give it a certificate — and within **2 seconds** it tells you: *Real or Fake, and who issued it, and when, and whether the issuing institution is trusted.*
+
+---
+
+## 📸 Platform UI Tour
+
+| Landing Page | Issuance Portal |
+|:---:|:---:|
+| <img src="assets/screenshots/landing_page.png" alt="Landing Page" width="100%"/> | <img src="assets/screenshots/issuance_page.png" alt="Issuance Portal" width="100%"/> |
+
+| Verification Portal | Credential Passport |
+|:---:|:---:|
+| <img src="assets/screenshots/verify_page.png" alt="Verify Portal" width="100%"/> | <img src="assets/screenshots/credential_passport.png" alt="Credential Passport" width="100%"/> |
+
+| Institution Registry | Platform Analytics |
+|:---:|:---:|
+| <img src="assets/screenshots/institution_registry.png" alt="Institution Registry" width="100%"/> | <img src="assets/screenshots/analytics.png" alt="Analytics" width="100%"/> |
+
+| Blockchain Activity | Developer Documentation |
+|:---:|:---:|
+| <img src="assets/screenshots/blockchain_activity.png" alt="Blockchain Activity" width="100%"/> | <img src="assets/screenshots/documentation.png" alt="Documentation" width="100%"/> |
 
 ---
 
