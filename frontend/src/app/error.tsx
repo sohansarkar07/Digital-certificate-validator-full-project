@@ -4,6 +4,7 @@
 
 import { useEffect } from "react";
 import { AlertTriangle, RefreshCcw, Home } from "lucide-react";
+import Link from "next/link";
 
 export default function GlobalError({
   error,
@@ -120,7 +121,7 @@ export default function GlobalError({
               Try Again
             </button>
 
-            <a
+            <Link
               href="/"
               style={{
                 display: "inline-flex",
@@ -138,7 +139,7 @@ export default function GlobalError({
             >
               <Home size={14} />
               Go Home
-            </a>
+            </Link>
           </div>
         </div>
       </body>

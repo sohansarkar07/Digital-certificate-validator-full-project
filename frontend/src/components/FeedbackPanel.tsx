@@ -126,7 +126,7 @@ function FeedbackCard({ entry }: { entry: FeedbackEntry }) {
   let displayMessage = entry.message;
   let username = undefined;
   
-  const match = displayMessage.match(/^\[From:\s*(.*?)\]\s*(.*)$/s);
+  const match = displayMessage.match(/^\[From:\s*(.*?)\]\s*([\s\S]*)$/);
   if (match) {
     username = match[1];
     displayMessage = match[2];

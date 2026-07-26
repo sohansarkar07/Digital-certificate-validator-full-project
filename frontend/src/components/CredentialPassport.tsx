@@ -349,7 +349,7 @@ export function CredentialPassport() {
     }).catch(() => {});
   }, [address]);
 
-  const addFromWizard = useCallback(async (result: WizardResult) => {
+  const addFromWizard = async (result: WizardResult) => {
     if (!address) return;
     const shareToken = `cv-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     
@@ -408,9 +408,9 @@ export function CredentialPassport() {
       } as any),
     });
     setShowWizard(null);
-  }, [address]);
+  };
 
-  const addCredential = useCallback(async (cred: Credential) => {
+  const addCredential = async (cred: Credential) => {
     if (!address) return;
     setCredentials(prev => [cred, ...prev]);
     await dbInsertCredential({
@@ -425,13 +425,13 @@ export function CredentialPassport() {
       description: cred.description,
     });
     setShowAddForm(false);
-  }, [address]);
+  };
 
-  const removeCredential = useCallback(async (id: string) => {
+  const removeCredential = async (id: string) => {
     if (!address) return;
     setCredentials(prev => prev.filter(c => c.id !== id));
     await dbDeleteCredential(id);
-  }, [address]);
+  };
 
   const passportUrl = address ? `${typeof window !== "undefined" ? window.location.origin : ""}/verify/passport/${address}` : "";
 
