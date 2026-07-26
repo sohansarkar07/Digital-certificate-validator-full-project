@@ -27,6 +27,7 @@ import { WalletProfile, WalletProfileButton } from "@/components/WalletProfile";
 import { LandingPage } from "@/components/LandingPage";
 import { Documentation } from "@/components/Documentation";
 import { NotificationCenter } from "@/components/NotificationCenter";
+import { EmailVerifyModal } from "@/components/EmailVerifyModal";
 import type { UserRole } from "@/lib/types";
 
 type TabId =
@@ -397,6 +398,7 @@ export default function Home() {
     <StellarProvider>
       <AuthProvider>
         <AppContent />
+        <EmailVerifyModal />
       </AuthProvider>
     </StellarProvider>
   );

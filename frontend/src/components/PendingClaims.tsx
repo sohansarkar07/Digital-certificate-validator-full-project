@@ -28,8 +28,11 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
   const [expanded, setExpanded] = useState(true);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [emailInput, setEmailInput] = useState("");
-  const [linkingEmail, setLinkingEmail] = useState(false);
-  const [step, setStep] = useState<'email' | 'otp'>('email');
+  // showEmailForm: replaces linkingEmail — never gets "stuck" because Cancel always resets it
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
+  const [otpStep, setOtpStep] = useState<'email' | 'otp'>('email');
   const [generatedOtp, setGeneratedOtp] = useState<string | null>(null);
   const [otpInput, setOtpInput] = useState('');
   const [otpError, setOtpError] = useState('');
@@ -119,62 +122,77 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
     }
   };
 
+  const resetEmailForm = () => {
+    setShowEmailForm(false);
+    setOtpStep('email');
+    setOtpInput('');
+    setOtpError('');
+    setGeneratedOtp(null);
+  };
+
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!address || !emailInput || !emailInput.includes("@")) return;
-    setLinkingEmail(true);
+    setSendingOtp(true);
     try {
       const { generateOTP, sendOTPEmail } = await import('@/services/emailService');
       const otp = generateOTP();
       setGeneratedOtp(otp);
       await sendOTPEmail({ email: emailInput, otp, institutionName: "CertifyVal Student Link" });
-      setStep('otp');
+      setOtpStep('otp');
     } catch (err) {
       console.error(err);
     } finally {
-      setLinkingEmail(false);
+      setSendingOtp(false);
     }
   };
 
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (otpInput !== generatedOtp) {
-      setOtpError("Invalid OTP");
+      setOtpError("Incorrect OTP — please check your email and try again.");
       return;
     }
-    setOtpError("");
-    setLinkingEmail(true);
+    setOtpError('');
+    setVerifyingOtp(true);
     try {
       await dbSetUserEmail(address!, emailInput);
-      setUserEmail(emailInput);
       const pending = await dbGetPendingClaimsByEmail(emailInput);
       setClaims(pending);
-      setLinkingEmail(false);
-      setStep('email');
+      setUserEmail(emailInput);
+      resetEmailForm();
     } catch (err) {
       console.error(err);
-      setLinkingEmail(false);
+      setOtpError('Failed to save email. Please try again.');
+    } finally {
+      setVerifyingOtp(false);
     }
   };
 
   if (loading) return null;
-  if (!userEmail || linkingEmail || step === 'otp') {
+
+  // Email form: shown when no email is saved yet, OR when user clicks "Change Linked Email"
+  if (!userEmail || showEmailForm) {
     return (
-      <div
-        className="border border-primary/30 bg-primary/5 rounded-xl overflow-hidden mb-6 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4"
-      >
+      <div className="border border-primary/30 bg-primary/5 rounded-xl overflow-hidden mb-6 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
             <Gift size={18} className="text-primary" />
           </div>
           <div>
-            <h4 className="text-sm font-bold text-foreground">{step === 'email' ? 'Link your Student Email' : 'Verify Email with OTP'}</h4>
+            <h4 className="text-sm font-bold text-foreground">
+              {otpStep === 'email' ? 'Link your Student Email' : 'Verify your Email'}
+            </h4>
             <p className="text-xs text-foreground/60 mt-0.5">
-              {step === 'email' ? 'We need your email to find credentials that institutions have sent to you.' : `An OTP was sent to ${emailInput}.`}
+              {otpStep === 'email'
+                ? 'Enter your email to find credentials institutions have sent to you.'
+                : `We sent a 6-digit code to ${emailInput}. Check your inbox.`
+              }
             </p>
           </div>
         </div>
-        {step === 'email' ? (
+
+        {otpStep === 'email' ? (
           <form onSubmit={handleSendOtp} className="flex gap-2 w-full md:max-w-sm">
             <input
               type="email"
@@ -184,9 +202,15 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
               required
               className="input-field px-3 py-1.5 text-xs flex-1"
             />
-            <button type="submit" disabled={linkingEmail} className="btn-primary text-xs px-4 whitespace-nowrap">
-              {linkingEmail ? <Loader2 size={14} className="animate-spin" /> : "Send OTP"}
+            <button type="submit" disabled={sendingOtp} className="btn-primary text-xs px-4 whitespace-nowrap">
+              {sendingOtp ? <Loader2 size={14} className="animate-spin" /> : "Send OTP"}
             </button>
+            {/* Cancel only if already has an email (i.e. this is "Change" mode) */}
+            {userEmail && (
+              <button type="button" onClick={resetEmailForm} className="text-xs text-foreground/50 hover:underline px-2">
+                Cancel
+              </button>
+            )}
           </form>
         ) : (
           <form onSubmit={handleVerifyOtp} className="flex flex-col gap-1 w-full md:max-w-xs">
@@ -194,20 +218,30 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
               <input
                 type="text"
                 value={otpInput}
-                onChange={(e) => setOtpInput(e.target.value)}
-                placeholder="6-digit OTP"
+                onChange={(e) => { setOtpInput(e.target.value); setOtpError(''); }}
+                placeholder="6-digit code"
                 required
                 maxLength={6}
-                className="input-field px-3 py-1.5 text-xs font-mono tracking-widest flex-1 text-center"
+                autoFocus
+                className="input-field px-3 py-1.5 text-xs font-mono tracking-[0.3em] flex-1 text-center"
               />
-              <button type="submit" disabled={linkingEmail} className="btn-primary text-xs px-4 whitespace-nowrap">
-                {linkingEmail ? <Loader2 size={14} className="animate-spin" /> : "Verify & Link"}
+              <button type="submit" disabled={verifyingOtp || otpInput.length < 6} className="btn-primary text-xs px-4 whitespace-nowrap">
+                {verifyingOtp ? <Loader2 size={14} className="animate-spin" /> : "Verify & Link"}
               </button>
             </div>
             {otpError && <p className="text-[10px] text-rose-500 font-semibold">{otpError}</p>}
-            <button type="button" onClick={() => { setStep('email'); setOtpInput(''); setOtpError(''); setGeneratedOtp(null); }} className="text-[10px] text-foreground/50 hover:underline text-left mt-1">
-              Change email or resend
-            </button>
+            <div className="flex gap-3 mt-1">
+              <button type="button" onClick={() => { setOtpStep('email'); setOtpInput(''); setOtpError(''); }}
+                className="text-[10px] text-foreground/50 hover:underline">
+                ← Change email / Resend
+              </button>
+              {userEmail && (
+                <button type="button" onClick={resetEmailForm}
+                  className="text-[10px] text-foreground/50 hover:underline">
+                  Cancel
+                </button>
+              )}
+            </div>
           </form>
         )}
       </div>
@@ -224,18 +258,19 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
           <div className="text-left">
             <p className="text-sm font-semibold text-foreground">No Pending Claims</p>
             <p className="text-xs text-foreground/50">
-              You have no new credentials waiting for <strong className="text-foreground/70">{userEmail}</strong>.
+              No new credentials for <strong className="text-foreground/70">{userEmail}</strong>.
             </p>
           </div>
         </div>
         <button
           onClick={() => {
-            setLinkingEmail(true);
-            setEmailInput(userEmail);
+            setEmailInput(userEmail ?? '');
+            setOtpStep('email');
+            setShowEmailForm(true);
           }}
-          className="text-xs font-semibold text-primary hover:underline"
+          className="text-xs font-semibold text-primary hover:underline whitespace-nowrap"
         >
-          Change Linked Email
+          Change Email
         </button>
       </div>
     );
@@ -348,7 +383,7 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
                       )}
                     </button>
                     <button
-                      onClick={() => handleReject(claim.id)}
+                      onClick={() => handleReject(claim)}
                       disabled={rejectingId === claim.id}
                       className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs font-semibold text-foreground/60 hover:bg-surface-hover transition-colors disabled:opacity-50"
                     >

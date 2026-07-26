@@ -12,7 +12,7 @@ import { PDFDocument, rgb } from "pdf-lib";
 import { FraudDetectionPanel } from "@/components/FraudDetectionPanel";
 import { analyzeForFraud, recordIssuance, type FraudAnalysisResult } from "@/services/fraudDetection";
 import { stakeService, type BondRecord } from "@/services/stakeContract";
-import { dbGetIssuanceByWallet, dbInsertPendingClaim, type IssuanceRecord } from "@/lib/db";
+import { dbGetIssuanceByWallet, dbInsertPendingClaim, dbCheckDuplicateHash, type IssuanceRecord } from "@/lib/db";
 import { supabase } from "@/lib/supabase";
 import { createNotification, writeAuditLog } from "@/services/notificationService";
 import { sendCredentialIssuedEmail } from "@/services/emailService";
@@ -37,6 +37,8 @@ export function InstitutionDashboard() {
   const [bondRecord, setBondRecord] = useState<BondRecord | null>(null);
   // History state
   const [history, setHistory] = useState<IssuanceRecord[]>([]);
+  // Institution approval state
+  const [institutionStatus, setInstitutionStatus] = useState<'loading' | 'approved' | 'pending' | 'rejected' | 'not_registered'>('loading');
 
   const generateHash = useCallback(async (f: File) => {
     setStatus("hashing");
@@ -95,6 +97,16 @@ export function InstitutionDashboard() {
     if (!address || !hash || !owner) return;
     setStatus("submitting");
     try {
+      // ── Guard: duplicate document check ───────────────────────────────
+      const existing = await dbCheckDuplicateHash(hash);
+      if (existing) {
+        setErrorHeader(
+          `This document has already been anchored on-chain (by ${existing.issuer_wallet?.slice(0, 8) ?? "another institution"}... on ${existing.issued_at ? new Date(existing.issued_at).toLocaleDateString() : "a previous date"}). Duplicate issuance blocked.`
+        );
+        setStatus("error");
+        return;
+      }
+
       const h = await contractService.issueCertificate(hash, owner, address, sign);
       setTxId(h);
 
@@ -156,20 +168,31 @@ export function InstitutionDashboard() {
       } catch {}
 
       if (studentEmail.trim()) {
-        // Store as pending claim (student may not have account yet)
-        await dbInsertPendingClaim({
-          id: `claim-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-          student_email: studentEmail.trim().toLowerCase(),
-          student_wallet: studentWallet.trim() || undefined,
-          institution_name: institutionName,
-          credential_title: title,
-          credential_type: 'certificate',
-          issue_date: new Date().toISOString().split('T')[0],
-          tx_hash: h,
-          cert_hash: hash || undefined,
-          explorer_link: explorerLink,
-          status: 'pending',
-        });
+        // Check for duplicate pending claim (same cert_hash + student_email already pending)
+        const { data: existingClaim } = await supabase
+          .from('pending_claims')
+          .select('id')
+          .eq('cert_hash', hash || '')
+          .eq('student_email', studentEmail.trim().toLowerCase())
+          .in('status', ['pending', 'claimed'])
+          .maybeSingle();
+
+        if (!existingClaim) {
+          // Store as pending claim (student may not have account yet)
+          await dbInsertPendingClaim({
+            id: `claim-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            student_email: studentEmail.trim().toLowerCase(),
+            student_wallet: studentWallet.trim() || undefined,
+            institution_name: institutionName,
+            credential_title: title,
+            credential_type: 'certificate',
+            issue_date: new Date().toISOString().split('T')[0],
+            tx_hash: h,
+            cert_hash: hash || undefined,
+            explorer_link: explorerLink,
+            status: 'pending',
+          });
+        }
 
         // If student has a wallet, also create an in-app notification
         if (studentWallet.trim()) {
@@ -256,6 +279,24 @@ export function InstitutionDashboard() {
     }
   }, [address, txId]);
 
+  // ── Institution approval check ─────────────────────────────────────────────
+  useEffect(() => {
+    if (!address || !isConnected) { setInstitutionStatus('loading'); return; }
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from('institutions')
+          .select('status')
+          .eq('wallet_address', address)
+          .maybeSingle();
+        if (!data) setInstitutionStatus('not_registered');
+        else setInstitutionStatus(data.status as any);
+      } catch {
+        setInstitutionStatus('not_registered');
+      }
+    })();
+  }, [address, isConnected]);
+
   if (!isConnected) return (
     <div className="card max-w-xl mx-auto p-16 text-center shadow-sm relative">
       {isDemo && <button onClick={autoFillDemo} className="hidden" id="demo-btn">DEMO</button>}
@@ -267,6 +308,52 @@ export function InstitutionDashboard() {
       <h2 className="text-xl font-semibold mb-2 text-foreground tracking-tight">Wallet Disconnected</h2>
       <p className="text-sm text-foreground/50 max-w-[280px] mx-auto leading-relaxed">
         Please connect an authorized institutional wallet to anchor new states to the ledger.
+      </p>
+    </div>
+  );
+
+  // ── Approval gate ─────────────────────────────────────────────
+  if (institutionStatus === 'loading') return (
+    <div className="card max-w-xl mx-auto p-16 text-center">
+      <div className="flex items-center justify-center gap-3 text-foreground/50">
+        <div className="w-5 h-5 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+        <span className="text-sm">Verifying institution status…</span>
+      </div>
+    </div>
+  );
+
+  if (institutionStatus === 'not_registered') return (
+    <div className="card max-w-xl mx-auto p-16 text-center shadow-sm">
+      <div className="h-16 w-16 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-5 border border-amber-500/20">
+        <LockKeyhole size={28} className="text-amber-500" strokeWidth={1.5} />
+      </div>
+      <h2 className="text-xl font-semibold mb-2 text-foreground">Institution Not Registered</h2>
+      <p className="text-sm text-foreground/50 max-w-[300px] mx-auto leading-relaxed">
+        This wallet is not registered as an institution. Please go to the <strong>Institution Registry</strong> page to register and await approval before issuing credentials.
+      </p>
+    </div>
+  );
+
+  if (institutionStatus === 'pending') return (
+    <div className="card max-w-xl mx-auto p-16 text-center shadow-sm">
+      <div className="h-16 w-16 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-5 border border-amber-500/20">
+        <LockKeyhole size={28} className="text-amber-500" strokeWidth={1.5} />
+      </div>
+      <h2 className="text-xl font-semibold mb-2 text-foreground">Awaiting Approval</h2>
+      <p className="text-sm text-foreground/50 max-w-[300px] mx-auto leading-relaxed">
+        Your institution registration is currently <strong className="text-amber-500">under review</strong>. You will be notified once a platform admin approves your institution. You cannot issue credentials until approved.
+      </p>
+    </div>
+  );
+
+  if (institutionStatus === 'rejected') return (
+    <div className="card max-w-xl mx-auto p-16 text-center shadow-sm">
+      <div className="h-16 w-16 rounded-2xl bg-rose-500/10 flex items-center justify-center mx-auto mb-5 border border-rose-500/20">
+        <LockKeyhole size={28} className="text-rose-500" strokeWidth={1.5} />
+      </div>
+      <h2 className="text-xl font-semibold mb-2 text-foreground">Registration Rejected</h2>
+      <p className="text-sm text-foreground/50 max-w-[300px] mx-auto leading-relaxed">
+        Your institution registration was <strong className="text-rose-500">rejected</strong> by the platform. Please contact support or re-register with valid credentials.
       </p>
     </div>
   );
