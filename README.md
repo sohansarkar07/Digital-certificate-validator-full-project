@@ -1,210 +1,771 @@
 <div align="center">
-  <h1>Digital Certificate Validator</h1>
-  <p><b>Blockchain-Based Certificate Issuance & Verification on Stellar</b></p>
 
-  <p>🌐 <strong>Live Application: <a href="https://digital-certificate-validator-full-phi.vercel.app/">https://digital-certificate-validator-full-phi.vercel.app/</a></strong></p>
-  
-  <p>
-    <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
-      <img src="https://img.shields.io/badge/Demo_Video-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
-    </a>
-  </p>
+# 🛡️ CertifyVal
+### **Global Decentralized Credential Trust Platform**
 
-  <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
-  <img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
-  <img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
-  <img src="https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=CI/CD%20Tests&style=for-the-badge" />
-  <img src="https://img.shields.io/badge/License-MIT-339933?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Level-Blue_Belt-blue?style=for-the-badge" />
-  
-  <br><br>
+> *Eliminating certificate fraud through blockchain immutability, AI fraud detection, and cryptographic verification — powered by Stellar Soroban*
 
-  <img width="100%" alt="Issuance Dashboard Screenshot" src="assets/issuance-portal.png" />
-  
-  <br><br>
+<p>🌐 <strong>Live Application: <a href="https://digital-certificate-validator-full-phi.vercel.app/">https://digital-certificate-validator-full-phi.vercel.app/</a></strong></p>
 
-  <img width="100%" alt="Verify Portal Screenshot" src="assets/verify-portal.png" />
+<p>
+  <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
+    <img src="https://img.shields.io/badge/Demo_Video-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
+  </a>
+</p>
 
-  <br><br>
+<img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
+<img src="https://img.shields.io/badge/Stellar-E84142?style=for-the-badge&logo=stellar&logoColor=white" />
+<img src="https://img.shields.io/badge/Soroban-3178C6?style=for-the-badge&logo=web3.js&logoColor=white" />
+<img src="https://img.shields.io/badge/Next.js_15-black?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+<img src="https://img.shields.io/badge/Groq_AI-FF6B35?style=for-the-badge&logo=openai&logoColor=white" />
+<img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+<img src="https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=CI%2FCD&style=for-the-badge" />
+<img src="https://img.shields.io/badge/License-MIT-339933?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Level-Blue_Belt_⭐-0077FF?style=for-the-badge" />
 
-  <i>Digital Certificate Validator allows institutions to issue and verify tamper-proof certificates using secure cryptographic hashes on the Stellar Soroban network.</i>
+<br><br>
 
-  <br><br>
+<img width="100%" alt="Issuance Dashboard Screenshot" src="assets/issuance-portal.png" />
 
-  <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">Demo Video</a> • 
-  <a href="#problem-statement">Problem</a> • 
-  <a href="#solution">Solution</a> • 
-  <a href="#production-ready">Production Readiness</a> • 
-  <a href="#cicd">CI/CD</a> • 
-  <a href="#mobile">Mobile</a> • 
-  <a href="#contract">Live Transaction</a> • 
-  <a href="#architecture">Architecture</a> • 
-  <a href="#ui-refresh">UI Refresh</a> • 
-  <a href="#plan">Pipeline</a> • 
-  <a href="#setup">Quick Start</a>
+<br><br>
+
+<img width="100%" alt="Verify Portal Screenshot" src="assets/verify-portal.png" />
+
+<br><br>
+
+[Demo Video](https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk) •
+[Problem](#problem-statement) •
+[Solution](#solution) •
+[Architecture](#architecture) •
+[AI Fraud Engine](#ai-fraud-detection) •
+[Blockchain](#blockchain-architecture) •
+[Database Schema](#database-schema) •
+[User Flow](#user-flow) •
+[Roadmap](#roadmap) •
+[Setup](#setup)
+
 </div>
 
 ---
 
-<a name="ui-refresh"></a>
-## 🌟 Enterprise UI Overhaul (v2.0)
+<a name="what-is-this"></a>
+## 📖 What Is CertifyVal?
 
-The project has undergone a massive vertical-to-horizontal layout shift, adopting a modern, high-density **Enterprise B2B Aesthetic**. 
+**CertifyVal** is a next-generation, institutional-grade **decentralized credential trust platform** built on the Stellar blockchain. It bridges the gap between the $25B+ credential fraud industry and modern cryptographic verification technology.
 
-### ✨ Key New Features
-- 🧠 **Hybrid AI Fraud Engine (NEW)**: Combines a deterministic local heuristic layer (Layer 1) with an intelligent Groq-powered Llama-3 AI pipeline (Layer 2) to analyze mass issuance patterns, detect synthetic certificates, and calculate risk scores in real-time.
-- 🌗 **Dynamic Theme Engine**: Full support for high-contrast Light and rich "True Black" Dark modes.
-- 🚀 **Real-time Verification Pipeline**: A visual terminal and step-by-step progress tracker for blockchain lookups, now augmented with an **AI Verification Summary**.
-- 📋 **On-Chain Audit Exports**: Generate authenticated `.txt` and `.png` audit logs directly from the dashboard.
-- 🔒 **Enhanced Security (Native Bytes)**: Migrated from String-based hashes to native Soroban `Bytes` for 1:1 cryptographic matching and reduced on-chain footprint.
-- 🤖 **Automated Demo Mode**: Built-in sandbox for rapid testing without requiring real testnet funds (accessible via `?demo=true`).
+Unlike simple hash-on-chain tools, CertifyVal is a **complete verification ecosystem**:
 
----
+| Capability | Description |
+|:---|:---|
+| 🏛️ **Institution Portal** | Register, get approved, and issue tamper-proof credentials on-chain |
+| 🔬 **AI Fraud Engine** | Dual-layer Groq LLM + Heuristic fraud pipeline scores every certificate |
+| 🔗 **Blockchain Ledger** | Soroban smart contracts store SHA256 hashes immutably on Stellar |
+| 🎒 **Credential Passport** | Students own a portable, shareable digital credential wallet |
+| 👔 **Employer Dashboard** | Employers bulk-verify candidates in seconds, not days |
+| 📊 **Analytics & Audit** | Real-time on-chain activity logs and exportable audit trails |
+| 📧 **Email Delivery** | OTP + credential delivery via Resend email API |
 
-## 📖 What is this?
-
-**Digital Certificate Validator** is an institutional-grade blockchain infrastructure built for the verification economy. It allows organizations to issue tamper-proof certificates instantly with minimal transaction costs on the Stellar network. Every certificate is secured by a **SHA256 cryptographic hash**, ensuring decentralized authenticity before any manual verification is needed.
-
-Give it a certificate hash like `e3b0c442...` — it automatically:
-
-1. **Checks the request** via the Stellar Soroban network.
-2. **Verifies existence** of the unique certificate hash on the immutable ledger.
-3. **Retrieves ownership** details tied to the specific hash in real-time.
-4. **Logs the verification** on-chain ensuring auditability.
-5. **Returns a valid/invalid status** once the blockchain settlement is confirmed.
+> Give it a certificate — and within **2 seconds** it tells you: *Real or Fake, and who issued it, and when, and whether the issuing institution is trusted.*
 
 ---
 
 <a name="problem-statement"></a>
 ## 🔴 Problem Statement
 
-The current landscape of digital certification is hindered by several systemic challenges:
-- **Widespread Forgery**: Standard digital formats like PDFs are easily manipulated, leading to a rise in fraudulent credentials.
-- **Verification Lag**: Validating a certificate typically requires slow, manual verification from the issuing authority.
-- **Centralized Fragility**: Reliance on centralized servers makes records vulnerable to data breaches or systemic failures.
-- **Economic Barriers**: High transaction fees on traditional blockchains often make widespread certification cost-prohibitive.
+The global credentialing system is fundamentally broken. Here is the scale of the crisis:
 
-<a name="solution"></a>
-## 🟢 The Solution
+```
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  📊 THE CREDENTIAL FRAUD CRISIS — BY THE NUMBERS           ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  • 40% of CVs contain at least one significant fabrication  ║
+  ║  • $25B+ lost annually to credential fraud worldwide        ║
+  ║  • Average manual verification time: 3–10 business days     ║
+  ║  • 17% of licensed professionals have fraudulent degrees    ║
+  ║  • Zero cryptographic verification in 95% of institutions   ║
+  ╚══════════════════════════════════════════════════════════════╝
+```
 
-**Digital Certificate Validator** leverages the Stellar Soroban network to provide a secure, scalable, and instant verification framework:
-- **Immutable Trust**: Each certificate is hashed (SHA256) and recorded on the Stellar ledger, creating a permanent, unalterable record.
-- **Real-Time Audits**: Verification happens instantly via smart contract calls, removing the need for manual institutional intervention.
-- **Privacy by Design**: By storing only cryptographic fingerprints on-chain, we ensure data privacy while maintaining absolute authenticity.
-- **Cost-Effective Scaling**: Optimized Soroban storage allows for high-volume issuance at a fraction of the cost compared to other L1 blockchains.
+### Core Pain Points
+
+**1. 🖨️ Forgery is Trivially Easy**
+Standard certificates (PDF/PNG/paper) can be edited in minutes using free software. There is no cryptographic signature, no tamper detection, no way for an employer to distinguish real from fake.
+
+**2. 🐌 Verification is Painfully Slow**
+Current process: send email → wait for response → manually compare data → no guarantee of response. This takes 3–10 days per candidate.
+
+**3. 🏚️ Centralized Fragility**
+Institution servers go down. Universities close. HR records get deleted. When the central authority disappears, so does your credential's verifiability.
+
+**4. 💸 Blockchain Economics Have Been a Barrier**
+Ethereum gas fees (up to $50/tx) made blockchain-based credentialing commercially unviable for mass adoption.
+
+**5. 🔒 Data Privacy Conflicts**
+GDPR compliance and student data privacy make it difficult to publish credential data openly, creating a tension between transparency and privacy.
 
 ---
 
-## 🔑 Why Soroban?
+<a name="solution"></a>
+## 🟢 The Solution — CertifyVal
 
-> **The secret sauce for high-performance certificate validation**
+CertifyVal solves each problem with a targeted, elegantly designed solution:
 
-### The Problem
-Traditional methods of issuing digital certificates on the blockchain often face:
-- **High gas fees** that make mass-issuance impossible.
-- **Slow confirmation times** leading to poor user experience.
-- **Complex storage logic** for large-scale certificate mappings.
-- **Privacy concerns** with storing sensitive data directly on-chain.
+| Problem | CertifyVal's Solution |
+|:---|:---|
+| PDF Forgery | SHA256 hash stored immutably on Stellar — hash mismatch = detected fraud |
+| Slow verification | Sub-second smart contract lookups — instant cryptographic proof |
+| Centralized fragility | Decentralized Stellar ledger — no single point of failure |
+| High gas fees | Soroban: ~$0.000001/tx — mass issuance becomes economically viable |
+| Data privacy | Only the hash fingerprint is stored on-chain — zero PII on blockchain |
+| Fraudulent institutions | On-chain Institution Registry with admin approval + stake-based accountability |
 
-### Why We Chose Soroban
+### The CertifyVal Difference
 
-| Feature | Traditional Chains | With Soroban |
-|:--- |:--- |:--- |
-| **Transaction Fees** | High/Unpredictable | ✅ **Near-Zero & Predictable** |
-| **Execution Speed** | Seconds to Minutes | ✅ **Local-speed Sub-second** |
-| **Type Safety** | Varies by Language | ✅ **Rust-based Type Safety** |
-| **Storage Model** | Expensive/Monolithic | ✅ **Optimized Instance Storage** |
-| **Ecosystem** | Fragmented | ✅ **Unified Stellar Network** |
+```
+  Traditional System:         CertifyVal System:
+  ┌──────────────┐            ┌──────────────────────────────┐
+  │ PDF File     │            │ SHA256(certificate_data)     │
+  │ Easy to edit │     →      │ + Soroban On-chain Proof     │
+  │ No proof     │            │ + AI Fraud Score             │
+  └──────────────┘            │ + Institution Trust Score    │
+                              └──────────────────────────────┘
+       FORGEABLE                    CRYPTOGRAPHICALLY SEALED
+```
 
-### Soroban Features We Use
-- **`instance()` Storage** — Efficiently maintains the persistent certificate-to-owner mapping.
-- **`SHA256` Hashing** — Leveraging Soroban's native capabilities for secure validation.
-- **`symbol_short!()`** — Optimizing on-chain memory by using compact storage identifiers.
-- **`Env` SDK** — Direct interaction with the global ledger state with minimal overhead.
+---
+
+<a name="why-soroban"></a>
+## 🔑 Why Soroban? — The Technical Case
+
+> **Soroban is not just a blockchain — it's the perfect host for a trust protocol.**
+
+### Competitive Analysis
+
+| Feature | Ethereum | Solana | Cardano | **Stellar Soroban** |
+|:---|:---:|:---:|:---:|:---:|
+| **Tx Fee (avg)** | $5–50 | $0.001 | $0.15 | ✅ **$0.000001** |
+| **Confirmation** | 12–60s | 400ms | 20s | ✅ **<5s** |
+| **Language** | Solidity | Rust | Haskell | ✅ **Rust** |
+| **Type Safety** | Medium | High | High | ✅ **Highest** |
+| **WASM Runtime** | ❌ | ❌ | ✅ | ✅ |
+| **Built-in Auth** | ❌ | ❌ | ❌ | ✅ **`require_auth`** |
+| **Storage Model** | Expensive | Rent-based | UTXO | ✅ **Optimized Instance** |
+| **Formal Verification** | Limited | Limited | ✅ | ✅ |
+
+### Soroban-Specific Features We Leverage
+
+```rust
+// 1. INSTANCE STORAGE — Persistent, efficient certificate mapping
+env.storage().instance().set(&cert_hash, &owner);
+
+// 2. NATIVE AUTHENTICATION — Cryptographic wallet authorization
+institution_wallet.require_auth();
+
+// 3. SYMBOL MACROS — Compact on-chain key storage
+symbol_short!("ISSUE")   // 8-byte max compressed key
+
+// 4. EVENTS — Real-time notification system for indexers
+env.events().publish((symbol_short!("ISSUE"), cert_hash), owner);
+
+// 5. BYTES TYPE — Native SHA256 hash storage (no string padding)
+cert_hash: Bytes  // Exact 32-byte match, no encoding overhead
+```
 
 ---
 
 <a name="architecture"></a>
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
-### High-Level Flow
+### High-Level Platform Overview
 
 ```mermaid
-graph TD
-    A["Blockchain (Stellar Testnet)"]
-    B(["User / Client"])
-    
-    subgraph Execution_Flow ["Execution Flow"]
-        C["Digital Certificate Validator<br/>Soroban Smart Contract"]
-        D["Hash Verification Engine"]
-        E{Check Ledger}
-        F["Contract Instance Storage"]
-        G["Certificate Metadata"]
+graph TB
+    subgraph CLIENT["🖥️ Client Layer — Next.js 15"]
+        UI["React Components"]
+        WALLET["Freighter Wallet\nWalletConnect"]
+        SDK["Stellar SDK"]
     end
 
-    B ---|1. Request / 5. Result| C
-    C ---|2. Verify Certificate| D
-    D ---|3. Query Storage| E
-    E ---|Found| F
-    E ---|Owner Info| G
-```
+    subgraph AI["🤖 AI Layer — Fraud Detection"]
+        HEURISTIC["Layer 1: Heuristic\nEngine (local)"]
+        GROQ["Layer 2: Groq AI\nLlama-3 70B"]
+        RISK["Risk Score\nAggregator"]
+    end
 
-The architecture follows a clean decentralized flow:
-1. **Institution**: Generates the certificate (PDF/Image) and computes its **SHA256 hash**.
-2. **Smart Contract**: The institution calls `issue_certificate` to store the hash and owner's name on the Stellar ledger.
-3. **Stellar Blockchain**: Acts as the immutable source of truth for all certificate hashes.
-4. **Verifier**: A user or third-party enters the certificate hash; the contract verifies its existence and returns the owner details.
+    subgraph BACKEND["⚙️ Backend Layer — Next.js API Routes"]
+        OTP_API["POST /api/email/otp"]
+        CRED_API["POST /api/email/credential"]
+        RESEND["Resend Email API"]
+    end
+
+    subgraph DB["🗄️ Database Layer — Supabase PostgreSQL"]
+        CREDS_TABLE["credentials table"]
+        INSTS_TABLE["institutions table"]
+        AUDIT_TABLE["audit_logs table"]
+        PERMS_TABLE["permissions table"]
+    end
+
+    subgraph BLOCKCHAIN["⛓️ Blockchain Layer — Stellar Soroban"]
+        CERT_CONTRACT["📜 Certificate Contract\nCC36B2WF..."]
+        INST_CONTRACT["🏛️ Institution Registry\nContract"]
+        STAKE_CONTRACT["💰 Stake Pool Contract"]
+    end
+
+    subgraph STELLAR["🌐 Stellar Network"]
+        TESTNET["Stellar Testnet\nHorizon RPC"]
+        LEDGER["Immutable Ledger\nGlobal State"]
+    end
+
+    CLIENT --> AI
+    CLIENT --> BACKEND
+    CLIENT --> BLOCKCHAIN
+    AI --> RISK
+    BACKEND --> RESEND
+    BACKEND --> DB
+    BLOCKCHAIN --> STELLAR
+    STELLAR --> LEDGER
+
+    classDef clientStyle fill:#1e3a5f,stroke:#4a9eff,color:#fff
+    classDef aiStyle fill:#2d1b69,stroke:#9b59b6,color:#fff
+    classDef backendStyle fill:#1a3a2a,stroke:#2ecc71,color:#fff
+    classDef dbStyle fill:#3a1a0a,stroke:#e67e22,color:#fff
+    classDef blockchainStyle fill:#2a1a3a,stroke:#e84142,color:#fff
+    classDef stellarStyle fill:#1a2a3a,stroke:#3498db,color:#fff
+```
 
 ---
 
-## 🛠️ Tech Stack & Tools
+<a name="user-flow"></a>
+## 👤 User Flow Architecture
 
-- **[Rust](https://doc.rust-lang.org/book/)**: Core programming language for the smart contract.
-- **[Soroban-SDK](https://developers.stellar.org/docs/tools/sdks/library)**: Framework for Stellar smart contracts.
-- **[Next.js 15+](https://nextjs.org/)**: React framework for the modern enterprise frontend.
-- **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS for the rapid, clean design system.
-- **[Framer Motion](https://www.framer.com/motion/)**: For smooth, high-end UI transitions and animations.
-- **[Stellar CLI](https://developers.stellar.org/docs/tools/developer-tools/stellar-cli)**: For building, deploying, and invoking contracts.
-- **[Stellar Explorer](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4)**: To track transactions and contract state.
-- **SHA256 Hashing**: For secure, one-way certificate fingerprinting using local crypto or Soroban native SDKs.
+### Complete End-to-End User Journey
+
+```mermaid
+flowchart TD
+    START(["🚀 User Visits CertifyVal"])
+    CONNECT["Connect Freighter Wallet"]
+    ROLE{Select Role}
+
+    subgraph INSTITUTION_FLOW["🏛️ Institution Path"]
+        I1["Register Institution\n(Name, Country, Type)"]
+        I2["Admin Approves\n(On-chain)"]
+        I3["Lock Stake Bond\n(XLM via Stake Pool)"]
+        I4["Upload Certificate\nDocument/URL"]
+        I5["AI Fraud Analysis\n(Layer 1 + 2)"]
+        I6{AI Recommendation}
+        I7["Issue Certificate\nSoroban TX"]
+        I8["Email Sent to\nRecipient via Resend"]
+    end
+
+    subgraph STUDENT_FLOW["🎓 Student / Holder Path"]
+        S1["Connect Wallet"]
+        S2["View Credential\nPassport"]
+        S3["Add Credential\n(Upload Wizard)"]
+        S4["AI Validates\nDocument"]
+        S5["Share Credential\nPublic Link / QR"]
+    end
+
+    subgraph EMPLOYER_FLOW["👔 Employer Path"]
+        E1["Enter Certificate\nHash or Scan QR"]
+        E2["Blockchain Lookup\n<2 seconds"]
+        E3["Retrieve: Owner,\nIssuer, Date, Hash"]
+        E4["AI Trust Score\nDisplayed"]
+        E5["Export Audit\nLog PDF/TXT"]
+    end
+
+    START --> CONNECT
+    CONNECT --> ROLE
+    ROLE -->|Institution| I1
+    ROLE -->|Student| S1
+    ROLE -->|Employer| E1
+
+    I1 --> I2 --> I3 --> I4 --> I5 --> I6
+    I6 -->|"✅ Proceed"| I7 --> I8
+    I6 -->|"⚠️ Risk Flagged"| I4
+
+    S1 --> S2 --> S3 --> S4 --> S5
+
+    E1 --> E2 --> E3 --> E4 --> E5
+
+    classDef startStyle fill:#0f4c75,stroke:#1b6ca8,color:#fff,rx:20px
+    classDef institutionStyle fill:#1a3a2a,stroke:#2ecc71,color:#fff
+    classDef studentStyle fill:#2d1b69,stroke:#9b59b6,color:#fff
+    classDef employerStyle fill:#3a1a0a,stroke:#e67e22,color:#fff
+```
+
+---
+
+<a name="ai-fraud-detection"></a>
+## 🤖 AI Fraud Detection Pipeline
+
+CertifyVal uses a **dual-layer hybrid AI system** to detect fraudulent credentials before they are issued on-chain.
+
+### Architecture Overview
+
+```mermaid
+flowchart TD
+    INPUT(["📄 Incoming Certificate\nDocument / URL / Text"])
+
+    subgraph LAYER1["⚡ Layer 1 — Heuristic Engine (Local, <10ms)"]
+        H1["📊 Pattern Analysis\nTitle/Institution keyword match"]
+        H2["🔢 Numeric Validation\nDate ranges, score ranges"]
+        H3["📋 Template Detection\nKnown fake template fingerprints"]
+        H4["🔗 URL Verification\nInstitution domain validation"]
+        H5["📏 Format Scoring\nSuspicious length/structure checks"]
+        HSCORE["Heuristic Risk Score\n(0-100)"]
+    end
+
+    subgraph LAYER2["🧠 Layer 2 — Groq AI Engine (LLM, ~200ms)"]
+        G1["🔍 Context Analysis\nGroq Llama-3 70B inference"]
+        G2["🏫 Institution Verification\nCross-reference known institutions"]
+        G3["📝 Language Analysis\nAI detects machine-generated text"]
+        G4["🎯 Anomaly Detection\nOutlier score vs credential type"]
+        GSCORE["AI Confidence Score\n(0-100)"]
+    end
+
+    subgraph AGGREGATOR["📊 Risk Score Aggregator"]
+        WEIGHT["Weighted Combination\n40% Heuristic + 60% AI"]
+        FINAL["Final Risk Score\n(0-100)"]
+        DECISION{"Risk\nThreshold"}
+    end
+
+    subgraph OUTPUT["🚦 Decision Output"]
+        PROCEED["✅ PROCEED\nScore < 30\nLow Risk"]
+        REVIEW["⚠️ MANUAL REVIEW\nScore 30-70\nMedium Risk"]
+        BLOCK["🚫 BLOCK\nScore > 70\nHigh Risk — Likely Fraud"]
+    end
+
+    INPUT --> H1
+    INPUT --> H2
+    INPUT --> H3
+    INPUT --> H4
+    INPUT --> H5
+    H1 & H2 & H3 & H4 & H5 --> HSCORE
+
+    INPUT --> G1
+    G1 --> G2 --> G3 --> G4 --> GSCORE
+
+    HSCORE --> WEIGHT
+    GSCORE --> WEIGHT
+    WEIGHT --> FINAL --> DECISION
+
+    DECISION -->|"Risk < 30"| PROCEED
+    DECISION -->|"30 ≤ Risk ≤ 70"| REVIEW
+    DECISION -->|"Risk > 70"| BLOCK
+
+    classDef layer1Style fill:#1a3a2a,stroke:#2ecc71,color:#fff
+    classDef layer2Style fill:#2d1b69,stroke:#9b59b6,color:#fff
+    classDef aggStyle fill:#3a1a0a,stroke:#e67e22,color:#fff
+    classDef outputStyle fill:#1e3a5f,stroke:#4a9eff,color:#fff
+```
+
+### Heuristic Engine — Detection Rules
+
+```mermaid
+graph LR
+    subgraph RULES["Heuristic Rules (classificationEngine.ts)"]
+        R1["🔴 Unrealistic Dates\ne.g. graduation in future"]
+        R2["🔴 Impossible Scores\ne.g. GPA > 4.0, %age > 100"]
+        R3["🔴 Fake Institution Names\nKeyword blocklist match"]
+        R4["🟡 Generic Template Text\n'This certifies that...'"]
+        R5["🟡 Suspicious URL Patterns\nIP-based or free domain hosts"]
+        R6["🟢 Known Good Patterns\nUniversity domain whitelist"]
+    end
+
+    CERT["Certificate\nInput"] --> R1 & R2 & R3 & R4 & R5 & R6
+    R1 --> SCORE["Risk Score\nΣ weighted flags"]
+    R2 --> SCORE
+    R3 --> SCORE
+    R4 --> SCORE
+    R5 --> SCORE
+    R6 --> SCORE
+```
+
+### Groq AI Integration
+
+```mermaid
+sequenceDiagram
+    participant FE as Frontend
+    participant GROQ as Groq API<br/>(Llama-3 70B)
+    participant AGG as Risk Aggregator
+
+    FE->>GROQ: POST /v1/chat/completions
+    Note over FE,GROQ: Prompt: "Analyze this credential for authenticity.<br/>Certificate text: {certificateData}<br/>Return JSON: {riskScore, confidence, flags[]}"
+    GROQ-->>FE: {riskScore: 23, confidence: 0.94, flags: []}
+    FE->>AGG: Combine with Heuristic score
+    AGG-->>FE: Final recommendation: PROCEED
+```
+
+---
+
+<a name="blockchain-architecture"></a>
+## ⛓️ Blockchain Architecture
+
+### Smart Contract Ecosystem
+
+```mermaid
+graph TB
+    subgraph CONTRACTS["Soroban Smart Contracts"]
+        direction TB
+        CERT["📜 Certificate Contract\nCC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4"]
+        INST["🏛️ Institution Registry Contract"]
+        STAKE["💰 Stake Pool Contract"]
+    end
+
+    subgraph CERT_FUNCS["Certificate Contract Functions"]
+        CF1["issue_certificate(env, hash, owner, type)"]
+        CF2["verify_certificate(env, hash) → bool"]
+        CF3["get_owner(env, hash) → String"]
+        CF4["revoke_certificate(env, hash)"]
+        CF5["issue_typed(env, hash, owner, type)"]
+    end
+
+    subgraph INST_FUNCS["Institution Registry Functions"]
+        IF1["register_institution(id, name, country, wallet, website, type)"]
+        IF2["approve_institution(id)"]
+        IF3["reject_institution(id)"]
+        IF4["suspend_institution(id)"]
+        IF5["record_verification(id)"]
+        IF6["get_trust_score(id) → u32"]
+    end
+
+    subgraph STAKE_FUNCS["Stake Pool Functions"]
+        SF1["lock_bond(cert_hash, staker, token)"]
+        SF2["release_bond(cert_hash)"]
+        SF3["challenge_bond(cert_hash, challenger)"]
+        SF4["slash_bond(cert_hash)"]
+        SF5["get_bond_status(cert_hash)"]
+    end
+
+    CERT --> CERT_FUNCS
+    INST --> INST_FUNCS
+    STAKE --> STAKE_FUNCS
+
+    classDef contractStyle fill:#2a1a3a,stroke:#e84142,color:#fff,rx:8px
+    classDef funcStyle fill:#1e1e2e,stroke:#555,color:#ccc,rx:4px
+```
+
+### Certificate Issuance Flow (On-Chain)
+
+```mermaid
+sequenceDiagram
+    participant INST as 🏛️ Institution
+    participant FE as 🖥️ Frontend
+    participant WALLET as 💳 Freighter Wallet
+    participant SOROBAN as ⛓️ Soroban Contract
+    participant LEDGER as 📖 Stellar Ledger
+
+    INST->>FE: Upload certificate document
+    FE->>FE: Compute SHA256 hash locally
+    FE->>FE: Run AI fraud analysis
+    FE->>WALLET: Request transaction signing
+    WALLET->>INST: Prompt: "Sign issue_certificate tx?"
+    INST->>WALLET: ✅ Approve
+    WALLET->>SOROBAN: invoke issue_certificate(hash, owner, type)
+    SOROBAN->>SOROBAN: institution.require_auth()
+    SOROBAN->>SOROBAN: storage().instance().set(hash, owner)
+    SOROBAN->>LEDGER: Persist state change
+    SOROBAN->>SOROBAN: events().publish(("ISSUE", hash), owner)
+    SOROBAN-->>FE: TransactionResult { success, txHash }
+    FE-->>INST: ✅ Certificate issued — txHash: abc123...
+```
+
+### Verification Flow (On-Chain)
+
+```mermaid
+sequenceDiagram
+    participant EMP as 👔 Employer / Verifier
+    participant FE as 🖥️ Frontend
+    participant SOROBAN as ⛓️ Soroban Contract
+    participant AI as 🤖 AI Engine
+    participant LEDGER as 📖 Stellar Ledger
+
+    EMP->>FE: Enter certificate hash
+    FE->>SOROBAN: invoke verify_certificate(hash)
+    SOROBAN->>LEDGER: storage().instance().get(hash)
+    LEDGER-->>SOROBAN: owner: "Jane Doe"
+    SOROBAN-->>FE: { verified: true, owner: "Jane Doe" }
+    FE->>SOROBAN: invoke get_institution_trust_score(issuer)
+    SOROBAN-->>FE: { trust_score: 87, status: Approved }
+    FE->>AI: Compute display risk indicators
+    AI-->>FE: { riskScore: 12, recommendation: "Genuine" }
+    FE-->>EMP: ✅ VERIFIED — Jane Doe — MIT — Trust: 87/100
+```
+
+### Trust Score Calculation
+
+```mermaid
+graph LR
+    subgraph INPUTS["Trust Score Inputs"]
+        V["✅ Verifications\nrecorded on-chain"]
+        D["❌ Disputes\nraised vs institution"]
+        I["📜 Certificates Issued\ntotal volume"]
+        A["⏱️ Account Age\ndays since approval"]
+    end
+
+    subgraph FORMULA["Trust Formula"]
+        F["trust_score = base(70)\n+ verify_bonus(verifications)\n- dispute_penalty(disputes * 15)\n+ longevity_bonus(age_days / 30)"]
+    end
+
+    subgraph OUTPUT["Output"]
+        T["Trust Score: 0–100\n≥ 80: ✅ Highly Trusted\n50–79: 🟡 Trusted\n< 50: 🔴 Low Trust"]
+    end
+
+    INPUTS --> FORMULA --> OUTPUT
+```
+
+---
+
+<a name="database-schema"></a>
+## 🗄️ Database Schema
+
+### Supabase PostgreSQL Schema — Entity Relationship
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        CERTIFYVAL DATABASE SCHEMA                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│  ┌──────────────────────────┐      ┌──────────────────────────────┐     │
+│  │       credentials         │      │         institutions          │     │
+│  ├──────────────────────────┤      ├──────────────────────────────┤     │
+│  │ id            TEXT  PK   │      │ id           TEXT  PK        │     │
+│  │ wallet_address TEXT  FK  │─────▶│ wallet_address TEXT          │     │
+│  │ title         TEXT       │      │ name          TEXT           │     │
+│  │ institution   TEXT       │      │ country       TEXT           │     │
+│  │ type          TEXT       │      │ website       TEXT           │     │
+│  │ date          DATE       │      │ type          TEXT           │     │
+│  │ cert_hash     TEXT       │      │ status        TEXT           │     │
+│  │ description   TEXT       │      │ trust_score   INT  default 0 │     │
+│  │ skills        TEXT[]     │      │ verifications BIGINT         │     │
+│  │ category      TEXT       │      │ disputes      BIGINT         │     │
+│  │ credential_type TEXT     │      │ created_at    TIMESTAMP      │     │
+│  │ evidence_type TEXT       │      └──────────────────────────────┘     │
+│  │ upload_type   TEXT       │                   │                        │
+│  │ source_platform TEXT     │                   │                        │
+│  │ is_public     BOOL       │      ┌────────────▼─────────────────┐     │
+│  │ share_token   TEXT       │      │         audit_logs            │     │
+│  │ ai_risk_score FLOAT      │      ├──────────────────────────────┤     │
+│  │ ai_classification TEXT   │      │ id           UUID   PK       │     │
+│  │ file_url      TEXT       │      │ action       TEXT            │     │
+│  │ tx_hash       TEXT       │      │ wallet_address TEXT          │     │
+│  │ created_at    TIMESTAMP  │      │ credential_id TEXT   FK      │     │
+│  └──────────────────────────┘      │ institution_id TEXT          │     │
+│             │                      │ metadata     JSONB           │     │
+│             │                      │ created_at   TIMESTAMP       │     │
+│  ┌──────────▼───────────────┐      └──────────────────────────────┘     │
+│  │   credential_permissions  │                                            │
+│  ├──────────────────────────┤      ┌──────────────────────────────┐     │
+│  │ id            UUID  PK   │      │     email_deliveries          │     │
+│  │ credential_id TEXT  FK   │      ├──────────────────────────────┤     │
+│  │ granted_to    TEXT       │      │ id           UUID   PK       │     │
+│  │ granted_by    TEXT       │      │ recipient    TEXT            │     │
+│  │ permission_type TEXT     │      │ type         TEXT            │     │
+│  │ expires_at    TIMESTAMP  │      │ credential_id TEXT           │     │
+│  │ created_at    TIMESTAMP  │      │ status       TEXT            │     │
+│  └──────────────────────────┘      │ sent_at      TIMESTAMP       │     │
+│                                    └──────────────────────────────┘     │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Data Flow — Supabase RLS Policies
+
+```mermaid
+graph TD
+    subgraph RLS["Row Level Security Policies"]
+        P1["📖 SELECT credentials\nWHERE wallet_address = auth.uid()\nOR is_public = true"]
+        P2["✏️ INSERT credentials\nWHERE wallet_address = auth.uid()"]
+        P3["🗑️ DELETE credentials\nWHERE wallet_address = auth.uid()"]
+        P4["📖 SELECT institutions\nAll users can view approved institutions"]
+        P5["✏️ INSERT institutions\nRequires wallet_address match"]
+    end
+
+    USER["👤 Authenticated\nWallet User"] --> P1
+    USER --> P2
+    USER --> P3
+    PUBLIC["🌐 Public"] --> P4
+    USER --> P5
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Version | Purpose |
+|:---|:---|:---|
+| **Next.js** | 15.x | React Framework with App Router, API Routes |
+| **TypeScript** | 5.x | Type-safe frontend development |
+| **Tailwind CSS** | 3.x | Utility-first styling system |
+| **Framer Motion** | 11.x | Fluid animations and micro-interactions |
+| **Spline 3D** | Latest | Interactive 3D hero elements |
+
+### Blockchain
+| Technology | Version | Purpose |
+|:---|:---|:---|
+| **Rust** | 1.75+ | Soroban smart contract language |
+| **Soroban SDK** | 25.x | Stellar smart contract framework |
+| **Stellar SDK (JS)** | Latest | Frontend blockchain interactions |
+| **Freighter API** | Latest | Browser wallet integration |
+
+### Backend & Database
+| Technology | Version | Purpose |
+|:---|:---|:---|
+| **Supabase** | Latest | PostgreSQL + Auth + Storage + RLS |
+| **Resend** | Latest | Transactional email delivery |
+| **Groq API** | Latest | LLM inference (Llama-3 70B) |
+
+### DevOps
+| Technology | Purpose |
+|:---|:---|
+| **GitHub Actions** | CI/CD — auto `cargo test` on every push |
+| **Vercel** | Frontend deployment with preview URLs |
+| **Stellar CLI** | Contract build, deploy, invoke |
 
 ### 💳 Supported Wallets
-The CertifyVal suite integrates with the following Stellar wallets:
-- **Freighter Wallet** (Recommended)
-- **Albedo** (Web-based)
+- **Freighter Wallet** ⭐ (Recommended — full feature support)
+- **Albedo** (Web-based signing)
 - **xBull Wallet**
-- **MetaMask** (via Official Stellar Snap)
-- **LOBSTR** (Manual transaction signature)
+- **LOBSTR** (Manual signature flow)
+
+---
+
+<a name="vision"></a>
+## 🎯 Vision & Use Cases
+
+### Vision
+
+> *"A world where every credential — from a school certificate to a medical license — can be verified in under 2 seconds, by anyone, anywhere, for free."*
+
+CertifyVal's mission is to become the **global trust layer for human credentials** — the way SSL/TLS became the trust layer for internet data. We aim to make credential fraud as technically impossible as forging a cryptographic signature.
+
+### Use Cases by Sector
+
+```mermaid
+mindmap
+  root(("🛡️ CertifyVal\nUse Cases"))
+    Education
+      University Degrees
+      Online Course Certificates
+      Professional Certifications
+      Language Proficiency Tests
+    Healthcare
+      Medical Licenses
+      Nursing Credentials
+      Specialist Certifications
+      Drug Trial Participation
+    Finance
+      CPA / CFA Certifications
+      AML Compliance Training
+      Trading Licenses
+      Advisor Credentials
+    Government
+      Professional Licenses
+      Immigration Documents
+      Security Clearances
+      Municipal Permits
+    Corporate
+      Employee Background Checks
+      Vendor Compliance Verification
+      Training Completion Records
+      ISO Certifications
+    Web3
+      DAO Governance Credentials
+      Hackathon Winner Proofs
+      Developer Skill NFTs
+      On-chain CVs
+```
+
+### Market Opportunity
+
+| Market Segment | TAM | CertifyVal's Entry Point |
+|:---|:---|:---|
+| Credential Verification Software | $1.8B | B2B Institution subscriptions |
+| Background Screening | $4.2B | Employer API access |
+| EdTech Platform Integrations | $12B | University partnerships |
+| Blockchain Identity | $3.7B | Web3 DID standard |
+| **Total Addressable Market** | **$21.7B** | **Unified trust protocol** |
+
+---
+
+<a name="architecture-pipeline"></a>
+## 🔄 Complete Platform Pipeline
+
+```mermaid
+graph TB
+    subgraph INGESTION["📥 Data Ingestion"]
+        DOC["Certificate Document\n(PDF / Image / URL)"]
+        TEXT["Extracted Text\n(OCR / manual entry)"]
+        META["Metadata\n(Issuer, date, type)"]
+    end
+
+    subgraph HEURISTIC["⚡ Layer 1 Heuristic Processing"]
+        PAT["Pattern Matcher\n(classificationEngine.ts)"]
+        FRAUD["Fraud Rule Engine\n(fraudEngine.ts)"]
+        HEUR_OUT["Heuristic Score\n+ Flag List"]
+    end
+
+    subgraph LLM["🧠 Layer 2 LLM Processing"]
+        GROQ_REQ["Groq API Request\n(groqService.ts)"]
+        LLM_PARSE["LLM Response Parser\n(heuristicEngine.ts)"]
+        LLM_OUT["AI Score\n+ Reasoning"]
+    end
+
+    subgraph AGGREGATION["📊 Score Aggregation"]
+        COMBINE["Weighted Combination\n(40% + 60%)"]
+        THRESHOLD["Threshold Classifier"]
+        DECISION["PROCEED / REVIEW / BLOCK"]
+    end
+
+    subgraph BLOCKCHAIN_PIPE["⛓️ Blockchain Pipeline"]
+        HASH["SHA256(document)\nLocal computation"]
+        SIGN["Wallet Signature\nFreighter SDK"]
+        TX["Soroban TX Construction\nStellar SDK"]
+        SUBMIT["Submit to Horizon RPC"]
+        CONFIRM["Transaction Confirmed\n+ Event emitted"]
+    end
+
+    subgraph NOTIFICATION["📧 Notification Pipeline"]
+        OTP["OTP Generation\n/api/email/otp"]
+        CRED_EMAIL["Credential Email\n/api/email/credential"]
+        RESEND_OUT["Resend API\nEmail Delivery"]
+    end
+
+    subgraph STORAGE["💾 Storage Pipeline"]
+        SUPABASE_DB["Supabase PostgreSQL\nCredential records"]
+        SUPABASE_STORAGE["Supabase Storage\nDocument files"]
+        LOCAL_CACHE["React State\nClient-side cache"]
+    end
+
+    DOC --> TEXT --> PAT & GROQ_REQ
+    META --> PAT
+    PAT --> FRAUD --> HEUR_OUT
+    GROQ_REQ --> LLM_PARSE --> LLM_OUT
+    HEUR_OUT & LLM_OUT --> COMBINE --> THRESHOLD --> DECISION
+    DECISION -->|"✅ PROCEED"| HASH
+    HASH --> SIGN --> TX --> SUBMIT --> CONFIRM
+    CONFIRM --> OTP --> CRED_EMAIL --> RESEND_OUT
+    CONFIRM --> SUPABASE_DB
+    DOC --> SUPABASE_STORAGE
+    CONFIRM --> LOCAL_CACHE
+```
 
 ---
 
 <a name="contract"></a>
 ## 🔗 Mission Credentials
 
-To fulfill the **Level 4 (Green Belt)** requirements, the following identifiers are provided for verification:
-
 | Category | Identifier / Link |
-| :--- | :--- |
+|:---|:---|
 | **Smart Contract ID** | `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4` |
 | **Transaction Hash** | `aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3` |
 | **Stellar Explorer** | [View Contract on Stellar.Expert](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4) |
 | **CI/CD Pipeline** | ![CI/CD Status](https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=Build%20Status&style=flat-square) |
-| **Custom Tokens** | *N/A (This mission uses native Soroban storage logic)* |
-| **Liquidity Pools** | *N/A (Direct contract-to-ledger interaction)* |
 
 > [!NOTE]
-> This project focuses on **Decentralized Identity and Credentialing**. It does not require a custom token or pool as it anchors data directly to the Stellar ledger using Soroban's native storage capabilities.
+> This project focuses on **Decentralized Identity and Credentialing**. It anchors data directly to the Stellar ledger using Soroban's native storage — no custom token or liquidity pool required.
 
----
-
-### 📸 Smart Contract Dashboard
-<img width="100%" alt="Smart Contract Dashboard screenshot" src="https://github.com/user-attachments/assets/369d60dd-2250-49b9-8a8c-7b2361dc8e9c" />
-
----
-
-## ✅ Proof of Payment
-
-> **Real transaction on Stellar Soroban Testnet**
+### Proof of Live Transaction
 
 | Field | Value |
 |:---|:---|
@@ -214,236 +775,278 @@ To fulfill the **Level 4 (Green Belt)** requirements, the following identifiers 
 | **Recipient** | `Jane Doe` |
 | **Status** | ✅ Success |
 | **Network** | Stellar Soroban (Testnet) |
-| **Processed** | 2026-03-20 07:38:43 UTC |
-| **Fee Charged** | `0.0006209 XLM` |
+| **Fee Charged** | `0.0006209 XLM` (~$0.00006 USD) |
 | **Ledger** | `1598194` |
 
 🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3)
 
-### 📸 Transaction Proof Screenshot
-<img width="100%" alt="Stellar Expert Transaction Proof" src="assets/tx-proof.png" />
-
 ---
 
-## 🧪 Unit Testing (Soroban SDK)
-
-To ensure the reliability of the certificate validation logic, we have implemented a comprehensive test suite using the Soroban SDK's test utilities.
-
-### 📸 Test Execution Proof
-*Showing 3/3 tests passing successfully*
-
-![Unit Test Results](assets/test-results.png)
-
----
-
-## 🎯 Vision & Use Cases
-
-### Vision
-Our vision is to eliminate certificate fraud and streamline the verification process across industries. By leveraging Stellar's low-cost and high-speed network, we aim to provide a globally accessible standard for digital credentials.
-
-### Key Use Cases
-- **University Certificates**: Ensuring academic credentials cannot be forged.
-- **Online Courses**: Providing verifiable proof of completion for digital learning platforms.
-- **Government Documents**: Secure verification for high-stake IDs and permits.
-- **Employee Verification**: Streamlining the background check process for employers.
-
----
-
-<a name="plan"></a>
-## 🏗️ Pipeline (Development Plan)
+## 🧪 CI/CD Pipeline
 
 ```mermaid
-graph LR
-    Start["Certificate PDF/Image"] --> Hash["Generate SHA256 Hash"]
-    Hash --> Issue["Issue Certificate<br/>Soroban Contract"]
-    Issue --> Ledger["Stellar Immutable Ledger"]
-    Ledger --> Verify["Verify Request"]
-    Verify --> Decision{Valid Hash?}
-    Decision -- Yes --> Success["Return Owner Details"]
-    Decision -- No --> Fail["Invalid Certificate"]
+graph TD
+    PUSH["git push origin main"]
+
+    subgraph GITHUB_ACTIONS["GitHub Actions: rust-test.yml"]
+        TRIGGER["Workflow Triggered"]
+        RUST_SETUP["Setup Rust Stable Toolchain"]
+        WASM["rustup target add wasm32-unknown-unknown"]
+        CACHE["Cache ~/.cargo/registry\n(dependency caching)"]
+        WORKSPACE["cd contract/"]
+        TEST["cargo test --workspace"]
+        RESULT{All Tests Pass?}
+        SUCCESS["✅ Build Green\nDeploy to Vercel"]
+        FAIL["❌ Build Red\nNotify Developer"]
+    end
+
+    subgraph TEST_SUITES["Test Suites (9 total)"]
+        T1["contract: 6 tests\n✅ verify_valid_certificate\n✅ verify_non_existent\n✅ issue_and_get_owner\n✅ admin_rbac\n✅ certificate_count_increments\n✅ revoke_certificate"]
+        T2["institution_registry: 2 tests\n✅ register_and_approve\n✅ trust_score_calculation"]
+        T3["stake_pool: 1 test\n✅ bond_amount_is_one_xlm"]
+    end
+
+    PUSH --> TRIGGER
+    TRIGGER --> RUST_SETUP --> WASM --> CACHE --> WORKSPACE --> TEST
+    TEST --> T1 & T2 & T3
+    T1 & T2 & T3 --> RESULT
+    RESULT -->|Yes| SUCCESS
+    RESULT -->|No| FAIL
 ```
 
-### 1. Smart Contract Functions
-The contract includes key functions to manage the lifecycle of a certificate:
-
-- **`issue_certificate(env: Env, cert_hash: String, owner: String)`**: 
-  - Allows an institution to register a certificate hash.
-  - Links the hash to the owner's name.
-  - Persistence: Stores data in the contract's instance storage.
-
-- **`verify_certificate(env: Env, cert_hash: String) -> bool`**: 
-  - Checks if a certificate hash exists on the blockchain.
-  - Returns `true` if valid, `false` otherwise.
-
-- **`get_owner(env: Env, cert_hash: String) -> String`**: 
-  - Retrieves the name of the owner for a given certificate hash.
-
-### 2. Data Structure
-- **`Map<String, String>`**: Used to map `cert_hash` to `owner_name`. This ensures efficient lookup and storage management within the Soroban environment.
-
 ---
 
-## 🔐 Access Control & Security
+<a name="roadmap"></a>
+## 🚧 Roadmap & Future Plans
 
-- **Hashing**: Certificates themselves are never stored on-chain, preserving privacy. Only the SHA256 hash (fingerprint) is stored.
-- **Immutable Ledger**: Once a certificate hash is issued, it cannot be tampered with or retroactively changed.
-- **Current Limitation**: Open access for demonstration.
-- **Future Roadmap**: Implementation of **Role-Based Access Control (RBAC)** to ensure only authorized institution addresses can call the `issue_certificate` function.
+### Development Timeline
+
+```mermaid
+gantt
+    title CertifyVal Development Roadmap
+    dateFormat  YYYY-MM
+    section Phase 1 — Foundation
+    Smart Contracts (Soroban)       :done,   p1a, 2026-01, 2026-03
+    Frontend (Next.js 15)           :done,   p1b, 2026-02, 2026-04
+    AI Fraud Engine (Groq)          :done,   p1c, 2026-04, 2026-06
+    Supabase Integration            :done,   p1d, 2026-05, 2026-06
+
+    section Phase 2 — Level 5 Blue Belt
+    Credential Passport             :done,   p2a, 2026-06, 2026-07
+    Email Notifications (Resend)    :done,   p2b, 2026-06, 2026-07
+    Employer Dashboard              :done,   p2c, 2026-07, 2026-07
+    User Onboarding Flow            :done,   p2d, 2026-07, 2026-07
+
+    section Phase 3 — Q3 2026
+    IPFS Document Storage           :active, p3a, 2026-08, 2026-09
+    QR Code Verification            :        p3b, 2026-08, 2026-09
+    Mobile PWA                      :        p3c, 2026-09, 2026-10
+    Batch Issuance (100+ certs)     :        p3d, 2026-09, 2026-10
+
+    section Phase 4 — Q4 2026+
+    Multi-chain (Ethereum EIP-712)  :        p4a, 2026-11, 2027-01
+    DID W3C Standard Compliance     :        p4b, 2026-11, 2027-02
+    Institutional DAO Governance    :        p4c, 2027-01, 2027-03
+    React Native Mobile App         :        p4d, 2027-02, 2027-06
+```
+
+### Phase 3 — Immediate Next Features
+
+| Priority | Feature | ETA |
+|:---:|:---|:---|
+| 🔴 | IPFS integration for document storage (Pinata/web3.storage) | Q3 2026 |
+| 🔴 | QR Code generation for every certificate with scan-to-verify | Q3 2026 |
+| 🟡 | Certificate expiry dates on-chain | Q3 2026 |
+| 🟡 | Mobile PWA (installable, offline-capable) | Q3 2026 |
+| 🟢 | Batch issuance — 100+ certificates in one transaction | Q4 2026 |
+| 🟢 | REST API for institutions to integrate programmatically | Q4 2026 |
+
+### Phase 4 — Platform Maturity
+
+- **Multi-chain**: Extend to Ethereum (EIP-712 signed credentials) alongside Stellar
+- **W3C DID Standard**: Align with global Decentralized Identity specification
+- **Decentralized Dispute Resolution**: On-chain voting for fraudulent credential disputes
+- **Institutional DAO**: Governance token for registered institutions to vote on upgrades
+- **ISO 21001 Compliance**: International education management standards alignment
+- **React Native App**: Native iOS & Android apps
 
 ---
-
-## 🚧 Road Map & Future Plans
-
-- [ ] **IPFS Integration**: Store the actual certificate files on IPFS and save the CID on-chain.
-- [ ] **QR Code Verification**: Generate QR codes for certificates that link directly to the verification page.
-- [ ] **Expiry System**: Allow certificates to have a "valid until" date.
-- [ ] **Revocation Mechanism**: Enable institutions to revoke certificates if necessary.
 
 ## 📁 Project Structure
 
 ```text
-.
-├── README.md                # Main project documentation
-└── contract
-    ├── Cargo.toml           # Workspace configuration
-    ├── README.md            # Smart contract specific guide
-    └── contracts
-        └── contract
-            ├── Cargo.toml   # Individual contract dependencies
-            ├── Makefile      # Build/Test automation
-            └── src
-                ├── lib.rs   # Core smart contract logic
-                └── test.rs  # Unit tests
+Digital-certificate-validator-full-project/
+│
+├── 📄 README.md                          # This document
+├── 📄 README_v2_updated.md               # Legacy README reference
+│
+├── 🦀 contract/                          # Soroban Smart Contracts (Rust)
+│   ├── Cargo.toml                        # Workspace config (soroban-sdk = "25")
+│   └── contracts/
+│       ├── contract/                     # Core Certificate Contract
+│       │   ├── Cargo.toml
+│       │   └── src/
+│       │       └── lib.rs               # issue, verify, get_owner, revoke
+│       ├── institution_registry/         # Institution Registry Contract
+│       │   ├── Cargo.toml
+│       │   └── src/
+│       │       └── lib.rs               # register, approve, suspend, trust_score
+│       └── stake_pool/                   # Bond & Stake Contract
+│           ├── Cargo.toml
+│           └── src/
+│               └── lib.rs               # lock_bond, release, challenge, slash
+│
+├── 🌐 frontend/                          # Next.js 15 Frontend
+│   ├── next.config.ts                    # Next.js configuration
+│   ├── package.json
+│   ├── tailwind.config.ts
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── page.tsx                 # Main landing + app shell
+│   │   │   ├── layout.tsx               # Root layout with metadata
+│   │   │   ├── globals.css              # Global styles + CSS vars
+│   │   │   ├── error.tsx                # Error boundary
+│   │   │   ├── not-found.tsx            # 404 page
+│   │   │   ├── icon.jpg                 # App favicon
+│   │   │   ├── api/
+│   │   │   │   └── email/
+│   │   │   │       ├── otp/route.ts     # OTP email endpoint
+│   │   │   │       └── credential/route.ts # Credential delivery endpoint
+│   │   │   └── verify/[id]/             # Public credential verification
+│   │   │       ├── page.tsx
+│   │   │       └── PublicVerifyClient.tsx
+│   │   ├── components/                  # React Components
+│   │   │   ├── LandingPage.tsx          # Hero + features landing
+│   │   │   ├── BlockchainVerifier.tsx   # Core verification UI
+│   │   │   ├── InstitutionDashboard.tsx # Institution issuance portal
+│   │   │   ├── CredentialPassport.tsx   # Student credential wallet
+│   │   │   ├── CredentialUploadWizard.tsx # Multi-step upload flow
+│   │   │   ├── EmployerDashboard.tsx    # Employer bulk verification
+│   │   │   ├── AdminPanel.tsx           # Platform admin controls
+│   │   │   ├── AIInsightsPanel.tsx      # AI fraud results display
+│   │   │   ├── BlockchainActivity.tsx   # Live on-chain activity feed
+│   │   │   ├── WalletProfile.tsx        # Wallet info + stats
+│   │   │   ├── Documentation.tsx        # In-app docs
+│   │   │   ├── NotificationCenter.tsx   # Real-time alerts
+│   │   │   ├── ThemeToggle.tsx          # Dark/Light mode switch
+│   │   │   ├── Onboarding.tsx           # Role selection wizard
+│   │   │   ├── FeedbackPanel.tsx        # User feedback collection
+│   │   │   ├── InstitutionRegistry.tsx  # Browse institutions
+│   │   │   ├── PendingClaims.tsx        # Pending verification queue
+│   │   │   ├── Analytics.tsx            # Dashboard analytics
+│   │   │   └── QRCodeDisplay.tsx        # QR code generator
+│   │   ├── hooks/
+│   │   │   ├── useAuth.tsx              # Wallet auth + session
+│   │   │   └── useStellar.tsx           # Stellar blockchain hook
+│   │   ├── lib/
+│   │   │   ├── supabase.ts              # Supabase client
+│   │   │   ├── db.ts                    # Database helpers
+│   │   │   ├── types.ts                 # Shared TypeScript types
+│   │   │   └── credentialPermissions.ts # Permission system
+│   │   └── services/
+│   │       ├── blockchain.ts            # Stellar transaction service
+│   │       ├── contract.ts              # Certificate contract client
+│   │       ├── institutionContract.ts   # Institution contract client
+│   │       ├── stakeContract.ts         # Stake pool client
+│   │       ├── notificationService.ts   # Push notification service
+│   │       ├── emailService.ts          # Email service wrapper
+│   │       └── ai/
+│   │           ├── groqService.ts       # Groq LLM API integration
+│   │           ├── heuristicEngine.ts   # Rule-based fraud detection
+│   │           ├── fraudEngine.ts       # Combined fraud orchestrator
+│   │           └── classificationEngine.ts # Document classifier
+│   └── supabase/
+│       ├── schema.sql                   # Full database schema
+│       └── migration_v3_credential_delivery.sql
+│
+├── 🤖 .github/
+│   └── workflows/
+│       └── rust-test.yml               # CI/CD pipeline
+│
+├── 🖼️ assets/                           # Documentation screenshots
+│   ├── issuance-portal.png
+│   ├── verify-portal.png
+│   ├── mobile-view.png
+│   └── tx-proof.png
+│
+└── 📋 demo_credential_01.txt            # Sample credential for testing
 ```
 
 ---
 
 <a name="setup"></a>
-## ⚙️ Environment Setup & Installation
+## ⚙️ Quick Start
 
-### A) Prerequisites
-1. **Install Rust**:
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   ```
-2. **Install Soroban CLI**:
-   ```bash
-   cargo install --locked soroban-cli
-   ```
-3. **Add WASM Target**:
-   ```bash
-   rustup target add wasm32-unknown-unknown
-   ```
+### Prerequisites
 
-### B) Backend (Smart Contract) Setup
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/sohansarkar07/Digital-Certificate-Validator.git
-   cd Digital-Certificate-Validator
-   ```
-2. **Build the contract**:
-   ```bash
-   soroban contract build
-   ```
-3. **Optimize (Optional but Recommended)**:
-   ```bash
-   soroban contract optimize --wasm target/wasm32-unknown-unknown/release/contract.wasm
-   ```
+```bash
+# 1. Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-### C) Deployment & Invocation
-1. **Deploy to Testnet**:
-   ```bash
-   soroban contract deploy \
-     --wasm target/wasm32-unknown-unknown/release/contract.wasm \
-     --source <YOUR_ACCOUNT_NAME> \
-     --network testnet
-   ```
-2. **Invoke Issue Function**:
-   ```bash
-   soroban contract invoke \
-     --id <CONTRACT_ID> \
-     --source <SOURCE_ACCOUNT> \
-     --network testnet \
-     -- issue_certificate --cert_hash "sha256_hash_here" --owner "John Doe"
-   ```
+# 2. Add WASM target
+rustup target add wasm32-unknown-unknown
 
----
-
-### 🌐 Frontend Setup (Next.js)
-1. **Navigate to frontend**:
-   ```bash
-   cd frontend
-   ```
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-3. **Run development server**:
-   ```bash
-   npm run dev
-   ```
-4. **Access the portal**: Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-<a name="production-ready"></a>
-## 🚀 Production Readiness (Green Belt Upgrade)
-
-This project has been upgraded to meet **Level 4 (Green Belt)** standards for blockchain decentralized applications.
-
-### ✅ Quality Assurance Checklist
-- [x] **CI/CD Integrated**: Automated smart contract testing via GitHub Actions.
-- [x] **Mobile Responsive**: Refactored UI that adapts to smartphones, tablets, and desktops.
-- [x] **UX Polish**: Implementation of loading states, real-time feedback, and error handling.
-- [x] **Persistence**: Recent verification history saved to local storage for quick retrieval.
-- [x] **Security**: Migrated from `String` to `Bytes` for optimized on-chain cryptographic storage.
-
----
-
-<a name="cicd"></a>
-## 🛠 CI/CD Pipeline (GitHub Actions)
-
-We use **GitHub Actions** to ensure that every push and pull request maintains the integrity of our smart contract.
-
-**Pipeline Stages:**
-1. **Environment Setup**: Initializes the latest Rust stable toolchain with `wasm32-unknown-unknown` target support.
-2. **Dependency Caching**: Optimized caching for Cargo dependencies to reduce build times.
-3. **Automated Testing**: Executes `cargo test` within the contract workspace to validate all unit tests.
-
-### 🔄 Pipeline Workflow
-```mermaid
-graph TD
-    A[Push to Main] --> B{GitHub Actions Triggered}
-    B --> C[Setup Rust Toolchain]
-    C --> D[Install wasm32 Target]
-    D --> E[Cache Dependencies]
-    E --> F[Run cargo test]
-    F --> G{Tests Passing?}
-    G -- Yes --> H[Build Success ✅]
-    G -- No --> I[Build Failed ❌]
+# 3. Install Stellar CLI
+cargo install --locked stellar-cli --features opt
 ```
 
-> [!TIP]
-> You can view the status of the latest pipeline runs in the **Actions** tab of this repository.
+### Smart Contract Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/sohansarkar07/Digital-certificate-validator-full-project.git
+cd Digital-certificate-validator-full-project/contract
+
+# Run all tests (9 tests across 3 contracts)
+cargo test
+
+# Build contracts
+stellar contract build
+
+# Deploy to testnet
+stellar contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/contract.wasm \
+  --source <YOUR_ACCOUNT> \
+  --network testnet
+```
+
+### Frontend Setup
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.local.example .env.local
+# Fill in: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, GROQ_API_KEY, RESEND_API_KEY
+
+# Run development server
+npm run dev
+# → Open http://localhost:3000
+```
+
+### Environment Variables
+
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+
+# AI
+GROQ_API_KEY=gsk_your_groq_api_key
+
+# Email
+RESEND_API_KEY=re_your_resend_key
+
+# Blockchain (optional — defaults to testnet)
+NEXT_PUBLIC_STELLAR_NETWORK=testnet
+NEXT_PUBLIC_CONTRACT_ID=CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4
+```
 
 ---
 
-<a name="mobile"></a>
-## 📱 Mobile Responsiveness
-
-The application is fully optimized for mobile viewing:
-- **Responsive Sidebar**: Collapses into a hamburger menu on small screens.
-- **Adaptive Inputs**: Scaled typography and touch-friendly buttons for easy document submission.
-- **Stacked Layouts**: Side-by-side panels automatically stack vertically on mobile to preserve readability.
-
-### 📸 Mobile Interface Preview
-<div align="center">
-  <img width="320" alt="Mobile Responsive View" src="assets/mobile-view.png" />
-</div>
-
----
-
-<a name="user-onboarding"></a>
 ## 📋 Level 5 Blue Belt — User Onboarding & Feedback
 
 ### Google Form — User Feedback Collection
@@ -459,49 +1062,25 @@ Fields collected:
 - Product Rating (1–5 stars)
 - Feedback / Feature Requests
 
-### 📊 Exported User Responses (Excel Sheet)
-
-All responses have been exported into an Excel sheet for analysis and record-keeping.
+### 📊 Exported User Responses
 
 📎 **[Download User Responses (Excel)](https://docs.google.com/spreadsheets/d/CertifyVal-Responses)**
 
 ---
 
-<a name="improvement"></a>
-## 🚀 Roadmap — Improvements Based on User Feedback
-
-Based on collected user feedback, we plan to improve and evolve CertifyVal in the following ways:
-
-### Phase 1 — Q3 2026 (Immediate Improvements)
-| Feedback Received | Planned Improvement |
-|---|---|
-| Verification results hard to share | Add shareable verification URL with QR code |
-| Difficult to understand blockchain terms | Add in-app glossary and tooltips |
-| No email notification on certificate issue | Implement email notifications via Resend API |
-| Hard to register institution on mobile | Improve mobile UX for institution registration flow |
-| Want dark mode by default | Persist theme preference in localStorage |
-
-### Phase 2 — Q4 2026 (Feature Expansion)
-- **Multi-chain support**: Extend to Ethereum (via EIP-712 signed credentials) alongside Stellar.
-- **Batch Issuance**: Allow institutions to issue 100+ certificates in a single transaction.
-- **AI Document OCR**: Extract certificate text automatically using Tesseract.js for quick pre-fill.
-- **Employer Dashboard**: A dedicated portal for employers to bulk-verify candidate credentials.
-- **API Access Tokens**: Let institutions build integrations using CertifyVal REST API with token auth.
-
-### Phase 3 — 2027 (Platform Maturity)
-- **Decentralized Dispute Resolution**: On-chain voting mechanism for fraudulent credential disputes.
-- **Mobile App (React Native)**: Native iOS & Android apps for certificate verification.
-- **ISO 21001 Compliance**: Align credential format with international education management standards.
-- **Institutional DAO**: Governance token for registered institutions to vote on platform upgrades.
-
-> **Key Git Commits for Improvements:** See [commit history](https://github.com/sohansarkar07/Digital-certificate-validator-full-project/commits/main) for all feature development commits.
-
----
-
 ## 👨‍💻 Author
+
 **Sohan Sarkar**
-- Blockchain Enthusiast | Soroban Developer
+- Blockchain Developer | Soroban Specialist | Full-Stack Engineer
 - [GitHub Profile](https://github.com/sohansarkar07)
+- [Repository](https://github.com/sohansarkar07/Digital-certificate-validator-full-project)
 
 ---
+
+<div align="center">
+
 > **Last Updated:** July 2026 — Level 5 Blue Belt Submission for RiseIn.
+>
+> Built with ❤️ on Stellar Soroban — *The blockchain built for the real world.*
+
+</div>
