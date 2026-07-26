@@ -1,0 +1,25 @@
+====================================================
+      CERTIFYVAL AUTHORIZED CREDENTIAL RECORD
+====================================================
+
+INSTITUTION: University of Decentralized Sciences
+RECIPIENT: Jane Doe
+DEGREE: Master of Information Systems
+DATE OF ISSUE: May 15, 2026
+CREDENTIAL ID: UDS-892-11A
+
+---
+This document certifies that Jane Doe has successfully completed 
+all requirements for the Master of Information Systems program. 
+
+The cryptographic footprint of this specific text file serves as 
+the immutable proof of the degree's authenticity when anchored to 
+the Stellar Soroban network.
+
+WARNING: Modifying ANY character in this file (even adding a space) 
+will irreversibly change its SHA-256 hash, causing the blockchain 
+verification check to fail immediately.
+
+====================================================
+           END OF AUTHORIZED PAYLOAD
+====================================================
