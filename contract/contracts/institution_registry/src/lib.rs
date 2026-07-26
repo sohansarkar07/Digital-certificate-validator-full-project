@@ -24,7 +24,7 @@ pub enum InstitutionType {
 
 /// Institution status lifecycle
 #[contracttype]
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Debug)]
 pub enum InstitutionStatus {
     Pending,
     Approved,
@@ -141,7 +141,7 @@ impl InstitutionRegistry {
             inst.trust_score = 70; // Starting trust score on approval
             institutions.set(id.clone(), inst);
             env.storage().instance().set(&symbol_short!("INSTS"), &institutions);
-            env.events().publish(symbol_short!("APPROVE"), id);
+            env.events().publish((symbol_short!("APPROVE"),), id);
         }
     }
 
@@ -159,7 +159,7 @@ impl InstitutionRegistry {
             inst.status = InstitutionStatus::Rejected;
             institutions.set(id.clone(), inst);
             env.storage().instance().set(&symbol_short!("INSTS"), &institutions);
-            env.events().publish(symbol_short!("REJECT"), id);
+            env.events().publish((symbol_short!("REJECT"),), id);
         }
     }
 
@@ -178,7 +178,7 @@ impl InstitutionRegistry {
             inst.trust_score = inst.trust_score.saturating_sub(20); // penalize on suspend
             institutions.set(id.clone(), inst);
             env.storage().instance().set(&symbol_short!("INSTS"), &institutions);
-            env.events().publish(symbol_short!("SUSPEND"), id);
+            env.events().publish((symbol_short!("SUSPEND"),), id);
         }
     }
 
@@ -196,7 +196,7 @@ impl InstitutionRegistry {
             inst.status = InstitutionStatus::Approved;
             institutions.set(id.clone(), inst);
             env.storage().instance().set(&symbol_short!("INSTS"), &institutions);
-            env.events().publish(symbol_short!("RESTORE"), id);
+            env.events().publish((symbol_short!("RESTORE"),), id);
         }
     }
 
@@ -355,7 +355,7 @@ mod test {
         let wallet = Address::generate(&env);
         let website = String::from_str(&env, "https://mit.edu");
 
-        client.register_institution(&inst_id, &name, &country, &wallet, &website);
+        client.register_institution(&inst_id, &name, &country, &wallet, &website, &InstitutionType::University);
 
         let inst = client.get_institution(&inst_id).unwrap();
         assert_eq!(inst.name, name);
@@ -383,7 +383,7 @@ mod test {
         let wallet = Address::generate(&env);
         let website = String::from_str(&env, "https://harvard.edu");
 
-        client.register_institution(&inst_id, &name, &country, &wallet, &website);
+        client.register_institution(&inst_id, &name, &country, &wallet, &website, &InstitutionType::University);
         client.approve_institution(&inst_id);
 
         // Record 100 verifications — should boost trust

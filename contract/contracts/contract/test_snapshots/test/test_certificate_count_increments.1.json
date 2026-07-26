@@ -7,6 +7,9 @@
   "auth": [
     [],
     [],
+    [],
+    [],
+    [],
     []
   ],
   "ledger": {
@@ -42,10 +45,18 @@
                         "map": [
                           {
                             "key": {
-                              "string": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                              "string": "hash_001"
                             },
                             "val": {
-                              "string": "John Doe"
+                              "string": "Test User"
+                            }
+                          },
+                          {
+                            "key": {
+                              "string": "hash_002"
+                            },
+                            "val": {
+                              "string": "Test User"
                             }
                           }
                         ]
@@ -56,7 +67,7 @@
                         "symbol": "COUNT"
                       },
                       "val": {
-                        "u64": "1"
+                        "u64": "2"
                       }
                     }
                   ]

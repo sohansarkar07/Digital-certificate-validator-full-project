@@ -1,10 +1,11 @@
 {
   "generators": {
-    "address": 1,
+    "address": 3,
     "nonce": 0,
     "mux_id": 0
   },
   "auth": [
+    [],
     [],
     [],
     []
@@ -36,27 +37,10 @@
                   "storage": [
                     {
                       "key": {
-                        "symbol": "CERTS"
+                        "symbol": "ADMIN"
                       },
                       "val": {
-                        "map": [
-                          {
-                            "key": {
-                              "string": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-                            },
-                            "val": {
-                              "string": "John Doe"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "key": {
-                        "symbol": "COUNT"
-                      },
-                      "val": {
-                        "u64": "1"
+                        "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4"
                       }
                     }
                   ]

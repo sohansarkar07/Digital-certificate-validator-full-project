@@ -89,7 +89,7 @@ impl StakePool {
         let locked: i128 = env.storage().instance().get(&symbol_short!("LOCKED")).unwrap_or(0i128);
         env.storage().instance().set(&symbol_short!("LOCKED"), &(locked + DEFAULT_BOND_AMOUNT));
 
-        env.events().publish(symbol_short!("LOCK"), cert_hash);
+        env.events().publish((symbol_short!("LOCK"),), cert_hash);
     }
 
     /// Release bond after challenge window expires with no dispute
@@ -125,7 +125,7 @@ impl StakePool {
             let locked: i128 = env.storage().instance().get(&symbol_short!("LOCKED")).unwrap_or(0i128);
             env.storage().instance().set(&symbol_short!("LOCKED"), &(locked - DEFAULT_BOND_AMOUNT));
 
-            env.events().publish(symbol_short!("RELEASE"), cert_hash);
+            env.events().publish((symbol_short!("RELEASE"),), cert_hash);
         }
     }
 
@@ -154,7 +154,7 @@ impl StakePool {
             bonds.set(cert_hash.clone(), bond);
             env.storage().instance().set(&symbol_short!("BONDS"), &bonds);
 
-            env.events().publish(symbol_short!("CHAL"), cert_hash);
+            env.events().publish((symbol_short!("CHAL"),), cert_hash);
         }
     }
 
@@ -199,7 +199,7 @@ impl StakePool {
             let slashed: i128 = env.storage().instance().get(&symbol_short!("SLASHED")).unwrap_or(0i128);
             env.storage().instance().set(&symbol_short!("SLASHED"), &(slashed + DEFAULT_BOND_AMOUNT));
 
-            env.events().publish(symbol_short!("SLASH"), cert_hash);
+            env.events().publish((symbol_short!("SLASH"),), cert_hash);
         }
     }
 
