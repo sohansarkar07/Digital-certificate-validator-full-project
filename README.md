@@ -5,7 +5,7 @@
 
 > *Eliminating certificate fraud through blockchain immutability, AI fraud detection, and cryptographic verification — powered by Stellar Soroban*
 
-<p>🌐 <strong>Live Application: <a href="https://digital-certificate-validator-full-phi.vercel.app/">https://digital-certificate-validator-full-phi.vercel.app/</a></strong></p>
+<p>🌐 <strong>Live Application: <a href="https://certifyval.vercel.app/">https://certifyval.vercel.app/</a></strong></p>
 
 <p>
   <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
