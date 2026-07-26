@@ -794,6 +794,10 @@ graph TB
 > [!NOTE]
 > This project focuses on **Decentralized Identity and Credentialing**. It anchors data directly to the Stellar ledger using Soroban's native storage — no custom token or liquidity pool required.
 
+### 📸 Smart Contract Dashboard
+
+<img width="100%" alt="Smart Contract Dashboard screenshot" src="https://github.com/user-attachments/assets/369d60dd-2250-49b9-8a8c-7b2361dc8e9c" />
+
 ### Proof of Live Transaction
 
 | Field | Value |
@@ -808,6 +812,10 @@ graph TB
 | **Ledger** | `1598194` |
 
 🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3)
+
+### 📸 Transaction Proof Screenshot
+
+<img width="100%" alt="Stellar Expert Transaction Proof" src="assets/tx-proof.png" />
 
 ---
 
