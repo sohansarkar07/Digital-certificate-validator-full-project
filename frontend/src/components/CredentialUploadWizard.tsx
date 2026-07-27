@@ -565,12 +565,31 @@ export function CredentialUploadWizard({
                 </button>
               )}
               {aiResult.recommendation === 'reject' && (
-                <button
-                  onClick={onCancel}
-                  className="flex items-center gap-1.5 px-5 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity"
-                >
-                  <XCircle size={13} /> Dismiss
-                </button>
+                <div className="flex gap-2">
+                  {mode !== 'official' && (
+                    <button
+                      onClick={() => {
+                        if (!category || !credType || !evidenceType || !aiResult) return;
+                        onComplete({
+                          category, credentialType: credType, evidenceType,
+                          file: file ?? undefined, url: url || undefined,
+                          title, institution: institution || undefined,
+                          externalPlatform: mode === 'import' ? externalPlatform : undefined,
+                          aiResult, isImport: mode === 'import',
+                        });
+                      }}
+                      className="flex items-center gap-1.5 px-5 py-2 bg-foreground/10 text-foreground text-xs font-bold rounded-lg hover:bg-foreground/20 transition-colors border border-border"
+                    >
+                      <Upload size={13} /> Upload Anyway
+                    </button>
+                  )}
+                  <button
+                    onClick={onCancel}
+                    className="flex items-center gap-1.5 px-5 py-2 bg-rose-500 text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity"
+                  >
+                    <XCircle size={13} /> Cancel
+                  </button>
+                </div>
               )}
             </div>
           )}
