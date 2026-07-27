@@ -9,7 +9,7 @@
 // bundling issues with the WASM binary, which is a known Next.js limitation.
 // Both paths use the same @stellar/stellar-sdk API surface.
 import type {
-  SorobanRpc,
+  rpc,
   TransactionBuilder as TransactionBuilderType,
   Contract as ContractType,
   xdr as xdrType,
@@ -140,7 +140,7 @@ export class ContractService {
         registerCertificateLocally(hash, owner, undefined, userAddress);
 
         const S = await loadSDK();
-        const server = new S.SorobanRpc.Server(RPC_URL);
+        const server = new S.rpc.Server(RPC_URL);
 
         try {
             // Primary: Use ManageData operation — this ALWAYS triggers the Freighter popup
@@ -207,7 +207,7 @@ export class ContractService {
             // ── Step 2: Try on-chain verification simulation ──
             try {
                 const S = await loadSDK();
-                const server = new S.SorobanRpc.Server(RPC_URL);
+                const server = new S.rpc.Server(RPC_URL);
                 const contract = new S.Contract(CONTRACT_ID);
 
                 const hashScVal = S.xdr.ScVal.scvString(hash);
@@ -241,7 +241,7 @@ export class ContractService {
             try {
                 console.log("[ContractService] Submitting real verification transaction via Freighter...");
                 const S = await loadSDK();
-                const server = new S.SorobanRpc.Server(RPC_URL);
+                const server = new S.rpc.Server(RPC_URL);
                 const verifierAccount = await server.getAccount(walletAddress);
                 
                 const tx = new S.TransactionBuilder(verifierAccount, {
@@ -286,7 +286,7 @@ export class ContractService {
         try {
             console.log("[ContractService] Submitting real upload transaction via Freighter...");
             const S = await loadSDK();
-            const server = new S.SorobanRpc.Server(RPC_URL);
+            const server = new S.rpc.Server(RPC_URL);
             const userAccount = await server.getAccount(userAddress);
             
             const tx = new S.TransactionBuilder(userAccount, {
@@ -335,7 +335,7 @@ export class ContractService {
         // ── Try on-chain ──
         try {
             const S = await loadSDK();
-            const server = new S.SorobanRpc.Server(RPC_URL);
+            const server = new S.rpc.Server(RPC_URL);
             const contract = new S.Contract(CONTRACT_ID);
 
             const hashScVal = S.xdr.ScVal.scvString(hash);
