@@ -136,8 +136,22 @@ export function CredentialUploadWizard({
       content = await extractTextFromFile(file);
     }
 
-    const result = await classifyCredential(content, category, credType);
-    setAiResult(result);
+    try {
+      const result = await classifyCredential(content, category, credType);
+      setAiResult(result);
+    } catch (error) {
+      console.error("AI Classification failed:", error);
+      // Fallback result so the user isn't stuck buffering forever
+      setAiResult({
+        detectedCategory: null,
+        detectedType: null,
+        confidence: 0,
+        reasons: ["AI analysis service is temporarily unavailable or failed."],
+        recommendation: "reject",
+        riskScore: 100,
+        forgerySigns: []
+      });
+    }
     setStep('result');
   };
 
