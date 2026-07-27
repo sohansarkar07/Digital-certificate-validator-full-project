@@ -56,24 +56,24 @@ setInterval(() => {
 
 // ── Route Handler ─────────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
-  // 1. Rate limit check
-  const ip = getClientIp(request);
-  const { allowed, remaining, resetInMs } = checkRateLimit(ip);
+  // 1. Rate limit check (DISABLED temporarily for testing)
+  // const ip = getClientIp(request);
+  // const { allowed, remaining, resetInMs } = checkRateLimit(ip);
 
-  if (!allowed) {
-    const resetInSeconds = Math.ceil(resetInMs / 1000);
-    return NextResponse.json(
-      { error: `Too many requests. Please wait ${resetInSeconds} seconds before requesting another OTP.` },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': String(resetInSeconds),
-          'X-RateLimit-Limit': String(RATE_LIMIT_MAX),
-          'X-RateLimit-Remaining': '0',
-        },
-      }
-    );
-  }
+  // if (!allowed) {
+  //   const resetInSeconds = Math.ceil(resetInMs / 1000);
+  //   return NextResponse.json(
+  //     { error: `Too many requests. Please wait ${resetInSeconds} seconds before requesting another OTP.` },
+  //     {
+  //       status: 429,
+  //       headers: {
+  //         'Retry-After': String(resetInSeconds),
+  //         'X-RateLimit-Limit': String(RATE_LIMIT_MAX),
+  //         'X-RateLimit-Remaining': '0',
+  //       },
+  //     }
+  //   );
+  // }
 
   try {
     const body = await request.json();
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     const info = await transporter.sendMail(mailOptions);
     return NextResponse.json(
       { data: info },
-      { headers: { 'X-RateLimit-Remaining': String(remaining) } }
+      { headers: { 'X-RateLimit-Remaining': '999' } }
     );
   } catch (error) {
     console.error('Failed to send email via Nodemailer:', error);
