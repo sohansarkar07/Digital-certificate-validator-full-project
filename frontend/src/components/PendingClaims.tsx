@@ -72,7 +72,6 @@ export function PendingClaims({ onClaimed }: PendingClaimsProps) {
         type: claim.credential_type as any,
         date: claim.issue_date,
         cert_hash: claim.cert_hash,
-        tx_hash: claim.tx_hash,
         description: `${claim.credential_category ?? ""} credential issued by ${claim.institution_name}. TX: ${claim.tx_hash ?? ""}`,
         ...(({
           upload_type: "official",
