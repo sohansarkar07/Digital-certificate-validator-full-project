@@ -52,7 +52,7 @@
 
 ## 🎥 YouTube Overview
 
-[![YouTube Overview](https://img.youtube.com/vi/pkX4ZjrTgLw/maxresdefault.jpg)](https://www.youtube.com/watch?v=pkX4ZjrTgLw)
+[![YouTube Overview](https://img.youtube.com/vi/pkX4ZjrTgLw/0.jpg)](https://www.youtube.com/watch?v=pkX4ZjrTgLw)
 
 ---
 
