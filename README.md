@@ -14,6 +14,13 @@
   <a href="https://drive.google.com/file/d/13R5k0awT4VD1-IW8M5MIOfXvL9BKrIWX/view?usp=drivesdk">
     <img src="https://img.shields.io/badge/PPT_Presentation-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
   </a>
+  <br/>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTacaTE5WdiziG8oA6qHFntoSKmnlPN_es5Chn5q7jiOEwbQ/viewform?usp=publish-editor">
+    <img src="https://img.shields.io/badge/User_Feedback_Form-4285F4?style=for-the-badge&logo=google-forms&logoColor=white" />
+  </a>
+  <a href="https://docs.google.com/spreadsheets/d/1KkirRluFDUFCoo5sLA4LoxLYy0ZxEHPbe_fjbee3U7w/edit?usp=sharing">
+    <img src="https://img.shields.io/badge/User_Responses_Sheet-34A853?style=for-the-badge&logo=google-sheets&logoColor=white" />
+  </a>
 </p>
 
 <img src="https://img.shields.io/badge/Rust-black?style=for-the-badge&logo=rust&logoColor=white" />
@@ -1105,7 +1112,7 @@ NEXT_PUBLIC_CONTRACT_ID=CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4
 
 We collect user details including **wallet address, email, name, and product feedback (rating)** via Google Form:
 
-🔗 **[CertifyVal User Feedback Form](https://forms.gle/CertifyVal-Feedback)**
+🔗 **[CertifyVal User Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSeTacaTE5WdiziG8oA6qHFntoSKmnlPN_es5Chn5q7jiOEwbQ/viewform?usp=publish-editor)**
 
 Fields collected:
 - Full Name
@@ -1116,7 +1123,7 @@ Fields collected:
 
 ### 📊 Exported User Responses
 
-📎 **[Download User Responses (Excel)](https://docs.google.com/spreadsheets/d/CertifyVal-Responses)**
+📎 **[Download User Responses (Excel)](https://docs.google.com/spreadsheets/d/1KkirRluFDUFCoo5sLA4LoxLYy0ZxEHPbe_fjbee3U7w/edit?usp=sharing)**
 
 ### 📽️ PPT Presentation
 
