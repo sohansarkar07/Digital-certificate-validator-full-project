@@ -1140,6 +1140,12 @@ Fields collected:
 
 ---
 
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
 <div align="center">
 
 > **Last Updated:** July 2026 — Level 5 Blue Belt Submission for RiseIn.
