@@ -45,14 +45,13 @@
 [User Flow](#user-flow) •
 [Roadmap](#roadmap) •
 [Setup](#setup)
-
-</div>
-
 ---
 
 ## 🎥 YouTube Overview
 
 [![YouTube Overview](https://img.youtube.com/vi/pkX4ZjrTgLw/0.jpg)](https://www.youtube.com/watch?v=pkX4ZjrTgLw)
+
+</div>
 
 ---
 
