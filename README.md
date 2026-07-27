@@ -8,8 +8,8 @@
 <p>🌐 <strong>Live Application: <a href="https://certifyval.vercel.app/">https://certifyval.vercel.app/</a></strong></p>
 
 <p>
-  <a href="https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk">
-    <img src="https://img.shields.io/badge/Demo_Video-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
+  <a href="https://youtu.be/pkX4ZjrTgLw">
+    <img src="https://img.shields.io/badge/Demo_Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
   </a>
   <a href="https://drive.google.com/file/d/13R5k0awT4VD1-IW8M5MIOfXvL9BKrIWX/view?usp=drivesdk">
     <img src="https://img.shields.io/badge/PPT_Presentation-FFD700?style=for-the-badge&logo=google-drive&logoColor=black" />
@@ -35,7 +35,7 @@
 
 <br><br>
 
-[Demo Video](https://drive.google.com/file/d/1GVkhGK8ljiexCrIGK4KSXdHPwTdSe59o/view?usp=drivesdk) •
+[Demo Video](https://youtu.be/pkX4ZjrTgLw) •
 [Problem](#problem-statement) •
 [Solution](#solution) •
 [Architecture](#architecture) •
@@ -47,6 +47,14 @@
 [Setup](#setup)
 
 </div>
+
+---
+
+## 🎥 YouTube Overview
+
+<a href="https://youtu.be/pkX4ZjrTgLw">
+  <img src="https://img.youtube.com/vi/pkX4ZjrTgLw/maxresdefault.jpg" alt="YouTube Overview" width="100%" />
+</a>
 
 ---
 
