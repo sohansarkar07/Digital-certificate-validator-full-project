@@ -918,7 +918,7 @@ gantt
 
     section Phase 3 — Q3 2026
     IPFS Document Storage           :active, p3a, 2026-08, 2026-09
-    QR Code Verification            :        p3b, 2026-08, 2026-09
+    QR Code Verification            :done,   p3b, 2026-08, 2026-09
     Mobile PWA                      :        p3c, 2026-09, 2026-10
     Batch Issuance (100+ certs)     :        p3d, 2026-09, 2026-10
 
@@ -934,7 +934,7 @@ gantt
 | Priority | Feature | ETA |
 |:---:|:---|:---|
 | 🔴 | IPFS integration for document storage (Pinata/web3.storage) | Q3 2026 |
-| 🔴 | QR Code generation for every certificate with scan-to-verify | Q3 2026 |
+| ✅ | QR Code generation for every certificate with scan-to-verify | Q3 2026 |
 | 🟡 | Certificate expiry dates on-chain | Q3 2026 |
 | 🟡 | Mobile PWA (installable, offline-capable) | Q3 2026 |
 | 🟢 | Batch issuance — 100+ certificates in one transaction | Q4 2026 |
