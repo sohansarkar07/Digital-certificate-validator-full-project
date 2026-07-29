@@ -136,7 +136,7 @@ function CountryBreakdown({ data }: { data: { country: string; count: number }[]
 
 // ── Vertical Bar Chart ────────────────────────────────────────────────────────
 function BarChart({ data, labels }: { data: number[]; labels: string[] }) {
-  const max = Math.max(...data);
+  const max = Math.max(1, ...data);
   return (
     <div className="flex items-end gap-2 h-24">
       {data.map((v, i) => (
