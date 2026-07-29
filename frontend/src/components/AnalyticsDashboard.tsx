@@ -398,7 +398,7 @@ export function AnalyticsDashboard() {
                 transition={{ delay: i * 0.05 }}
                 className="flex items-center gap-4 py-2 border-b border-border/50 last:border-0"
               >
-                <span className={`text-[10px] font-black uppercase tracking-widest w-28 shrink-0 ${item.color}`}>{item.action}</span>
+                <span className={`text-[10px] font-black uppercase tracking-widest w-48 shrink-0 ${item.color} truncate`}>{item.action}</span>
                 <span className="font-mono text-[10px] text-foreground/50 flex-1 truncate">{item.hash}</span>
                 <span className="text-[10px] font-mono text-foreground/40 hidden sm:block">{item.wallet}</span>
                 <span className="text-[10px] text-foreground/30 shrink-0">{item.time}</span>
