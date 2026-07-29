@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Star, Send, MessageSquare, Users, BarChart2, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { dbGetFeedback, dbInsertFeedback } from "@/lib/db";
+import { supabase } from "@/lib/supabase";
 import { useStellar } from "@/hooks/useStellar";
 
 type Role = "student" | "employer" | "institution" | "other";
@@ -170,6 +171,7 @@ export function FeedbackPanel() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [autoName, setAutoName] = useState<string | null>(null);
   const [form, setForm] = useState({
     username: "",
     role: "student" as Role,
@@ -177,6 +179,19 @@ export function FeedbackPanel() {
     message: "",
     feature: "",
   });
+
+  useEffect(() => {
+    if (address) {
+      supabase.from("user_profiles").select("display_name, role").eq("wallet_address", address).maybeSingle().then(res => {
+        if (res.data?.display_name) {
+          setAutoName(res.data.display_name);
+          setForm(f => ({ ...f, username: res.data.display_name, role: (res.data.role || "student") as Role }));
+        }
+      });
+    } else {
+      setAutoName(null);
+    }
+  }, [address]);
 
   useEffect(() => {
     dbGetFeedback().then(data => {
@@ -267,14 +282,22 @@ export function FeedbackPanel() {
             <form onSubmit={handleSubmit} className="p-5 space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">Name (optional)</label>
-                  <input
-                    type="text"
-                    value={form.username}
-                    onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
-                    placeholder="How should we call you?"
-                    className="input-field w-full px-3 py-2.5 text-sm"
-                  />
+                  <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">Name</label>
+                  {autoName ? (
+                    <div className="input-field w-full px-3 py-2.5 text-sm bg-secondary/50 text-foreground/70 flex items-center gap-2 select-none border-border">
+                      <Check size={14} className="text-success" />
+                      {autoName}
+                      <span className="text-[10px] text-foreground/40 ml-auto font-mono">(auto-filled from profile)</span>
+                    </div>
+                  ) : (
+                    <input
+                      type="text"
+                      value={form.username}
+                      onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+                      placeholder="How should we call you? (optional)"
+                      className="input-field w-full px-3 py-2.5 text-sm"
+                    />
+                  )}
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-foreground/40 uppercase tracking-widest block mb-1.5">I am a...</label>
