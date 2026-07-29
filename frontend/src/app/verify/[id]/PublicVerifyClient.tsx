@@ -10,7 +10,7 @@ import {
 
 import { contractService, getTxHashLocal, getIssuerAddressLocal } from "@/services/contract";
 import { recordTransaction } from "@/services/blockchain";
-import { dbCheckDuplicateHash } from "@/lib/db";
+import { dbCheckDuplicateHash, dbRecordVerification } from "@/lib/db";
 import { QRCodeDisplay } from "@/components/QRCodeDisplay";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -40,6 +40,8 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
       try {
         const isValid = await contractService.verifyCertificate(certId, "PublicVerifier");
         const owner = isValid ? await contractService.getOwner(certId) : null;
+        
+        await dbRecordVerification(certId, undefined, isValid ? "valid" : "invalid").catch(() => {});
         
         // Fetch document URL from database
         let docUrl = null;

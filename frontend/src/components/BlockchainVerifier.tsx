@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Tooltip } from "@/components/Tooltip";
 import { QRCodeDisplay } from "@/components/QRCodeDisplay";
 import { useStellar } from "@/hooks/useStellar";
+import { dbRecordVerification } from "@/lib/db";
 
 export function BlockchainVerifier() {
   const { address, sign } = useStellar();
@@ -66,10 +67,12 @@ export function BlockchainVerifier() {
             setTimestamp(new Date().toLocaleString());
             addLog(`[METADATA] Decrypted registered owner payload: OK`);
             setStatus("valid");
+            await dbRecordVerification(hashHex, address || undefined, "valid").catch(() => {});
           } else {
             addLog(`[REJECTED] Signature mismatched. Record absent from all registries.`);
             setErrorMsg("Certificate not found. Please issue this document via the Issuance Portal first, then verify.");
             setStatus("invalid");
+            await dbRecordVerification(hashHex, address || undefined, "invalid").catch(() => {});
           }
         } catch (err) {
           console.error("[BlockchainVerifier] Verification error:", err);
