@@ -25,6 +25,8 @@ interface WalletStats {
   institutionRegistered: boolean;
   transactionsCount: number;
   recentTransactions: TransactionEntry[];
+  displayName: string | null;
+  email: string | null;
 }
 
 const WALLET_ICON_MAP: Record<string, any> = {
@@ -44,7 +46,7 @@ const WALLET_COLOR_MAP: Record<string, string> = {
 };
 
 async function loadWalletStats(address: string): Promise<WalletStats> {
-  if (!address) return { certsIssued: 0, certsVerified: 0, activeBonds: 0, xlmLocked: 0, credentialCount: 0, feedbackGiven: 0, institutionRegistered: false, transactionsCount: 0, recentTransactions: [] };
+  if (!address) return { certsIssued: 0, certsVerified: 0, activeBonds: 0, xlmLocked: 0, credentialCount: 0, feedbackGiven: 0, institutionRegistered: false, transactionsCount: 0, recentTransactions: [], displayName: null, email: null };
 
   try {
     // Parallel fetch from Supabase
@@ -55,7 +57,8 @@ async function loadWalletStats(address: string): Promise<WalletStats> {
       instRes,
       fbRes,
       verifRes,
-      txRes
+      txRes,
+      profileRes
     ] = await Promise.all([
       dbGetIssuanceByWallet(address),
       dbGetCredentials(address),
@@ -63,7 +66,8 @@ async function loadWalletStats(address: string): Promise<WalletStats> {
       institutionService.getAllInstitutions(),
       dbGetFeedback(),
       supabase.from("verifications").select("*", { count: "exact", head: true }).eq("verifier_wallet", address),
-      dbGetTransactionsByWallet(address, 5)
+      dbGetTransactionsByWallet(address, 5),
+      supabase.from("user_profiles").select("display_name, email").eq("wallet_address", address).maybeSingle()
     ]);
 
     const certsIssued = issuance.length;
@@ -85,11 +89,13 @@ async function loadWalletStats(address: string): Promise<WalletStats> {
       feedbackGiven, 
       institutionRegistered,
       transactionsCount: txRes.length > 0 ? txRes.length : 0, 
-      recentTransactions: txRes 
+      recentTransactions: txRes,
+      displayName: profileRes.data?.display_name ?? null,
+      email: profileRes.data?.email ?? null
     };
   } catch (e) {
     console.error("Failed to load wallet stats from DB", e);
-    return { certsIssued: 0, certsVerified: 0, activeBonds: 0, xlmLocked: 0, credentialCount: 0, feedbackGiven: 0, institutionRegistered: false, transactionsCount: 0, recentTransactions: [] };
+    return { certsIssued: 0, certsVerified: 0, activeBonds: 0, xlmLocked: 0, credentialCount: 0, feedbackGiven: 0, institutionRegistered: false, transactionsCount: 0, recentTransactions: [], displayName: null, email: null };
   }
 }
 
@@ -187,8 +193,8 @@ export function WalletProfile({ open, onClose, onNavigate }: WalletProfileProps)
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-bold text-foreground">
-                        {walletType ? walletType.charAt(0).toUpperCase() + walletType.slice(1) : "Wallet"}
+                      <p className="text-sm font-bold text-foreground truncate max-w-[120px]">
+                        {stats.displayName || (walletType ? walletType.charAt(0).toUpperCase() + walletType.slice(1) : "Wallet")}
                       </p>
                       {isConnected && (
                         <span className="flex items-center gap-1 text-[10px] font-bold text-success bg-success-bg px-1.5 py-0.5 rounded-full">
@@ -197,7 +203,12 @@ export function WalletProfile({ open, onClose, onNavigate }: WalletProfileProps)
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] font-mono text-foreground/50 mt-1 break-all leading-relaxed">
+                    {stats.email && (
+                      <p className="text-[11px] font-medium text-foreground/70 mt-1 truncate">
+                        {stats.email}
+                      </p>
+                    )}
+                    <p className="text-[10px] font-mono text-foreground/40 mt-1 break-all leading-relaxed">
                       {shortAddress}
                     </p>
                     {/* Copy + Explorer */}
