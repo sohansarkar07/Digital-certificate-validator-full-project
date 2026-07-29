@@ -138,19 +138,32 @@ function CountryBreakdown({ data }: { data: { country: string; count: number }[]
 function BarChart({ data, labels }: { data: number[]; labels: string[] }) {
   const max = Math.max(1, ...data);
   return (
-    <div className="flex items-end gap-2 h-24">
-      {data.map((v, i) => (
-        <div key={i} className="flex-1 flex flex-col items-center gap-1">
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: `${(v / max) * 100}%` }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.05 }}
-            className="w-full rounded-t bg-primary/80 hover:bg-primary transition-colors min-h-[2px]"
-            style={{ maxHeight: "100%" }}
-          />
-          <span className="text-[9px] text-foreground/40 font-medium uppercase">{labels[i]}</span>
-        </div>
-      ))}
+    <div className="flex flex-col gap-2 h-28">
+      {/* Bars Container */}
+      <div className="flex-1 flex items-end gap-2">
+        {data.map((v, i) => (
+          <div key={i} className="flex-1 flex flex-col justify-end h-full group relative">
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: `${(v / max) * 100}%` }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: i * 0.05 }}
+              className="w-full rounded-t bg-primary/80 group-hover:bg-primary transition-colors min-h-[2px]"
+            />
+            {/* Tooltip on hover */}
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-foreground text-background text-[9px] font-bold px-2 py-0.5 rounded pointer-events-none">
+              {v}
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Labels Container */}
+      <div className="flex items-center gap-2">
+        {labels.map((label, i) => (
+          <span key={i} className="flex-1 text-center text-[9px] text-foreground/40 font-medium uppercase truncate">
+            {label}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
