@@ -112,7 +112,7 @@ export function WalletProfile({ open, onClose, onNavigate }: WalletProfileProps)
   const [stats, setStats] = useState<WalletStats>({
     certsIssued: 0, certsVerified: 0, activeBonds: 0,
     xlmLocked: 0, credentialCount: 0, feedbackGiven: 0, institutionRegistered: false,
-    transactionsCount: 0, recentTransactions: []
+    transactionsCount: 0, recentTransactions: [], displayName: null, email: null
   });
 
   const refreshStats = useCallback(async () => {

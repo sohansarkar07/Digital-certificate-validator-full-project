@@ -183,9 +183,9 @@ export function FeedbackPanel() {
   useEffect(() => {
     if (address) {
       supabase.from("user_profiles").select("display_name, role").eq("wallet_address", address).maybeSingle().then(res => {
-        if (res.data?.display_name) {
+        if (res.data && res.data.display_name) {
           setAutoName(res.data.display_name);
-          setForm(f => ({ ...f, username: res.data.display_name, role: (res.data.role || "student") as Role }));
+          setForm(f => ({ ...f, username: res.data!.display_name, role: (res.data!.role || "student") as Role }));
         }
       });
     } else {
