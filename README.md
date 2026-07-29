@@ -43,6 +43,7 @@
 [Blockchain](#blockchain-architecture) •
 [Database Schema](#database-schema) •
 [User Flow](#user-flow) •
+[Product Iteration](#product-iteration) •
 [Roadmap](#roadmap) •
 [Setup](#setup)
 ---
@@ -877,6 +878,20 @@ graph TD
     RESULT -->|Yes| SUCCESS
     RESULT -->|No| FAIL
 ```
+
+---
+
+<a name="product-iteration"></a>
+## 🔄 Product Iteration (Based on Real User Feedback)
+
+We actively listen to our users and rapidly iterate to improve the platform. Here are some of the recent enhancements directly resulting from real user feedback sessions:
+
+| Component | Improvement |
+|:---|:---|
+| 📊 **Analytics Dashboard** | Fixed a visual bug in the **graph bar analytics** where missing tracking events and division by zero prevented total verifications from counting. |
+| 🗣️ **Feedback Section** | Upgraded the feedback form to **automatically fetch and pre-fill** the user's name and role from their decentralized profile, eliminating manual typing. |
+| 👤 **Profile Section** | Enhanced the Wallet Profile slide-out to now fetch and prominently display the user's **custom display name and email address**, instead of just their wallet type. |
+| 🎨 **UI Overlap Bug** | Corrected an **overlapping text layout issue** in the Live Blockchain Activity feed where excessively long event types (like `CREDENTIALVERIFICATIONFAILED`) would spill over into transaction hashes. |
 
 ---
 
