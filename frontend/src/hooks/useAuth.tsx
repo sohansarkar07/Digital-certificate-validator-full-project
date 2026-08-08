@@ -12,7 +12,7 @@ import type { UserRole, UserProfile, InstitutionType } from '@/lib/types';
 // ── Platform Owner wallet (hardcoded — first admin) ──────────────────────────
 // This wallet has supreme authority. Set to YOUR wallet address.
 // If blank, the first wallet to connect and complete onboarding as 'owner' gets it.
-const PLATFORM_OWNER_ADDRESS = ''; // Set your wallet address here
+const PLATFORM_OWNER_ADDRESS = 'GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF'; // Platform owner wallet
 
 interface AuthContextType {
   profile: UserProfile | null;
