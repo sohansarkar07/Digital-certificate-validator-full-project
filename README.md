@@ -814,9 +814,9 @@ graph TB
 
 | Category | Identifier / Link |
 |:---|:---|
-| **Smart Contract ID** | `CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4` |
-| **Transaction Hash** | `aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3` |
-| **Stellar Explorer** | [View Contract on Stellar.Expert](https://stellar.expert/explorer/testnet/contract/CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4) |
+| **Issuer Account ID** | `GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF` |
+| **Transaction Method** | `manageData` (Data Anchoring) |
+| **Stellar Explorer** | [View On-Chain Activity](https://stellar.expert/explorer/testnet/account/GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF) |
 | **CI/CD Pipeline** | ![CI/CD Status](https://img.shields.io/github/actions/workflow/status/sohansarkar07/Digital-certificate-validator-full-project/rust-test.yml?branch=main&label=Build%20Status&style=flat-square) |
 
 > [!NOTE]
@@ -830,16 +830,16 @@ graph TB
 
 | Field | Value |
 |:---|:---|
-| **Transaction Hash** | `aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3` |
-| **Function Called** | `issue_certificate` |
-| **Certificate Hash** | `7f02a70648cce0e7ab48a11e189ab01d69f9d0fd64cbb1b292e580596c8747c6` |
-| **Recipient** | `Jane Doe` |
+| **Issuer Account** | `GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF` |
+| **Operation Type** | `manageData` |
+| **Data Key (Cert Hash)** | `CERT_a7ac025645017ad40977d16f63f092ecb0a203a879fdac091a8c175c968` |
+| **Data Value** | `Sohan Sarkar Certified Arbitrum Builder` |
 | **Status** | ✅ Success |
-| **Network** | Stellar Soroban (Testnet) |
-| **Fee Charged** | `0.0006209 XLM` (~$0.00006 USD) |
-| **Ledger** | `1598194` |
+| **Network** | Stellar Testnet |
+| **Fee Charged** | `0.00001 XLM` |
+| **Date** | `2026-07-23` |
 
-🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/aaad32821258bd76c2012dfa268e713b39f7e686b616867526ee0e46d1f4efa3)
+🔗 [View on Stellar Expert](https://stellar.expert/explorer/testnet/account/GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF)
 
 ### 📸 Transaction Proof Screenshot
 
