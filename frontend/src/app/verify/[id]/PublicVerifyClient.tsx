@@ -83,20 +83,19 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
   }, [certId]);
 
   // Blockchain explorer link:
-  // Always link to the Soroban contract on stellar.expert — it always exists
-  // and shows all certificate issuance transactions anchored on testnet.
-  const CONTRACT_ID = "CC36B2WFEDYK3GN6F65B7RKAYINW3MGNPYZ2ZG3TM4CQDJQGJURLY2J4";
+  // Links to the tx, then issuer account, then falls back to the known issuer account on testnet.
+  const ISSUER_ACCOUNT = "GA5B7EJJ3SRB2VKWTCKTVWUV6R2UTLUJGRUXWSAAXI3BE4B5PUZZ4YCF";
   const blockchainUrl = stellarTxHash
     ? `https://stellar.expert/explorer/testnet/tx/${stellarTxHash}`
     : issuerAddress
     ? `https://stellar.expert/explorer/testnet/account/${issuerAddress}`
-    : `https://stellar.expert/explorer/testnet/contract/${CONTRACT_ID}`;
+    : `https://stellar.expert/explorer/testnet/account/${ISSUER_ACCOUNT}`;
 
   const blockchainLabel = stellarTxHash
     ? "View Certificate Transaction on Stellar"
     : issuerAddress
     ? "View Issuer Account on Stellar"
-    : "View Certificate Registry on Stellar";
+    : "View On-Chain Activity on Stellar";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(publicUrl);
