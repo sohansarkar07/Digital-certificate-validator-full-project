@@ -106,3 +106,13 @@ CREATE TABLE IF NOT EXISTS user_profiles (
 );
 
 ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
+
+-- user_profiles policies (required — without these, RLS blocks ALL access)
+CREATE POLICY IF NOT EXISTS "public_read_user_profiles"
+  ON user_profiles FOR SELECT USING (true);
+
+CREATE POLICY IF NOT EXISTS "public_insert_user_profiles"
+  ON user_profiles FOR INSERT WITH CHECK (true);
+
+CREATE POLICY IF NOT EXISTS "public_update_user_profiles"
+  ON user_profiles FOR UPDATE USING (true);
