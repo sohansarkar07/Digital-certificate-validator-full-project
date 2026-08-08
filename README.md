@@ -886,12 +886,12 @@ graph TD
 
 We actively listen to our users and rapidly iterate to improve the platform. Here are some of the recent enhancements directly resulting from real user feedback sessions:
 
-| Component | Status | Improvement |
-|:---|:---:|:---|
-| 📊 **Analytics Dashboard** | ✅ Done | Fixed a visual bug in the **graph bar analytics** where missing tracking events and division by zero prevented total verifications from counting. |
-| 🗣️ **Feedback Section** | ✅ Done | Upgraded the feedback form to **automatically fetch and pre-fill** the user's name and role from their decentralized profile, eliminating manual typing. |
-| 👤 **Profile Section** | ✅ Done | Enhanced the Wallet Profile slide-out to now fetch and prominently display the user's **custom display name and email address**, instead of just their wallet type. |
-| 🎨 **UI Overlap Bug** | ✅ Done | Corrected an **overlapping text layout issue** in the Live Blockchain Activity feed where excessively long event types (like `CREDENTIALVERIFICATIONFAILED`) would spill over into transaction hashes. |
+| Component | Status | Improvement | Commit |
+|:---|:---:|:---|:---:|
+| 📊 **Analytics Dashboard** | ✅ Done | Fixed a visual bug in the **graph bar analytics** where missing tracking events and division by zero prevented total verifications from counting. | [72986a1](https://github.com/sohansarkar07/Digital-certificate-validator-full-project/commit/72986a1) |
+| 🗣️ **Feedback Section** | ✅ Done | Upgraded the feedback form to **automatically fetch and pre-fill** the user's name and role from their decentralized profile, eliminating manual typing. | [4042513](https://github.com/sohansarkar07/Digital-certificate-validator-full-project/commit/4042513) |
+| 👤 **Profile Section** | ✅ Done | Enhanced the Wallet Profile slide-out to now fetch and prominently display the user's **custom display name and email address**, instead of just their wallet type. | [750f075](https://github.com/sohansarkar07/Digital-certificate-validator-full-project/commit/750f075) |
+| 🎨 **UI Overlap Bug** | ✅ Done | Corrected an **overlapping text layout issue** in the Live Blockchain Activity feed where excessively long event types (like `CREDENTIALVERIFICATIONFAILED`) would spill over into transaction hashes. | [e313712](https://github.com/sohansarkar07/Digital-certificate-validator-full-project/commit/e313712) |
 
 ---
 
