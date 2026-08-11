@@ -18,7 +18,7 @@ import { Onboarding } from "@/components/Onboarding";
 import {
   Shield, Search, Fingerprint, Settings, HelpCircle, Menu, X,
   Building2, Award, Briefcase, BarChart2, MessageSquare, BookOpen,
-  ShieldCheck, Crown, GraduationCap, Activity, ChevronRight, Home
+  ShieldCheck, Crown, GraduationCap, Activity, ChevronRight, Home as HomeIcon
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -482,7 +482,7 @@ function AppContent() {
                     onClick={() => setShowApp(false)}
                     className="flex items-center gap-1 hover:text-foreground/70 transition-colors"
                   >
-                    <Home size={11} />
+                    <HomeIcon size={11} />
                     Home
                   </button>
                   <ChevronRight size={11} className="shrink-0" />
