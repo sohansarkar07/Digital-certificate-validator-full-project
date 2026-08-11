@@ -105,7 +105,7 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="h-screen bg-background text-foreground font-sans overflow-y-auto">
       {/* Header */}
       <header className="h-16 bg-surface border-b border-border flex items-center justify-between px-6 shadow-sm">
         <Link href="/" className="flex items-center gap-2 text-primary font-bold text-base tracking-tight hover:opacity-80 transition-opacity">
