@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react";
 import {
   Shield, CheckCircle, XCircle, ExternalLink, Clock,
-  Copy, Check, ArrowLeft, AlertTriangle
+  Copy, Check, ArrowLeft, AlertTriangle, ZoomIn, ZoomOut
 } from "lucide-react";
 
 import { contractService, getTxHashLocal, getIssuerAddressLocal } from "@/services/contract";
@@ -29,6 +29,7 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
   const [copied, setCopied] = useState(false);
   const [stellarTxHash, setStellarTxHash] = useState<string | null>(null);
   const [issuerAddress, setIssuerAddress] = useState<string | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   const publicUrl = typeof window !== "undefined"
     ? window.location.href
@@ -244,16 +245,29 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
               {/* Document Preview */}
               {result.documentUrl && (
                 <div className="card overflow-hidden">
-                  <div className="p-4 bg-secondary/30 border-b border-border">
+                  <div className="p-4 bg-secondary/30 border-b border-border flex justify-between items-center">
                     <h3 className="text-sm font-bold text-foreground">Original Document</h3>
+                    {!result.documentUrl.toLowerCase().includes('.pdf') && (
+                      <button 
+                        onClick={() => setIsZoomed(!isZoomed)}
+                        className="text-xs font-semibold flex items-center gap-1.5 px-3 py-1.5 bg-surface border border-border rounded hover:bg-surface-hover transition-colors text-foreground/80"
+                      >
+                        {isZoomed ? <ZoomOut size={14} /> : <ZoomIn size={14} />}
+                        {isZoomed ? "Fit to Screen" : "Scroll & Zoom"}
+                      </button>
+                    )}
                   </div>
-                  <div className="p-0 bg-black/5 overflow-y-scroll overflow-x-auto max-h-[500px] border-b border-border relative">
+                  <div className={`p-0 bg-black/5 ${isZoomed ? 'overflow-auto max-h-[70vh]' : 'overflow-hidden'} border-b border-border relative`}>
                     {result.documentUrl.toLowerCase().includes('.pdf') ? (
                       <object data={result.documentUrl} type="application/pdf" className="w-full h-[600px]">
                         <p className="p-6 text-sm text-foreground/50">Your browser does not support PDFs. <a href={result.documentUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Download the PDF</a>.</p>
                       </object>
                     ) : (
-                      <img src={result.documentUrl} alt="Certificate Document" className="w-full h-auto min-w-[600px]" />
+                      <img 
+                        src={result.documentUrl} 
+                        alt="Certificate Document" 
+                        className={isZoomed ? "max-w-none block" : "w-full h-auto object-contain"} 
+                      />
                     )}
                   </div>
                 </div>
