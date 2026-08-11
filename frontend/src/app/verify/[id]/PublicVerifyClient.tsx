@@ -247,13 +247,13 @@ export default function PublicVerifyClient({ certId }: { certId: string }) {
                   <div className="p-4 bg-secondary/30 border-b border-border">
                     <h3 className="text-sm font-bold text-foreground">Original Document</h3>
                   </div>
-                  <div className="p-0 flex items-center justify-center bg-black/10 overflow-hidden">
+                  <div className="p-0 bg-black/10 overflow-y-auto max-h-[500px] custom-scrollbar border-b border-border">
                     {result.documentUrl.toLowerCase().includes('.pdf') ? (
                       <object data={result.documentUrl} type="application/pdf" className="w-full h-[600px]">
                         <p className="p-6 text-sm text-foreground/50">Your browser does not support PDFs. <a href={result.documentUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Download the PDF</a>.</p>
                       </object>
                     ) : (
-                      <img src={result.documentUrl} alt="Certificate Document" className="w-full h-auto max-h-[800px] object-contain" />
+                      <img src={result.documentUrl} alt="Certificate Document" className="w-full h-auto" />
                     )}
                   </div>
                 </div>
