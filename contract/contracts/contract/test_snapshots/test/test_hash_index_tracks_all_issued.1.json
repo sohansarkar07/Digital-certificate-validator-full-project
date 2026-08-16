@@ -8,6 +8,8 @@
     [],
     [],
     [],
+    [],
+    [],
     []
   ],
   "ledger": {
@@ -51,10 +53,26 @@
                         "map": [
                           {
                             "key": {
-                              "string": "7f02a70648cce0e7ab48a11e189ab01d69f9d0fd64cbb1b292e580596c8747c6"
+                              "string": "idx_hash_1"
                             },
                             "val": {
-                              "string": "Jane Doe"
+                              "string": "Index User"
+                            }
+                          },
+                          {
+                            "key": {
+                              "string": "idx_hash_2"
+                            },
+                            "val": {
+                              "string": "Index User"
+                            }
+                          },
+                          {
+                            "key": {
+                              "string": "idx_hash_3"
+                            },
+                            "val": {
+                              "string": "Index User"
                             }
                           }
                         ]
@@ -65,7 +83,7 @@
                         "symbol": "COUNT"
                       },
                       "val": {
-                        "u64": "1"
+                        "u64": "3"
                       }
                     },
                     {
@@ -75,7 +93,13 @@
                       "val": {
                         "vec": [
                           {
-                            "string": "7f02a70648cce0e7ab48a11e189ab01d69f9d0fd64cbb1b292e580596c8747c6"
+                            "string": "idx_hash_1"
+                          },
+                          {
+                            "string": "idx_hash_2"
+                          },
+                          {
+                            "string": "idx_hash_3"
                           }
                         ]
                       }

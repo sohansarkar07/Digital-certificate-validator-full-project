@@ -1,13 +1,10 @@
 {
   "generators": {
-    "address": 2,
+    "address": 3,
     "nonce": 0,
     "mux_id": 0
   },
   "auth": [
-    [],
-    [],
-    [],
     [],
     [],
     [
@@ -17,10 +14,30 @@
           "function": {
             "contract_fn": {
               "contract_address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM",
-              "function_name": "revoke_certificate",
+              "function_name": "add_sub_admin",
               "args": [
                 {
-                  "string": "revoke_test_hash_abc123"
+                  "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHK3M"
+                }
+              ]
+            }
+          },
+          "sub_invocations": []
+        }
+      ]
+    ],
+    [],
+    [
+      [
+        "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4",
+        {
+          "function": {
+            "contract_fn": {
+              "contract_address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM",
+              "function_name": "remove_sub_admin",
+              "args": [
+                {
+                  "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHK3M"
                 }
               ]
             }
@@ -66,56 +83,10 @@
                     },
                     {
                       "key": {
-                        "symbol": "CERTS"
+                        "symbol": "SADMN"
                       },
                       "val": {
-                        "map": [
-                          {
-                            "key": {
-                              "string": "revoke_test_hash_abc123"
-                            },
-                            "val": {
-                              "string": "Alice Smith"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "key": {
-                        "symbol": "COUNT"
-                      },
-                      "val": {
-                        "u64": "1"
-                      }
-                    },
-                    {
-                      "key": {
-                        "symbol": "HSHLS"
-                      },
-                      "val": {
-                        "vec": [
-                          {
-                            "string": "revoke_test_hash_abc123"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "key": {
-                        "symbol": "REVKD"
-                      },
-                      "val": {
-                        "map": [
-                          {
-                            "key": {
-                              "string": "revoke_test_hash_abc123"
-                            },
-                            "val": {
-                              "bool": true
-                            }
-                          }
-                        ]
+                        "vec": []
                       }
                     }
                   ]
@@ -137,6 +108,26 @@
               "key": {
                 "ledger_key_nonce": {
                   "nonce": "801925984706572462"
+                }
+              },
+              "durability": "temporary",
+              "val": "void"
+            }
+          },
+          "ext": "v0"
+        },
+        "live_until": 6311999
+      },
+      {
+        "entry": {
+          "last_modified_ledger_seq": 0,
+          "data": {
+            "contract_data": {
+              "ext": "v0",
+              "contract": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4",
+              "key": {
+                "ledger_key_nonce": {
+                  "nonce": "5541220902715666415"
                 }
               },
               "durability": "temporary",

@@ -7,6 +7,8 @@
   "auth": [
     [],
     [],
+    [],
+    [],
     []
   ],
   "ledger": {
@@ -40,6 +42,54 @@
                       },
                       "val": {
                         "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4"
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "CERTS"
+                      },
+                      "val": {
+                        "map": [
+                          {
+                            "key": {
+                              "string": "batch_hash_1"
+                            },
+                            "val": {
+                              "string": "Batch User"
+                            }
+                          },
+                          {
+                            "key": {
+                              "string": "batch_hash_2"
+                            },
+                            "val": {
+                              "string": "Batch User"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "COUNT"
+                      },
+                      "val": {
+                        "u64": "2"
+                      }
+                    },
+                    {
+                      "key": {
+                        "symbol": "HSHLS"
+                      },
+                      "val": {
+                        "vec": [
+                          {
+                            "string": "batch_hash_1"
+                          },
+                          {
+                            "string": "batch_hash_2"
+                          }
+                        ]
                       }
                     }
                   ]
