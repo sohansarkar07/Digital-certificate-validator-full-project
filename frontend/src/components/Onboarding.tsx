@@ -244,7 +244,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                     maxLength={200}
                   />
                   <p className="text-[11px] text-foreground/40 mt-1.5">
-                    💡 Add your email to automatically receive credentials issued by institutions to you.
+                     Add your email to automatically receive credentials issued by institutions to you.
                   </p>
                 </>
               )}

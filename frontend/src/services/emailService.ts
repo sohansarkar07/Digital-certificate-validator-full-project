@@ -74,7 +74,7 @@ If you did not request this, please ignore this email.
 
 /** Sends credential issuance notification email to student */
 export async function sendCredentialIssuedEmail(payload: CredentialEmailPayload): Promise<boolean> {
-  const subject = `🎉 A New Credential Has Been Issued To You by ${payload.institutionName}`;
+  const subject = ` A New Credential Has Been Issued To You by ${payload.institutionName}`;
   const body = `
 Hello ${payload.studentName || "there"},
 
@@ -88,7 +88,7 @@ ${payload.institutionName} has issued you a new credential on CertifyVal!
   ${payload.explorerLink ? `Explorer:   ${payload.explorerLink}` : ""}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔗 Claim your credential:
+   Claim your credential:
   ${payload.verifyLink}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

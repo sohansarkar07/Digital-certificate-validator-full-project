@@ -410,7 +410,7 @@ function RegistrationForm({ onClose, onSuccess }: { onClose: () => void; onSucce
 
           <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
             <p className="text-xs text-amber-400">
-              📧 After submission, a 6-digit OTP will be sent to your official email to verify ownership. Then an admin will approve your institution.
+               After submission, a 6-digit OTP will be sent to your official email to verify ownership. Then an admin will approve your institution.
             </p>
           </div>
 

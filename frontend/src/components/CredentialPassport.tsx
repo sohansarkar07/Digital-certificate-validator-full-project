@@ -591,7 +591,7 @@ export function CredentialPassport() {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-bold">
-            {section === 'official' ? '🛡 Official Credentials' : '🗂 Personal Vault'}
+            {section === 'official' ? ' Official Credentials' : ' Personal Vault'}
           </h3>
           <p className="text-xs text-foreground/50 mt-0.5">
             {section === 'official'
