@@ -1,4 +1,4 @@
-﻿// Digital Certificate Validator — Soroban Smart Contract on Stellar
+// Digital Certificate Validator — Soroban Smart Contract on Stellar
 // Level 5 Blue Belt — Enhanced contract logic with full credential lifecycle,
 // multi-admin RBAC, typed credentials, batch verification, expiry, and event emission.
 #![no_std]

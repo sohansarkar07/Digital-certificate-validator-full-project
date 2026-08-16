@@ -1,4 +1,4 @@
-﻿// Comprehensive integration tests for Digital Certificate Validator Soroban contract
+// Comprehensive integration tests for Digital Certificate Validator Soroban contract
 // Covers: issuance, typed credentials, batch verify, revocation, suspension,
 // expiry, admin RBAC, sub-admin delegation, transfer_admin, and duplicate prevention.
 #![cfg(test)]

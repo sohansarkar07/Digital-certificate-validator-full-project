@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # ðŸ›¡ï¸ CertifyVal
 ### **Global Decentralized Credential Trust Platform**
